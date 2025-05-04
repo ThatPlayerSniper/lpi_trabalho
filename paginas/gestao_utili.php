@@ -30,11 +30,11 @@ require_once "./nav.php";
     //MARIANA --TODO 
 
     if (isset($_POST["aprovar"])) {
-        $sql="UPDATE TABLE utilizador SET estado_conta = registado WHERE endereço='$endereco"
+        $sql="UPDATE TABLE utilizador SET estado_conta = registado WHERE endereço='$endereco";
     }
 
     if (isset($_POST["rejeitar"])) {
-        $sql="UPDATE TABLE utilizador SET estado_conta = rejeitado WHERE endereço='$endereco"
+        $sql="UPDATE TABLE utilizador SET estado_conta = rejeitado WHERE endereço='$endereco";
     }
     ?>
 

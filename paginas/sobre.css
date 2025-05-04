@@ -32,3 +32,16 @@ body {
 .right-container {
     background-color: #e0e0e0;
 }
+.caixa-sistema {
+    background-color: #57AA3A; 
+    width: 50%;
+    height: 40%;
+    border-radius: 5px;
+    border: 1px solid #57AA3A;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
