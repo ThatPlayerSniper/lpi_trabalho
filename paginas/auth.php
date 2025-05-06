@@ -52,6 +52,14 @@ function seNaoAdmin()
     }
 }
 
+function seNaoAdminNR() {
+    if (VerificarCargo() != "admin") {
+        return false;
+    }else{
+        return true;
+    }
+}
+
 function seNaoFun()
 {
     if ($_SESSION["cargo"] != "funcionario") {
@@ -64,9 +72,6 @@ function seNaoClie()
         header("location: index.php");
     }
 }
-
-
-
 
 /**
  * Sumario do login

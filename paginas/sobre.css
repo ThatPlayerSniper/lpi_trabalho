@@ -25,12 +25,13 @@ body {
 .container {
     width: 50%;
     padding: 20px;
+    height: 800px;
 }
 .left-container {
     background-color: #f0f0f0;
 }
 .right-container {
-    background-color: #e0e0e0;
+    background-color: white;
 }
 .caixa-sistema {
     background-color: #57AA3A; 

@@ -19,6 +19,14 @@ require_once "./nav.php";
 
 <body>
     <div><br><br>
+
+        <?php
+        if (seNaoAdminNR() == true) {
+            echo "<button onclick=\"window.location.href='criaRota.php'\">Voltar para Rotas</button>";
+        }
+        ?>
+        <br><br>
+
         <form method="POST">
             <input type="text" name="origem" placeholder="Origem">
             <input type="text" name="destino" placeholder="Destino">
@@ -63,7 +71,7 @@ require_once "./nav.php";
                     $sql = "SELECT * FROM rota";
                 }
 
-            
+
                 $result = executarQuery($sql);
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {

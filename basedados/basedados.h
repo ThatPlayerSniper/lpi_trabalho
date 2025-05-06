@@ -48,7 +48,6 @@ function executarQuery($sql)
     return $resultado;
 
     /*Problemas ao perceber o porque dos erros co a basedados.h
-
     */
 }
 

@@ -29,11 +29,6 @@ require_once "./nav.php";
                 $check1 = false;
                 $check2 = false;
 
-                $nome=($_POST["nome"]);
-                $endereco=($_POST["endereco"]);
-                $secret=($_POST["secret"]);
-                $secret_confirm=($_POST["secret_confirm"]);
-
                 if (
                     isset($_POST["nome"]) && isset($_POST["endereco"]) &&
                     isset($_POST["secret"]) && isset($_POST["secret_confirm"])
@@ -54,7 +49,7 @@ require_once "./nav.php";
 
                     if ($check1 && $check2 == true) {
                         if (registarUti($_POST["nome"], $_POST["endereco"], $_POST["secret"])) {
-                            header("location: login.php");
+                            header("location: entrar.php");
                         }else{
                             echo '<label class="Erro</label>';
                         }

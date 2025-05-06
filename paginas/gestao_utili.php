@@ -30,17 +30,20 @@ require_once "./nav.php";
     //MARIANA --TODO 
 
     if (isset($_POST["aprovar"])) {
-        $sql="UPDATE TABLE utilizador SET estado_conta = registado WHERE endereço='$endereco";
+        $sql="UPDATE TABLE utilizador SET estado_conta = registado WHERE id_utilizador='$id";
+        $resultado = executarQuery($sql);
     }
 
     if (isset($_POST["rejeitar"])) {
-        $sql="UPDATE TABLE utilizador SET estado_conta = rejeitado WHERE endereço='$endereco";
+        $sql="UPDATE TABLE utilizador SET estado_conta = rejeitado WHERE id_utilizador='$id";
+        $resultado = executarQuery($sql);
     }
     ?>
 
 
     <div class="big-box">
         <div>
+            
             <form method="POST"><br><br>
                 <select name="estado" onchange="this.form.submit()">
                     <option ""> --Filtrar por estado --</option>

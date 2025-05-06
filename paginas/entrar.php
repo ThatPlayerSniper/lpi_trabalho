@@ -26,7 +26,7 @@ require_once "./nav.php";
     <div class="caixa-background">
         <div class="caixa-protetora">
             <div class="caixa-sistema">
-                <h1 class="turnWhite">Login</h1>
+                <h1 class="turnWhite">Entrar</h1>
                 <?php
 
                 //Se ele estiver já na condição de login ele redireciona para a página do feed
@@ -44,6 +44,7 @@ require_once "./nav.php";
                     } else {
                         if (login($_POST["nome"], $_POST["endereco"], $_POST["secret"])) {
                             header(header: "Location: index.php"); //Se sucesso entra no site
+                            exit;
                         } else {
                             echo '<label class="turnWhite">Erro ao entrar</label>';
                         }
