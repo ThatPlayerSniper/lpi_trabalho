@@ -22,7 +22,7 @@ require_once "./nav.php";
 
         <?php
         if (seNaoAdminNR() == true) {
-            echo "<button onclick=\"window.location.href='criaRota.php'\">Voltar para Rotas</button>";
+            echo "<button onclick=\"window.location.href='criaRota.php'\">Criação de Rotas</button>";
         }
         ?>
         <br><br>

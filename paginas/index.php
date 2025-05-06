@@ -21,6 +21,12 @@ require_once "./nav.php";
 ?>
 
 <body>
+<?php
+    if (seNaoAdminNR() == true) {
+        echo "<button onclick=\"window.location.href='criaAlerta.php'\">Criação de Alertas</button>";
+    }
+?>
+
     <div class="big-box">
        
     </div>
