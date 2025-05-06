@@ -37,12 +37,14 @@ if (session_status() == PHP_SESSION_NONE) {
             if ($roleMode == "cliente") {
                 echo '<li><a href="rota.php" class="' . (basename($_SERVER['PHP_SELF']) == 'rota.php' ? 'active' : '') . '">Rotas</a></li>';
                 echo '<li><a href="sobre.php" class="' . (basename($_SERVER['PHP_SELF']) == 'sobre.php' ? 'active' : '') . '">Sobre</a></li>';
+                echo '<li><a href="perfil.php" class="' . (basename($_SERVER['PHP_SELF']) == 'perfil.php' ? 'active' : '') . '">Perfil</a></li>';
                 echo '<li><a href="logout.php" class="thebigred"' . (basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : '') . '">Sair</a></li>';
             }
 
             if ($roleMode == "funcionario") {
                 echo '<li><a href="rota.php" class="' . (basename($_SERVER['PHP_SELF']) == 'rota.php' ? 'active' : '') . '">Rotas</a></li>';
                 echo '<li><a href="sobre.php" class="' . (basename($_SERVER['PHP_SELF']) == 'sobre.php' ? 'active' : '') . '">Sobre</a></li>';
+                echo '<li><a href="perfil.php" class="' . (basename($_SERVER['PHP_SELF']) == 'perfil.php' ? 'active' : '') . '">Perfil</a></li>';
                 echo '<li><a href="logout.php" class="thebigred"' . (basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : '') . '">Sair</a></li>';
             }
 
@@ -50,6 +52,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 echo '<li><a href="gestao_utili.php" class="' . (basename($_SERVER['PHP_SELF']) == 'gestao_utili.php' ? 'active' : '') . '">Gestão Utilizadores</a></li>';
                 echo '<li><a href="rota.php" class="' . (basename($_SERVER['PHP_SELF']) == 'rota.php' ? 'active' : '') . '">Rotas</a></li>';
                 echo '<li><a href="sobre.php" class="' . (basename($_SERVER['PHP_SELF']) == 'sobre.php' ? 'active' : '') . '">Sobre</a></li>';
+                echo '<li><a href="perfil.php" class="' . (basename($_SERVER['PHP_SELF']) == 'perfil.php' ? 'active' : '') . '">Perfil</a></li>';
                 echo '<li><a href="logout.php" class="thebigred"' . (basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : '') . '">Sair</a></li>';
             }
 

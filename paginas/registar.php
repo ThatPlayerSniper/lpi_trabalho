@@ -49,7 +49,7 @@ require_once "./nav.php";
 
                     if ($check1 && $check2 == true) {
                         if (registarUti($_POST["nome"], $_POST["endereco"], $_POST["secret"])) {
-                            header("location: index.php");
+                            header("location: login.php");
                         }else{
                             echo '<label class="Erro</label>';
                         }
