@@ -25,6 +25,11 @@ require_once "./nav.php";
                 <h1 class="turnWhite">Criação de Rotas</h1>
                 <?php
 
+                $origem=($_POST["origem"]);
+                $destino=($_POST["destino"]);
+                $duracao=($_POST["duracao"]);
+                $distancia=($_POST["distancia"]);
+                
                 if (isset($_POST["origem"]) && isset($_POST["destino"]) && isset($_POST["duracao"])&& isset($_POST["distancia"])) 
                 {
                     if (empty($_POST["origem"]) || empty($_POST["destino"]) || empty($_POST["duracao"]) || empty($_POST["distancia"])) 
