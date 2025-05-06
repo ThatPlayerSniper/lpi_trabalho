@@ -139,12 +139,12 @@ function registarUti($nome, $endereco, $secretpass)
     $endereco = escapeString($endereco);
     $secretpass = escapeString($secretpass);
 
-    $sql = "SELECT * FROM utilizador WHERE nome = $nome 
-    AND endereco = $endereco 
-    AND secretpass = $secretpass";
+    $sql = "SELECT * FROM utilizador WHERE nome = '$nome' 
+            AND endereco = '$endereco' 
+            AND secretpass = '$secretpass'";
     $resultado = executarQuery($sql);
 
-    if ($result->num_rows <= 0) {
+    if ($result->num_rows > 0) {
         header("Location: registar.php");
         exit;
     } else {
@@ -154,7 +154,12 @@ function registarUti($nome, $endereco, $secretpass)
                 VALUES ('$nome', '$endereco', '$secretpass' )";
 
         //Executa a Query
-        $resultado  = executarQuery($sql);
+        $sql = "INSERT INTO utilizador (nome, endereco, secretpass)
+                VALUES ('$nome', '$endereco', '$secretpass')";
+
+        $resultado = executarQuery($sql);
+
+
     }
 
 

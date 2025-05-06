@@ -18,7 +18,7 @@ if (session_status() == PHP_SESSION_NONE) {
 </head>
 <?php
 require_once "./nav.php";
-$utlizador = getUser();
+$utilizador  = getUser();
 
 ?>
 
@@ -26,11 +26,21 @@ $utlizador = getUser();
     <div class="background">
         <div class="card">
             <div class="header">
-                <h2><?= $utlizador['nome'] ?></h2>
-                <p>Número de cliente: <span><?= $utlizador['id_utilizador'] ?></span></p>
-                <p>Email: <?= $utlizador['endereco'] ?></p>
+                <h2><?= $utilizador['nome'] ?></h2>
+                <h3>Número de cliente: <span><?= $utilizador['id_utilizador'] ?></span></h>
+                    <h3>Email: <?= $utilizador['endereco'] ?></h>
+                        <?php
+                        if ($_SESSION['cargo'] == "funcionario") {
+                            echo "<h3>Cargo: " . $utilizador['cargo'] . "</h3>";
+                        }
+                        if ($_SESSION['cargo'] == "admin") {
+                            echo "<h3>Cargo: " . $utilizador['cargo'] . "</h3>";
+                        } else {
+                            echo "<h3>" . $utilizador['cargo'] . "</h3>";
+                        }
+                        ?>
             </div>
-            <button href="perfilEditar.php" class="btn">Editar Perfil</button>
+            <button class="btn" onclick="window.location.href='perfilEditar.php'">Editar Perfil</button>
         </div>
     </div>
 </body>
