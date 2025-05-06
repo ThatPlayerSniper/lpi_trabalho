@@ -1,7 +1,10 @@
 <?php
+require_once '../basedados/basedados.h';
+require_once "./auth.php";
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+seNaoAdmin();
 ?>
 <!DOCTYPE html>
 <html lang="pt">
@@ -28,7 +31,8 @@ require_once "./nav.php";
                     {
                         echo '<label class="turnWhite">Existem campos por preecher</label>';
                     }else{
-                        $sql="INSERT INTO rota(origem, destino, tempo_viagem, distancia) VALUES ('$origem', '$destino' , '$duracao', '$distancia')";                    }
+                        $sql="INSERT INTO rota(origem, destino, tempo_viagem, distancia) VALUES ('$origem', '$destino' , '$duracao', '$distancia')";                  
+                    }
                 }
                 ?>
                 <form method="POST">
