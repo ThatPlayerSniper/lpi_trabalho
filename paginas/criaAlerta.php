@@ -49,14 +49,11 @@ require_once "./nav.php";
                 <form method="POST">
                     <div class="input-container">
                         <label class="Letras">Tipo de Alerta:</label>
-                        <select name="tipo" onchange="this.form()">
-                            <option value="">Selecione o tipo de alerta</option>
-                            <option value="promocao">Promoção</option>
-                            <option value="cancelamento">Cancelamento</option>
-                            <option value="manutencao">Manutenção</option>
-                            <option value="alteracao_rota">Alteração de Rota</option>
-                            <option value="outro">Outro Tipo</option>
-                        </select>
+                            <input type="radio" name="tipo" value="promocao"> Promoção<br>
+                            <input type="radio" name="tipo" value="cancelamento"> Cancelamento<br>
+                            <input type="radio" name="tipo" value="manutencao"> Manutenção<br>
+                            <input type="radio" name="tipo" value="alteracao_rota"> Alteração de Rota<br>
+                            <input type="radio" name="tipo" value="outro"> Outro Tipo<br>
                         <label class="Letras">Descrição:</label>
                         <input class="input-field" type="text" name="descricao" placeholder="De que se trata..."><br>
                         <label class="Letras">Data de Expiração:</label>
