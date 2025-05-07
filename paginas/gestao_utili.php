@@ -30,12 +30,14 @@ require_once "./nav.php";
     //MARIANA --TODO 
 
     if (isset($_POST["aprovar"])) {
-        $sql="UPDATE TABLE utilizador SET estado_conta = registado WHERE id_utilizador='$id";
+        $id = intval( $_POST['aprovar']);
+        $sql="UPDATE utilizador SET estado_conta = 'registado' WHERE id_utilizador='$id'";
         $resultado = executarQuery($sql);
     }
 
     if (isset($_POST["rejeitar"])) {
-        $sql="UPDATE TABLE utilizador SET estado_conta = rejeitado WHERE id_utilizador='$id";
+        $id = intval( $_POST['rejeitar']);
+        $sql = "UPDATE utilizador SET estado_conta = 'rejeitado' WHERE id_utilizador = '$id'";
         $resultado = executarQuery($sql);
     }
     ?>
@@ -43,7 +45,7 @@ require_once "./nav.php";
 
     <div class="big-box">
         <div>
-            
+
             <form method="POST"><br><br>
                 <select name="estado" onchange="this.form.submit()">
                     <option ""> --Filtrar por estado --</option>
@@ -60,7 +62,7 @@ require_once "./nav.php";
             //Verificão para o filtro
             //NO?
             if (!empty($estado)) {
-                $estado = escapeString($estado);    //Limpa o input e envio para um comando
+                $estado = escapeString($estado);    //Limpa o input e envio 
                 $sql = "SELECT * FROM utilizador WHERE estado_conta = '$estado'";
             }
             //YES?
@@ -74,12 +76,12 @@ require_once "./nav.php";
                 while ($row = $resultado->fetch_assoc())
                     echo '<li">
                     <div>
-                        ' . $row["nome"] . ' - ' . $row["endereco"] . '
+                        ' . $row["nome"] . ' - ' . $row["endereco"] . ' <br>estado da conta: ' . $row["estado_conta"] . ' <br>cargo: ' . $row["cargo"] .'
                             </div>
                                 <div>
                             <form method="post">
-                                <button type="submit" value="' . $row["id_utilizador"] . '" name="aprovar" class="approve">Aprovar</button>
-                                <button type="submit" value="' . $row["id_utilizador"] . '" name="rejeitar" class="deny">Rejeitar</button>
+                                <button type="submit" value="' . $row["id_utilizador"] . '" name="aprovar" class="approve">Aprovar Registo</button>
+                                <button type="submit" value="' . $row["id_utilizador"] . '" name="rejeitar" class="deny">Rejeitar Registo</button>
                             </form>
                         </div>
                     </li><br>';

@@ -35,6 +35,9 @@ $utilizador  = getUser();
 
                 <label for="endereco">Email:</label>
                 <input type="email" name="endereco" id="endereco" value="<?= $utilizador['endereco'] ?>">
+                <br><br>
+                <label for="endereco">Senha:</label>
+                <input type="password" name="pass" id="pass" value="<?= $utilizador['secretpass']?>">
 
                 <button type="submit" class="btn">Guardar Alterações</button>                
             </form>
@@ -45,10 +48,12 @@ $utilizador  = getUser();
 
                 $nome = isset($_POST['nome']) ? escapeString($_POST['nome']) : '';
                 $endereco = isset($_POST['endereco']) ? escapeString($_POST['endereco']) : '';
+                $pass = isset($_POST['secretpass']) ? escapeString($_POST['secretpass']) : '';
+
                 $id = $_SESSION['user_id']; // Garante que tens isso definido corretamente
 
-                if (!empty($nome) && !empty($endereco) && !empty($id)) {
-                    $sql = "UPDATE utilizador SET nome = '$nome', endereco = '$endereco' WHERE id_utilizador = '$id'";
+                if (!empty($nome) && !empty($endereco) && !empty($id) && !empty($pass)) {
+                    $sql = "UPDATE utilizador SET nome = '$nome', endereco = '$endereco', secretpass = '$pass' WHERE id_utilizador = '$id'";
                     executarQuery($sql);
                     echo "<p>Perfil atualizado com sucesso!</p>";
                 } elseif (!empty($nome)) {
@@ -59,7 +64,12 @@ $utilizador  = getUser();
                     $sql = "UPDATE utilizador SET endereco = '$endereco' WHERE id_utilizador = '$id'";
                     executarQuery($sql);
                     echo "<p>Email atualizado com sucesso!</p>";
-                } else {
+                } elseif(!empty($pass)){
+                    $sql = "UPDATE utilizador SET secretpass = '$pass' WHERE id_utilizador = '$id'";
+                    executarQuery($sql);
+                    echo "<p>Pass atualizado com sucesso!</p>";
+                } 
+                else {
                     echo "<p>Todos os campos são obrigatórios.</p>";
                 }
             }
