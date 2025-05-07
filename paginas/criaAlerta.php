@@ -33,11 +33,16 @@ require_once "./nav.php";
 
                     $tipo = $_POST["tipo"] ? $_POST['tipo'] : '';
                     $descricao = $_POST["descricao"] ? $_POST['descricao'] : '';
+                    $data_fim = $_POST["data_fim"] ? $_POST['data_fim'] : '';
+                    $utilizador=  $_SESSION['user_id'];
 
                     $tipo = escapeString($tipo);
                     $descricao = escapeString($descricao);
+                    $data_fim =escapeString($data_fim);
+                
 
-                    $sql = "INSERT INTO alertas(tipo_alertas, descricao) VALUES ('$tipo_alerta', '$descricao')";
+                    $sql = "INSERT INTO alertas(id_utilizador, tipo_alerta, descricao, data_expira) VALUES ('$utilizador','$tipo', '$descricao','$data_fim')";
+                    echo $sql;
                     $resultado = executarQuery($sql);
                 }
 
@@ -45,7 +50,8 @@ require_once "./nav.php";
                 <form method="POST">
                     <div class="input-container">
                         <label class="Letras">Tipo de Alerta:</label>
-                        <select name="tipo" onchange="this.form.submit()">
+                        <select name="tipo" onchange="this.form()">
+                            <option value="">Selecione o tipo de alerta</option>
                             <option value="promocao">Promoção</option>
                             <option value="cancelamento">Cancelamento</option>
                             <option value="manutencao">Manutenção</option>
@@ -54,6 +60,8 @@ require_once "./nav.php";
                         </select>
                         <label class="Letras">Descrição:</label>
                         <input class="input-field" type="text" name="descricao" placeholder="De que se trata..."><br>
+                        <label class="Letras">Data de Expiração:</label>
+                        <input class="input-field" type="date" name="data_fim" placeholder="2025-10-24"><br>
                         <br>
                     </div>
                     <input class="input-submit" type="submit" value="Submeter"><br><br>
