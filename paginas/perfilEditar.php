@@ -29,15 +29,15 @@ $utilizador  = getUser();
                 <h2><?= $utilizador['nome'] ?></h2>
 
                 <label for="id_utilizador">nome</label>
-                <input type="text" name="nome" value="<?= $utilizador['nome'] ?>">
+                <input type="text" name="nome">
 
                 <br><br>
 
                 <label for="endereco">Email:</label>
-                <input type="email" name="endereco" id="endereco" value="<?= $utilizador['endereco'] ?>">
+                <input type="email" name="endereco" id="endereco">
                 <br><br>
                 <label for="endereco">Senha:</label>
-                <input type="password" name="pass" id="pass" value="<?= $utilizador['secretpass']?>">
+                <input type="password" name="pass" id="pass">
 
                 <button type="submit" class="btn">Guardar Alterações</button>                
             </form>
@@ -48,7 +48,7 @@ $utilizador  = getUser();
 
                 $nome = isset($_POST['nome']) ? escapeString($_POST['nome']) : '';
                 $endereco = isset($_POST['endereco']) ? escapeString($_POST['endereco']) : '';
-                $pass = isset($_POST['secretpass']) ? escapeString($_POST['secretpass']) : '';
+                $pass = isset($_POST['pass']) ? escapeString($_POST['pass']) : '';
 
                 $id = $_SESSION['user_id']; // Garante que tens isso definido corretamente
 
@@ -56,21 +56,9 @@ $utilizador  = getUser();
                     $sql = "UPDATE utilizador SET nome = '$nome', endereco = '$endereco', secretpass = '$pass' WHERE id_utilizador = '$id'";
                     executarQuery($sql);
                     echo "<p>Perfil atualizado com sucesso!</p>";
-                } elseif (!empty($nome)) {
-                    $sql = "UPDATE utilizador SET nome = '$nome' WHERE id_utilizador = '$id'";
-                    executarQuery($sql);
-                    echo "<p>Nome atualizado com sucesso!</p>";
-                } elseif (!empty($endereco)) {
-                    $sql = "UPDATE utilizador SET endereco = '$endereco' WHERE id_utilizador = '$id'";
-                    executarQuery($sql);
-                    echo "<p>Email atualizado com sucesso!</p>";
-                } elseif(!empty($pass)){
-                    $sql = "UPDATE utilizador SET secretpass = '$pass' WHERE id_utilizador = '$id'";
-                    executarQuery($sql);
-                    echo "<p>Pass atualizado com sucesso!</p>";
-                } 
+                }
                 else {
-                    echo "<p>Todos os campos são obrigatórios.</p>";
+                    echo "<p>Têm de preencher todos os campos</p>";
                 }
             }
             ?>
