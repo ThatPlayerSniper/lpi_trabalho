@@ -42,7 +42,6 @@ require_once "./nav.php";
                 
 
                     $sql = "INSERT INTO alertas(id_utilizador, tipo_alerta, descricao, data_expira) VALUES ('$utilizador','$tipo', '$descricao','$data_fim')";
-                    echo $sql;
                     $resultado = executarQuery($sql);
                 }
 
