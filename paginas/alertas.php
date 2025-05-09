@@ -4,7 +4,7 @@ require_once "./auth.php";
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-//seNaoAdmin();
+seNaoAdmin();
 ?>
 <!DOCTYPE html>
 <html lang="pt">

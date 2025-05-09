@@ -21,11 +21,13 @@
     ?>
 
     <body>
+        
     <?php
         if (seNaoAdminNR() == true) {
             echo "<button onclick=\"window.location.href='criaAlerta.php'\">Criação de Alertas</button>";
         }
     ?>
+
     </body>
 
     <?php
@@ -55,11 +57,13 @@
         </div>
         <br>
         <?php } ?>
-    <?php
+    
+        <?php
         if (seNaoAdminNR() == true) {
             echo "<button onclick=\"window.location.href='alertas.php'\">Lista de Alertas</button>";
         }
     ?>
+
     </div>
     </div>
     <div class="container">
