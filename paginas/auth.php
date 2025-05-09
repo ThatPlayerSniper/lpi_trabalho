@@ -49,6 +49,7 @@ function seNaoAdmin()
 {
     if ($_SESSION["cargo"] != "admin") {
         header("location: index.php");
+        exit();
     }
 }
 
@@ -64,12 +65,14 @@ function seNaoFun()
 {
     if ($_SESSION["cargo"] != "funcionario") {
         header("location: index.php");
+        exit();
     }
 }
 function seNaoClie()
 {
     if ($_SESSION["cargo"] != "cliente") {
         header("location: index.php");
+        exit();
     }
 }
 
