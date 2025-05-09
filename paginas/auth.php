@@ -42,7 +42,7 @@ function VerificarCargo()
 
 /**
  * Verifcações de restrição
- * Chamar estes metedos caso for precisar restringir acesso
+ * Chamar estes metedos/funcoes caso for precisar restringir acesso
  * @return void
  */
 function seNaoAdmin()
@@ -68,11 +68,28 @@ function seNaoFun()
         exit();
     }
 }
+
+function seNaoFunNR() {
+    if (VerificarCargo() != "admin") {
+        return false;
+    }else{
+        return true;
+    }
+}
+
 function seNaoClie()
 {
     if ($_SESSION["cargo"] != "cliente") {
         header("location: index.php");
         exit();
+    }
+}
+
+function seNaoClienteNR() {
+    if (VerificarCargo() != "admin") {
+        return false;
+    }else{
+        return true;
     }
 }
 
