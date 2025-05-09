@@ -36,18 +36,37 @@
         
     ?>
 
-    <div class="note-card">
-    <?php while ($alerta = $resultado->fetch_assoc()) {?>
-        <div class="note-header"> <?php echo htmlspecialchars($alerta['tipo_alerta']); ?> </div>
+    <div class="container">
+    <div class="right-container">
+        <div>
+            <label>
+                <h1>ALERTAS</h1>
+            </label>
+        </div>
+        <div class="note-card">
+        <?php while ($alerta = $resultado->fetch_assoc()) {?>
+        <div class="note-header"> <?php echo $alerta['tipo_alerta']; ?> </div>
         <div class="note-body">
-            <p><?php echo htmlspecialchars($alerta['descricao']); ?></p>
+            <p><?php echo $alerta['descricao']; ?></p>
         </div>
         <div class="note-footer">
-            <span><?php echo "Termina em ".htmlspecialchars($alerta['data_expira']); ?></span>
+            <span><?php echo "Termina em ".$alerta['data_expira']; ?></span>
+            
         </div>
+        <br>
         <?php } ?>
+    <?php
+        if (seNaoAdminNR() == true) {
+            echo "<button onclick=\"window.location.href='alertas.php'\">Lista de Alertas</button>";
+        }
+    ?>
     </div>
-
+    </div>
+    <div class="container">
+            <div class="left-container">
+                    
+            </div>
+    </div>
  
 
     </html>
