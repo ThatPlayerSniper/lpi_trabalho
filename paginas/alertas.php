@@ -6,6 +6,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 seNaoAdmin();
 ?>
+
 <!DOCTYPE html>
 <html lang="pt">
 
@@ -26,22 +27,56 @@ require_once "./nav.php";
         $resultado = executarQuery($sql);
         
     ?>
-    <div class="col-md-6">
-        <div class="card mb-3 shadow-sm">
-            <div class="note-card">
-            <?php while ($alerta = $resultado->fetch_assoc()) {?>
-                <div class="note-header"> <?php echo $alerta['tipo_alerta']; ?> </div>
-                <div class="note-body">
-                    <p><?php echo $alerta['descricao']; ?></p>
-                    <p><?php echo "Elaborado pelo utlizador nº".$alerta['id_utilizador']; ?></p>
+    <div class="big-box">
+        <div>
+                <form method="POST">
+                    <div">
+                        <label>Tipo:</label>
+                        <select name="tipo_alerta">
+                            <option value="">-- Seleciona um --</option>
+                            <option value="cancelamento">Cancelamento</option>
+                            <option value="alteracao_rota">Alteração  de Rotas</option>
+                            <option value="manutencao">Manutenção</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>   
+                <div>
+                <button type="submit">Pesquisar</button>
                 </div>
-                <div class="note-footer">
-                    <span><?php echo "Termina em ".$alerta['data_expira']; ?></span>
-                </div>
-                <?php } ?>
+                </form>
+         </div>
+    </div>
+       
+        <div class="note-card">
+         <?php while ($alerta = $resultado->fetch_assoc()) {?>
+            <div class="note-header"> <?php echo $alerta['tipo_alerta']; ?> </div>
+            <div class="note-body">
+                <p><?php echo $alerta['descricao']; ?></p>
+                <p><?php echo "Elaborado pelo utlizador nº".$alerta['id_utilizador']; ?></p>
             </div>
+            <div class="note-footer">
+                <span><?php echo "Termina em ".$alerta['data_expira']; ?></span>
+            </div>
+            <?php } ?>
+             <?php
+        //Vai buscar os dados do form (trenario)
+        $tipo = isset($_POST['tipo_alerta']) ? $_POST['tipo_alerta'] : '';
+
+        //Verificão para o filtro
+        if (!empty($tipo)) {
+            // Ambos filtros selecionados
+            $tipo = escapeString($tipo);
+                $sql = "SELECT * FROM alertas WHERE tipo_alerta = '$tipo' ";
+            } else {
+                // Nenhum filtro, mostrar todos
+                $sql = "SELECT * FROM alertas";
+            }
+            $resultado = executarQuery($sql);
+            ?>
+
         </div>
     </div>
+</div>
 </body>
 
 </html>
