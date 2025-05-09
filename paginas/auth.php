@@ -3,13 +3,13 @@
 //AUTH FILE: Simplesmente para facilitar algumas tarefas e evitar repetir código e só chamar o que é preciso para executar 
 //NOTA: Caso haja erros no vs (VISUAL STUDIO) olhar duas vezes, o php pode estar mal configurado (nota mental)
 
-require_once "../basedados/basedados.h";
+    require_once "../basedados/basedados.h";
 
 //Verifica se já têm uma sessão iniciada caso não tenho cria uma
 //Proteção de TROUBLESHOOTING
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
 
 
 /*--------------------------------------*/
