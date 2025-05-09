@@ -29,28 +29,23 @@
     </body>
 
     <?php
-        $sql ="SELECT tipo_alerta FROM alertas ORDER BY data_expira ASC";
-        $tipo = executarQuery($sql);
-        $tipo = $tipo->fetch_assoc();
-
-        $sql ="SELECT  descricao FROM alertas ORDER BY data_expira ASC";
-        $descricao = executarQuery($sql);
-        $descricao = $descricao->fetch_assoc();
-
-        $sql ="SELECT data_expira FROM alertas ORDER BY data_expira ASC";
-        $validade = executarQuery($sql);
-        $validade = $validade->fetch_assoc();
-
+        $sql ="SELECT tipo_alerta, descricao, data_expira FROM alertas 
+                WHERE data_expira >= CURDATE() 
+                ORDER BY data_expira ASC";
+        $resultado = executarQuery($sql);
+        
     ?>
 
     <div class="note-card">
-        <div class="note-header"> <?php echo htmlspecialchars($tipo['tipo_alerta']); ?> </div>
+    <?php while ($alerta = $resultado->fetch_assoc()) {?>
+        <div class="note-header"> <?php echo htmlspecialchars($alerta['tipo_alerta']); ?> </div>
         <div class="note-body">
-            <p><?php echo htmlspecialchars($descricao['descricao']); ?></p>
+            <p><?php echo htmlspecialchars($alerta['descricao']); ?></p>
         </div>
         <div class="note-footer">
-            <span><?php echo "Termina em ".htmlspecialchars($validade['data_expira']); ?></span>
+            <span><?php echo "Termina em ".htmlspecialchars($alerta['data_expira']); ?></span>
         </div>
+        <?php } ?>
     </div>
 
  
