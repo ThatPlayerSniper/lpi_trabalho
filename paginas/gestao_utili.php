@@ -23,74 +23,100 @@ seNaoAdmin();
 require_once "./nav.php";
 ?>
 
-
 <body>
     <?php
 
-    //MARIANA --TODO 
-
     if (isset($_POST["aprovar"])) {
-        $id = intval( $_POST['aprovar']);
-        $sql="UPDATE utilizador SET estado_conta = 'registado' WHERE id_utilizador='$id'";
+        $id = intval($_POST['aprovar']);
+        $sql = "UPDATE utilizador SET estado_conta = 'registado' WHERE id_utilizador='$id'";
         $resultado = executarQuery($sql);
     }
 
     if (isset($_POST["rejeitar"])) {
-        $id = intval( $_POST['rejeitar']);
+        $id = intval($_POST['rejeitar']);
         $sql = "UPDATE utilizador SET estado_conta = 'rejeitado' WHERE id_utilizador = '$id'";
         $resultado = executarQuery($sql);
     }
     ?>
-
-
     <div class="big-box">
         <div>
-
-            <form method="POST"><br><br>
-                <select name="estado" onchange="this.form.submit()">
-                    <option ""> --Filtrar por estado --</option>
-                    <option value="pendente">Pendente</option>
-                    <option value="registado">registado</option>
-                    <option value="rejeitado">rejeitado</option>
-                </select>
-            </form><br><br>
-            <?php
-
-            //Vai buscar os dados do form (trenario)
-            $estado = isset($_POST['estado']) ? $_POST['estado'] : '';
-
-            //Verificão para o filtro
-            //NO?
-            if (!empty($estado)) {
-                $estado = escapeString($estado);    //Limpa o input e envio 
-                $sql = "SELECT * FROM utilizador WHERE estado_conta = '$estado'";
-            }
-            //YES?
-            else {
-                $sql = "SELECT * FROM utilizador";
-            }
-
-            $resultado = executarQuery($sql);
-            if ($resultado->num_rows > 0) {
-
-                while ($row = $resultado->fetch_assoc())
-                    echo '<li">
-                    <div>
-                        ' . $row["nome"] . ' - ' . $row["endereco"] . ' <br>estado da conta: ' . $row["estado_conta"] . ' <br>cargo: ' . $row["cargo"] .'
-                            </div>
-                                <div>
-                            <form method="post">
-                                <button type="submit" value="' . $row["id_utilizador"] . '" name="aprovar" class="approve">Aprovar Registo</button>
-                                <button type="submit" value="' . $row["id_utilizador"] . '" name="rejeitar" class="deny">Rejeitar Registo</button>
-                            </form>
-                        </div>
-                    </li><br>';
-            } else {
-                echo "<p>Não há registos</p>";
-            }
-
-            ?>
+            <div><br><br>
+                <form method="POST">
+                    <div">
+                        <label>Cargo:</label>
+                        <select name="cargo">
+                            <option value="">-- Seleciona um --</option>
+                            <option value="cliente">Cliente</option>
+                            <option value="funcionario">Funcionario</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                        <label>Estado:</label>
+                        <select name="estado">
+                            <option value="">-- Seleciona um --</option>
+                            <option value="pendente">Pendente</option>
+                            <option value="registado">Registado</option>
+                            <option value="rejeitado">Rejeitado</option>
+                        </select>
+            </div>
+            <div>
+                <button type="submit">Pesquisar</button>
+            </div>
+            </form>
         </div>
+        <table>
+            <tr>
+                <?php
+                //Vai buscar os dados do form (trenario)
+                $estado = isset($_POST['estado']) ? $_POST['estado'] : '';
+                $cargo = isset($_POST['cargo']) ? $_POST['cargo'] : '';
+
+                //Verificão para o filtro
+                if (!empty($estado) && !empty($cargo)) {
+                    // Ambos filtros selecionados
+                    $estado = escapeString($estado);
+                    $cargo = escapeString($cargo);
+                    $sql = "SELECT * FROM utilizador WHERE estado_conta = '$estado' AND cargo = '$cargo'";
+                } elseif (!empty($estado)) {
+                    // Apenas estado selecionado
+                    $estado = escapeString($estado);
+                    $sql = "SELECT * FROM utilizador WHERE estado_conta = '$estado'";
+                } elseif (!empty($cargo)) {
+                    // Apenas cargo selecionado
+                    $cargo = escapeString($cargo);
+                    $sql = "SELECT * FROM utilizador WHERE cargo = '$cargo'";
+                } else {
+                    // Nenhum filtro, mostrar todos
+                    $sql = "SELECT * FROM utilizador";
+                }
+
+                $resultado = executarQuery($sql);
+
+                if ($resultado && $resultado->num_rows > 0) {
+                    while ($row = $resultado->fetch_assoc()) {
+                        echo '<br><br><li> 
+                    <div> 
+                        ' . $row["nome"] . ' - ' . $row["endereco"] . ' 
+                        <br>estado da conta: ' . $row["estado_conta"] . ' 
+                        <br>cargo: ' . $row["cargo"] . ' 
+                    </div> 
+                    <div> 
+                        <form method="post"> 
+                            <button type="submit" value="' . $row["id_utilizador"] . '" name="aprovar" class="approve">Aprovar Registo</button> 
+                            <button type="submit" value="' . $row["id_utilizador"] . '" name="rejeitar" class="deny">Rejeitar Registo</button> 
+                        </form> 
+                        <form method="post" action="visualizacao_perfil.php"> 
+                            <button type="submit" name="vis_userID" value="' . $row["id_utilizador"] . '">visualizar perfil</button> 
+                        </form> 
+                    </div> 
+                </li>';
+                    }
+                } else {
+                    echo "<p>Não há registos</p>";
+                }
+                ?>
+            </tr>
+        </table>
+    </div>
     </div>
 </body>
 

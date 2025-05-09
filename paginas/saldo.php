@@ -44,7 +44,7 @@ require_once "./nav.php";
                         ' . $row["nome"] . ' - ' . $row["endereco"] . ' <br>estado da conta: ' . $row["estado_conta"] . ' <br>cargo: ' . $row["cargo"] . ' |  saldo: ' . $row["saldo"] . '
                    </div>
                     <div>
-                        <form method="post" action="editar_perfil">
+                        <form method="post" action="visualizacao_perfil.php">
                             <button type="submit" name="vis_userID" value="' . $row["id_utilizador"] . '">visualizar perfil</button>
                         </form>
                     </div>
