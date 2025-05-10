@@ -21,7 +21,7 @@
     ?>
 
     <body>
-        
+
     <?php
         if (seNaoAdminNR() == true) {
             echo "<button onclick=\"window.location.href='criaAlerta.php'\">Criação de Alertas</button>";
@@ -33,7 +33,7 @@
     <?php
         $sql ="SELECT tipo_alerta, descricao, data_expira FROM alertas 
                 WHERE data_expira >= CURDATE() 
-                ORDER BY data_expira ASC";
+                ORDER BY data_expira ASC LIMIT 3";
         $resultado = executarQuery($sql);
         
     ?>
