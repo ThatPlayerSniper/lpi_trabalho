@@ -44,9 +44,10 @@ require_once "./nav.php";
                         <label>Tipo:</label>
                         <select name="tipo_alerta">
                             <option value="">-- Seleciona um --</option>
-                            <option value="cancelamento">Cancelamento</option>
                             <option value="alteracao_rota">Alteração  de Rotas</option>
+                            <option value="cancelamento">Cancelamento</option>
                             <option value="manutencao">Manutenção</option>
+                            <option value="promocao">Promoção</option>
                             <option value="outro">Outro</option>
                         </select>
                     </div>   
