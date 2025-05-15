@@ -29,16 +29,16 @@ if (session_status() == PHP_SESSION_NONE) {
             $roleMode = VerificarCargo();
             echo $roleMode;
 
-            
+
             if ($roleMode == "visitante") {
                 echo '<li><a href="entrar.php" class="' . (basename($_SERVER['PHP_SELF']) == 'login.php' ? 'active' : '') . '">Autenticar</a></li>';
                 echo '<li><a href="rota.php" class="' . (basename($_SERVER['PHP_SELF']) == 'rota.php' ? 'active' : '') . '">Rotas</a></li>';
             }
-            
+
             if ($roleMode == "cliente") {
                 $utilizador = getUser();
                 echo '<label> Saldo:</label>';
-                echo '<a>' . $utilizador['saldo'] . '€</a>';
+                echo '<a class="turnWhite" href="saldo_gestao.php">' . $utilizador['saldo'] . '€</a>';
                 echo '<li><a href="rota.php" class="' . (basename($_SERVER['PHP_SELF']) == 'rota.php' ? 'active' : '') . '">Rotas</a></li>';
                 echo '<li><a href="sobre.php" class="' . (basename($_SERVER['PHP_SELF']) == 'sobre.php' ? 'active' : '') . '">Sobre</a></li>';
                 echo '<li><a href="perfil.php" class="' . (basename($_SERVER['PHP_SELF']) == 'perfil.php' ? 'active' : '') . '">Perfil</a></li>';
@@ -48,9 +48,10 @@ if (session_status() == PHP_SESSION_NONE) {
             if ($roleMode == "funcionario") {
                 $utilizador = getUser();
                 echo '<label> Saldo:</label>';
-                echo '<a>' . $utilizador['saldo'] . '€</a>';
+                echo '<a class="turnWhite" href="saldo_gestao.php">' . $utilizador['saldo'] . '€</a>';
                 echo '<li><a href="rota.php" class="' . (basename($_SERVER['PHP_SELF']) == 'rota.php' ? 'active' : '') . '">Rotas</a></li>';
                 echo '<li><a href="sobre.php" class="' . (basename($_SERVER['PHP_SELF']) == 'sobre.php' ? 'active' : '') . '">Sobre</a></li>';
+                echo '<li><a href="gestao_utili.php" class="' . (basename($_SERVER['PHP_SELF']) == 'gestao_utili.php' ? 'active' : '') . '">Gestão de Utilizadores</a></li>';
                 echo '<li><a href="perfil.php" class="' . (basename($_SERVER['PHP_SELF']) == 'perfil.php' ? 'active' : '') . '">Perfil</a></li>';
                 echo '<li><a href="logout.php" class="thebigred"' . (basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : '') . '">Sair</a></li>';
             }
@@ -58,10 +59,11 @@ if (session_status() == PHP_SESSION_NONE) {
             if ($roleMode == "admin") {
                 $utilizador = getUser();
                 echo '<label> Saldo:</label>';
-                echo '<a>' . $utilizador['saldo'] . '€</a>';
-                echo '<li><a href="gestao_utili.php" class="' . (basename($_SERVER['PHP_SELF']) == 'gestao_utili.php' ? 'active' : '') . '">Gestão Utilizadores</a></li>';
+                echo '<a class="turnWhite" href="saldo_gestao.php">' . $utilizador['saldo'] . '€</a>';
                 echo '<li><a href="rota.php" class="' . (basename($_SERVER['PHP_SELF']) == 'rota.php' ? 'active' : '') . '">Rotas</a></li>';
                 echo '<li><a href="sobre.php" class="' . (basename($_SERVER['PHP_SELF']) == 'sobre.php' ? 'active' : '') . '">Sobre</a></li>';
+                echo '<li><a href="gestao_utili.php" class="' . (basename($_SERVER['PHP_SELF']) == 'gestao_utili.php' ? 'active' : '') . '">Gestão de Utilizadores</a></li>';
+
                 echo '<li><a href="perfil.php" class="' . (basename($_SERVER['PHP_SELF']) == 'perfil.php' ? 'active' : '') . '">Perfil</a></li>';
                 echo '<li><a href="logout.php" class="thebigred"' . (basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : '') . '">Sair</a></li>';
             }

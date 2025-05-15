@@ -1,15 +1,14 @@
 <?php
 
 //AUTH FILE: Simplesmente para facilitar algumas tarefas e evitar repetir código e só chamar o que é preciso para executar 
-//NOTA: Caso haja erros no vs (VISUAL STUDIO) olhar duas vezes, o php pode estar mal configurado (nota mental)
-
-    require_once "../basedados/basedados.h";
+//NOTA: Caso haja erros no vs (VISUAL STUDIO) olhar duas vezes, o php pode estar mal configurado 
+require_once "../basedados/basedados.h";
 
 //Verifica se já têm uma sessão iniciada caso não tenho cria uma
 //Proteção de TROUBLESHOOTING
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
-    }
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 
 /*--------------------------------------*/
@@ -53,10 +52,11 @@ function seNaoAdmin()
     }
 }
 
-function seNaoAdminNR() {
+function seForAdminNR()
+{
     if (VerificarCargo() != "admin") {
         return false;
-    }else{
+    } else {
         return true;
     }
 }
@@ -69,10 +69,11 @@ function seNaoFun()
     }
 }
 
-function seNaoFunNR() {
-    if (VerificarCargo() != "admin") {
+function seForFunNR()
+{
+    if (VerificarCargo() != "funcionario") {
         return false;
-    }else{
+    } else {
         return true;
     }
 }
@@ -85,10 +86,11 @@ function seNaoClie()
     }
 }
 
-function seNaoClienteNR() {
+function seForClienteNR()
+{
     if (VerificarCargo() != "admin") {
         return false;
-    }else{
+    } else {
         return true;
     }
 }
@@ -169,7 +171,7 @@ function registarUti($nome, $endereco, $secretpass)
             AND secretpass = '$secretpass'";
     $resultado = executarQuery($sql);
 
-    if ($result->num_rows > 0) {
+    if ($resultado->num_rows > 0) {
         header("Location: registar.php");
         exit;
     } else {
@@ -183,12 +185,7 @@ function registarUti($nome, $endereco, $secretpass)
                 VALUES ('$nome', '$endereco', '$secretpass')";
 
         $resultado = executarQuery($sql);
-
-
     }
-
-
-
     //Verifica se conseguiu fazer o insert
     if ($resultado) {
         return true; //Sucesso

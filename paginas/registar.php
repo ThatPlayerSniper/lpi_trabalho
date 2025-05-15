@@ -62,7 +62,7 @@ require_once "./nav.php";
                         <label class="Letras">Nome:</label>
                         <input class="input-field" type="text" name="nome" placeholder="Utilizador"><br>
                         <label class="Letras">Endereço:</label>
-                        <input class="input-field" type="text" name="endereco" placeholder="Utilizador"><br>
+                        <input class="input-field" type="email" name="endereco" placeholder="Utilizador"><br>
                         <label class="Letras">Senha:</label>
                         <input class="input-field" type="password" name="secret" placeholder="Senha"><br>
                         <label class="Letras">Confirmar senha:</label>

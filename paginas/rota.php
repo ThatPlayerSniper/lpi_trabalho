@@ -1,8 +1,11 @@
 <?php
+require_once '../basedados/basedados.h';
+require_once "./auth.php";
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="pt">
 
@@ -21,7 +24,7 @@ require_once "./nav.php";
     <div><br><br>
 
         <?php
-        if (seNaoAdminNR() == true) {
+        if (seForAdminNR() == true) {
             echo "<button onclick=\"window.location.href='criaRota.php'\">Criação de Rotas</button>";
         }
         ?>
@@ -49,46 +52,46 @@ require_once "./nav.php";
             </thead>
             <tbody>
                 <?php
-                require_once "../basedados/basedados.h";
-                require_once "./auth.php";
-
-                $origem = isset($_POST['origem']) ? $_POST['origem'] : '';
-                $destino = isset($_POST['destino']) ? $_POST['destino'] : '';
-
-                $origem = escapeString($origem);
-                $destino = escapeString($destino);
 
 
-                //Filtro
 
-                if (!empty($origem) && !empty($destino)) {
-                    $sql = "SELECT * FROM rota WHERE origem = '$origem' AND destino = '$destino'";
-                } else if (!empty($origem)) {
-                    $sql = "SELECT * FROM rota WHERE origem = '$origem'";
-                } else if (!empty($destino)) {
-                    $sql = "SELECT * FROM rota WHERE destino = '$destino'";
-                } else {
-                    $sql = "SELECT * FROM rota";
-                }
+                    $origem = isset($_POST['origem']) ? $_POST['origem'] : '';
+                    $destino = isset($_POST['destino']) ? $_POST['destino'] : '';
+
+                    $origem = escapeString($origem);
+                    $destino = escapeString($destino);
 
 
-                $result = executarQuery($sql);
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
+                    //Filtro
+
+                    if (!empty($origem) && !empty($destino)) {
+                        $sql = "SELECT * FROM rota WHERE origem = '$origem' AND destino = '$destino'";
+                    } else if (!empty($origem)) {
+                        $sql = "SELECT * FROM rota WHERE origem = '$origem'";
+                    } else if (!empty($destino)) {
+                        $sql = "SELECT * FROM rota WHERE destino = '$destino'";
+                    } else {
+                        $sql = "SELECT * FROM rota";
+                    }
+
+
+                    $result = executarQuery($sql);
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<tr>';
+                            echo '<td>' . ($row["id_rota"]) . '</td>';
+                            echo '<td>' . ($row["origem"]) . '</td>';
+                            echo '<td>' . ($row["destino"]) . '</td>';
+                            echo '<td>' . ($row["tempo_viagem"]) . '</td>';
+                            echo '<td>' . ($row["distancia"]) . ' km</td>';
+                            echo '<td><button class="route-button">Horários</button></td>';
+                            echo '</tr>';
+                        }
+                    } else {
                         echo '<tr>';
-                        echo '<td>' . ($row["id_rota"]) . '</td>';
-                        echo '<td>' . ($row["origem"]) . '</td>';
-                        echo '<td>' . ($row["destino"]) . '</td>';
-                        echo '<td>' . ($row["tempo_viagem"]) . '</td>';
-                        echo '<td>' . ($row["distancia"]) . ' km</td>';
-                        echo '<td><button class="route-button">Horários</button></td>';
+                        echo '<td class="NOPE">não existem registos<td>';
                         echo '</tr>';
                     }
-                } else {
-                    echo '<tr>';
-                    echo '<td class="NOPE">não existem registos<td>';
-                    echo '</tr>';
-                }
                 ?>
             </tbody>
         </table>

@@ -5,7 +5,14 @@ require_once "./auth.php";
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+
+if (seForAdminNR() == false && seForFunNR() == false) {
+    header("Location: index.php");
+    exit();
+}
+
 ?>
+
 <!DOCTYPE html>
 <html lang="pt">
 
@@ -13,11 +20,11 @@ if (session_status() == PHP_SESSION_NONE) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="visu_perfil.css" ;
-        </head>
-    <?php
-    require_once "./nav.php";
-    ?>
+    <link rel="stylesheet" href="visu_perfil.css">
+</head>
+<?php
+require_once "./nav.php";
+?>
 
 <body>
     <div class="background">
@@ -25,11 +32,6 @@ if (session_status() == PHP_SESSION_NONE) {
             <div class="header">
                 <?php
                 $utilizador = (isset($_POST['vis_userID']) ? $_POST['vis_userID'] : '');
-
-                if ($utilizador == "") {
-                    header("Location: index.php");
-                    exit;
-                }
 
                 $utilizador = escapeString($utilizador);
 
@@ -45,13 +47,16 @@ if (session_status() == PHP_SESSION_NONE) {
                         echo "<h3>secretpass: " . $row['secretpass'] . "</h3>";
                         echo "<h3>Cargo: " . $row['cargo'] . "</h3>";
                         echo "<h3>Saldo: " . $row['saldo'] . "</h3>";
-                        //if()
+                        echo "<form method='POST' action='editar_visu.php'>";
+                        echo "<button type='submit' name='edit_uti' value='" . $row['id_utilizador'] . "'>editar perfil</button>";
+                        echo "</form>";
+                        echo "<a class='turnWhite' href='gestao_utili.php'>Voltar atrás.</a>";
                     }
                 } else {
                     echo "<h3>O utilizador não foi encontrado!</h3>";
                 }
+
                 ?>
-                <a class="turnWhite" href="gestao_utili.php">voltar atrás.</a>
             </div>
         </div>
     </div>

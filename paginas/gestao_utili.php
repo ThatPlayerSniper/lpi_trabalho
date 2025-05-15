@@ -6,7 +6,11 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-seNaoAdmin();
+if (seForAdminNR() == false && seForFunNR() == false) {
+    header("Location: index.php");
+    exit();
+}
+
 
 ?>
 

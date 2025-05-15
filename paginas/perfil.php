@@ -30,17 +30,17 @@ $utilizador  = getUser();
                 <h3>nome: <span><?= $utilizador['nome'] ?></span></h3>
                 <h3>endereco: <span><?= $utilizador['endereco'] ?></span></h3>
                 <h3>secretpass: <span><?= $utilizador['secretpass'] ?></span></h3>
-                <h3>Email: <?= $utilizador['endereco'] ?></h>
-                    <?php
-                    if ($_SESSION['cargo'] == "funcionario") {
-                        echo "<h3>Cargo: " . $utilizador['cargo'] . "</h3>";
-                    }
-                    if ($_SESSION['cargo'] == "admin") {
-                        echo "<h3>Cargo: " . $utilizador['cargo'] . "</h3>";
-                    } else {
-                        echo "<h3>" . $utilizador['cargo'] . "</h3>";
-                    }
-                    ?>
+                    <h3>Email: <?= $utilizador['endereco'] ?></h>
+                        <?php
+                        if ($_SESSION['cargo'] == "funcionario") {
+                            echo "<h3>Cargo: " . $utilizador['cargo'] . "</h3>";
+                        }
+                        if ($_SESSION['cargo'] == "admin") {
+                            echo "<h3>Cargo: " . $utilizador['cargo'] . "</h3>";
+                        } else {
+                            echo "<h3>" . $utilizador['cargo'] . "</h3>";
+                        }
+                        ?>
                 <h3>Saldo: <span><?= $utilizador['saldo'] ?></span></h3>
             </div>
             <button class="btn" onclick="window.location.href='perfilEditar.php'">Editar Perfil</button>
