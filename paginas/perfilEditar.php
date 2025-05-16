@@ -29,15 +29,15 @@ $utilizador  = getUser();
                 <h2><?= $utilizador['nome'] ?></h2>
 
                 <label for="id_utilizador">nome</label>
-                <input type="text" name="nome">
+                <input type="text" name="nome" value="<?= htmlspecialchars($utilizador['nome']) ?>">
 
                 <br><br>
 
                 <label for="endereco">Email:</label>
-                <input type="email" name="endereco" id="endereco">
+                <input type="email" name="endereco" id="endereco" value="<?= htmlspecialchars($utilizador['endereco']) ?>">
                 <br><br>
                 <label for="endereco">Senha:</label>
-                <input type="password" name="pass" id="pass">
+                <input type="password" name="pass" id="pass" value="<?= htmlspecialchars($utilizador['secretpass']) ?>">
 
                 <button type="submit" class="btn">Guardar Alterações</button>                
             </form>
