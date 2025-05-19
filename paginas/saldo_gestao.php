@@ -138,6 +138,9 @@ if (session_status() == PHP_SESSION_NONE) {
                 }
 
                 ?>
+            <button class="btn" onclick="window.location.href='transacoes.php'">Transacões</button>
+            <button class="btn" onclick="window.location.href='bilhetes.php'">Bilhetes</button>
+
             </div>
         </div>
     </div>

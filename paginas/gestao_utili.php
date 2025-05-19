@@ -108,10 +108,12 @@ require_once "./nav.php";
                                 <br>cargo: <?php echo $row["cargo"]; ?>
                             </div>
                             <div>
-                                <form method="post">
-                                    <button type="submit" value="<?php echo $row["id_utilizador"]; ?>" name="aprovar" class="approve">Aprovar Registo</button>
-                                    <button type="submit" value="<?php echo $row["id_utilizador"]; ?>" name="rejeitar" class="deny">Rejeitar Registo</button>
-                                </form>
+                                <?php if (seForAdminNR() == true) { ?>
+                                    <form method="post">
+                                        <button type="submit" value="<?php echo $row["id_utilizador"]; ?>" name="aprovar" class="approve">Aprovar Registo</button>
+                                        <button type="submit" value="<?php echo $row["id_utilizador"]; ?>" name="rejeitar" class="deny">Rejeitar Registo</button>
+                                    </form>
+                                <?php } ?>
                                 <form method="post" action="visualizacao_perfil.php">
                                     <button type="submit" name="vis_userID" value="<?php echo $row["id_utilizador"]; ?>">visualizar perfil</button>
                                 </form>

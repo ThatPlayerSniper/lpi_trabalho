@@ -1,7 +1,6 @@
 
 .big-box {
-  display: flex;
-  min-height: fit-content;
+  margin: 10px; 
 }
 
 .small-box {

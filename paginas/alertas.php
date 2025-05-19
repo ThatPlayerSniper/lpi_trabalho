@@ -76,7 +76,7 @@ require_once "./nav.php";
             if (!empty($tipo)) {
                 // filtro selecionado
                 $tipo = escapeString($tipo);
-                $sql = "SELECT * FROM alertas WHERE tipo_alerta = '$tipo' ";
+                $sql = "SELECT * FROM alertas WHERE tipo_alerta = '$tipo' ORDER BY data_expira ASC";
             } else {
                 // nada selecionado
                 $sql = "SELECT * FROM alertas";
