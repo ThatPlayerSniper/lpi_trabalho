@@ -36,7 +36,7 @@ $utilizador  = getUser();
                 <label for="endereco">Email:</label>
                 <input type="email" name="endereco" id="endereco" value="<?= htmlspecialchars($utilizador['endereco']) ?>">
                 <br><br>
-                <label for="endereco">Senha:</label>
+                <label for="Senha">Senha:</label>
                 <input type="password" name="pass" id="pass" value="<?= htmlspecialchars($utilizador['secretpass']) ?>">
 
                 <button type="submit" class="btn">Guardar Alterações</button>                
@@ -49,11 +49,12 @@ $utilizador  = getUser();
                 $nome = isset($_POST['nome']) ? escapeString($_POST['nome']) : '';
                 $endereco = isset($_POST['endereco']) ? escapeString($_POST['endereco']) : '';
                 $pass = isset($_POST['pass']) ? escapeString($_POST['pass']) : '';
+                $password = hash("sha256", $pass);
 
                 $id = $_SESSION['user_id']; // Garante que tens isso definido corretamente
 
                 if (!empty($nome) && !empty($endereco) && !empty($id) && !empty($pass)) {
-                    $sql = "UPDATE utilizador SET nome = '$nome', endereco = '$endereco', secretpass = '$pass' WHERE id_utilizador = '$id'";
+                    $sql = "UPDATE utilizador SET nome = '$nome', endereco = '$endereco', secretpass = '$password' WHERE id_utilizador = '$id'";
                     executarQuery($sql);
                     echo "<p>Perfil atualizado com sucesso!</p>";
                 }

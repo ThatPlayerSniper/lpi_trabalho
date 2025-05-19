@@ -88,7 +88,7 @@ function seNaoClie()
 
 function seForClienteNR()
 {
-    if (VerificarCargo() != "admin") {
+    if (VerificarCargo() != "cliente") {
         return false;
     } else {
         return true;
@@ -103,16 +103,14 @@ function seForClienteNR()
  * @return bool
  */
 
+
+function verificarSenha($senha_digitada, $hash_armazenado) {
+    $hash_senha_digitada = hash('sha256', $senha_digitada);
+    return $hash_senha_digitada === $hash_armazenado;
+}
+
 function login($nome, $endereco, $pass)
 {
-
-    //escapeString para adicionar seguraça contra sql ejection
-    /*
-        Oque faz é elemina alguns caracteres, de forma a quando estes dados passarem a
-        base de dados o sql(que é burro) não interpretar como comando e sim com um dado e
-        processalo como tal
-    */
-
     $nome = escapeString($nome);
     $endereco = escapeString($endereco);
     $pass = escapeString($pass);
@@ -124,35 +122,30 @@ function login($nome, $endereco, $pass)
     AND endereco = '$endereco' 
     AND estado_conta = '$estado'";
 
-    //executa
     $resultado = executarQuery($sql);
 
-    //Adicionado para debug!!
-    //print_r ($resultado); 
+    // Verificar se houve erro na query
+    if ($resultado === false) {
+        echo '<div class="input-group"><label>Erro ao aceder à base de dados.</label></div>';
+        return false;
+    }
 
-
-    //Verificar se o utilizador foi encontrado
+    // Verificar se o utilizador foi encontrado
     if ($resultado && $resultado->num_rows >= 1) {
         $utilizador = $resultado->fetch_assoc();
 
-        //Debbug para ver o utilizador (dados)
-        //print_r($utilizador);
-
-
-        // Verifica se a senha está correta
-        if (isset($utilizador['secretpass']) && $pass == $utilizador['secretpass']) {
-            // Suceso
+        // Verifica se a senha está correta (comparando hash)
+        if (isset($utilizador['secretpass']) && verificarSenha($pass, $utilizador['secretpass'])) {
+            // Sucesso
             $_SESSION['user_id'] = $utilizador['id_utilizador'];
             $_SESSION['cargo'] = $utilizador['cargo'];
-            //print_r($utilizador);
             return true;
+        } else {
+            echo '<div class="input-group"><label>Senha incorreta.</label></div>';
+            return false;
         }
-        //se ele não estiver registado erro
-        if ($estado != "registado") {
-            echo '<div class="input-group">
-                <label>Este utilizador não está registado</label>
-            </div>';
-        }
+    } else {
+        echo '<div class="input-group"><label>Utilizador não encontrado ou não registado.</label></div>';
     }
     return false;
 }
@@ -166,31 +159,36 @@ function registarUti($nome, $endereco, $secretpass)
     $endereco = escapeString($endereco);
     $secretpass = escapeString($secretpass);
 
+    $pass = hash('sha256', $secretpass);
+
     $sql = "SELECT * FROM utilizador WHERE nome = '$nome' 
-            AND endereco = '$endereco' 
-            AND secretpass = '$secretpass'";
+            AND endereco = '$endereco'";
     $resultado = executarQuery($sql);
 
     if ($resultado->num_rows > 0) {
         header("Location: registar.php");
+        echo "<h2>ERRO: O utilizador já existe</h2>";
         exit;
     } else {
 
         // Criar a query SQL para inserir o novo utilizador
         $sql = "INSERT INTO utilizador (nome, endereco, secretpass )
-                VALUES ('$nome', '$endereco', '$secretpass' )";
+                VALUES ('$nome', '$endereco', '$pass' )";
 
         //Executa a Query
         $sql = "INSERT INTO utilizador (nome, endereco, secretpass)
-                VALUES ('$nome', '$endereco', '$secretpass')";
+                VALUES ('$nome', '$endereco', '$pass')";
 
         $resultado = executarQuery($sql);
-    }
-    //Verifica se conseguiu fazer o insert
-    if ($resultado) {
-        return true; //Sucesso
-    } else {
-        return false; // Caso Erro
+        $sql = "SELECT * FROM utilizador WHERE nome = '$nome' 
+            AND endereco = '$endereco'";
+        $resultado = executarQuery($sql);
+        while ($row = $resultado->fetch_assoc()) {
+            $id_utilizador = $row['id_utilizador'];
+            $sql2 = "INSERT INTO carteira (id_utilizador, saldo_atual) 
+                    VALUES ('$id_utilizador', 0.00)";
+            executarQuery($sql2);
+        }
     }
 }
 
@@ -205,6 +203,12 @@ function logout()
 
 function getUser()
 {
-    $result = executarQuery("SELECT * from utilizador WHERE id_utilizador = " . $_SESSION['user_id']);
-    return $result->fetch_assoc();
+    if (Logged()) {
+        $sql = "SELECT u.*, c.saldo_atual 
+                  FROM utilizador u
+                  LEFT JOIN carteira c ON u.id_utilizador = c.id_utilizador
+                  WHERE u.id_utilizador = " . $_SESSION['user_id'];
+        $result = executarQuery($sql);
+        return $result->fetch_assoc();
+    }
 }

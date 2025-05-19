@@ -23,52 +23,52 @@ if (session_status() == PHP_SESSION_NONE) {
     </div>
     <nav>
         <ul>
-
             <?php
-
             $roleMode = VerificarCargo();
             echo $roleMode;
-
-
-            if ($roleMode == "visitante") {
-                echo '<li><a href="entrar.php" class="' . (basename($_SERVER['PHP_SELF']) == 'login.php' ? 'active' : '') . '">Autenticar</a></li>';
-                echo '<li><a href="rota.php" class="' . (basename($_SERVER['PHP_SELF']) == 'rota.php' ? 'active' : '') . '">Rotas</a></li>';
-            }
-
-            if ($roleMode == "cliente") {
-                $utilizador = getUser();
-                echo '<label> Saldo:</label>';
-                echo '<a class="turnWhite" href="saldo_gestao.php">' . $utilizador['saldo'] . '€</a>';
-                echo '<li><a href="rota.php" class="' . (basename($_SERVER['PHP_SELF']) == 'rota.php' ? 'active' : '') . '">Rotas</a></li>';
-                echo '<li><a href="sobre.php" class="' . (basename($_SERVER['PHP_SELF']) == 'sobre.php' ? 'active' : '') . '">Sobre</a></li>';
-                echo '<li><a href="perfil.php" class="' . (basename($_SERVER['PHP_SELF']) == 'perfil.php' ? 'active' : '') . '">Perfil</a></li>';
-                echo '<li><a href="logout.php" class="thebigred"' . (basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : '') . '">Sair</a></li>';
-            }
-
-            if ($roleMode == "funcionario") {
-                $utilizador = getUser();
-                echo '<label> Saldo:</label>';
-                echo '<a class="turnWhite" href="saldo_gestao.php">' . $utilizador['saldo'] . '€</a>';
-                echo '<li><a href="rota.php" class="' . (basename($_SERVER['PHP_SELF']) == 'rota.php' ? 'active' : '') . '">Rotas</a></li>';
-                echo '<li><a href="sobre.php" class="' . (basename($_SERVER['PHP_SELF']) == 'sobre.php' ? 'active' : '') . '">Sobre</a></li>';
-                echo '<li><a href="gestao_utili.php" class="' . (basename($_SERVER['PHP_SELF']) == 'gestao_utili.php' ? 'active' : '') . '">Gestão de Utilizadores</a></li>';
-                echo '<li><a href="perfil.php" class="' . (basename($_SERVER['PHP_SELF']) == 'perfil.php' ? 'active' : '') . '">Perfil</a></li>';
-                echo '<li><a href="logout.php" class="thebigred"' . (basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : '') . '">Sair</a></li>';
-            }
-
-            if ($roleMode == "admin") {
-                $utilizador = getUser();
-                echo '<label> Saldo:</label>';
-                echo '<a class="turnWhite" href="saldo_gestao.php">' . $utilizador['saldo'] . '€</a>';
-                echo '<li><a href="rota.php" class="' . (basename($_SERVER['PHP_SELF']) == 'rota.php' ? 'active' : '') . '">Rotas</a></li>';
-                echo '<li><a href="sobre.php" class="' . (basename($_SERVER['PHP_SELF']) == 'sobre.php' ? 'active' : '') . '">Sobre</a></li>';
-                echo '<li><a href="gestao_utili.php" class="' . (basename($_SERVER['PHP_SELF']) == 'gestao_utili.php' ? 'active' : '') . '">Gestão de Utilizadores</a></li>';
-
-                echo '<li><a href="perfil.php" class="' . (basename($_SERVER['PHP_SELF']) == 'perfil.php' ? 'active' : '') . '">Perfil</a></li>';
-                echo '<li><a href="logout.php" class="thebigred"' . (basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : '') . '">Sair</a></li>';
-            }
-
             ?>
+            <?php if ($roleMode == "visitante") :
+                $utilizador = getUser(); ?>
+                <li><a href="entrar.php" class="<?= (basename($_SERVER['PHP_SELF']) == 'login.php' ? 'active' : '') ?>">Autenticar</a></li>
+                <li><a href="rota.php" class="<?= (basename($_SERVER['PHP_SELF']) == 'rota.php' ? 'active' : '') ?>">Rotas</a></li>
+                <li><a href="alertas.php" class="<?= (basename($_SERVER['PHP_SELF']) == 'alertas.php' ? 'active' : '') ?>">Alerta</a></li>
+                <li><a href="sobre.php" class="<?= (basename($_SERVER['PHP_SELF']) == 'sobre.php' ? 'active' : '') ?>">Sobre</a></li>
+            <?php endif; ?>
+
+            <?php if ($roleMode == "cliente") :
+                $utilizador = getUser(); ?>
+                <label>Saldo:</label>
+                <a class="turnWhite" href="saldo_gestao.php"><?= number_format($utilizador['saldo_atual'], 2) ?>€</a>
+                <li><a href="rota.php" class="<?= (basename($_SERVER['PHP_SELF']) == 'rota.php' ? 'active' : '') ?>">Rotas</a></li>
+                <li><a href="alertas.php" class="<?= (basename($_SERVER['PHP_SELF']) == 'alertas.php' ? 'active' : '') ?>">Alerta</a></li>
+                <li><a href="sobre.php" class="<?= (basename($_SERVER['PHP_SELF']) == 'sobre.php' ? 'active' : '') ?>">Sobre</a></li>
+                <li><a href="perfil.php" class="<?= (basename($_SERVER['PHP_SELF']) == 'perfil.php' ? 'active' : '') ?>">Perfil</a></li>
+                <li><a href="logout.php" class="thebigred <?= (basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : '') ?>">Sair</a></li>
+            <?php endif; ?>
+
+            <?php if ($roleMode == "funcionario") :
+                $utilizador = getUser(); ?>
+                <label>Saldo:</label>
+                <a class="turnWhite" href="saldo_gestao.php"><?= number_format($utilizador['saldo_atual'], 2) ?>€</a>
+                <li><a href="rota.php" class="<?= (basename($_SERVER['PHP_SELF']) == 'rota.php' ? 'active' : '') ?>">Rotas</a></li>
+                <li><a href="alertas.php" class="<?= (basename($_SERVER['PHP_SELF']) == 'alertas.php' ? 'active' : '') ?>">Alerta</a></li>
+                <li><a href="sobre.php" class="<?= (basename($_SERVER['PHP_SELF']) == 'sobre.php' ? 'active' : '') ?>">Sobre</a></li>
+                <li><a href="gestao_utili.php" class="<?= (basename($_SERVER['PHP_SELF']) == 'gestao_utili.php' ? 'active' : '') ?>">Gestão de Utilizadores</a></li>
+                <li><a href="perfil.php" class="<?= (basename($_SERVER['PHP_SELF']) == 'perfil.php' ? 'active' : '') ?>">Perfil</a></li>
+                <li><a href="logout.php" class="thebigred <?= (basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : '') ?>">Sair</a></li>
+            <?php endif; ?>
+
+            <?php if ($roleMode == "admin") :
+                $utilizador = getUser(); ?>
+                <label>Saldo:</label>
+                <a class="turnWhite" href="saldo_gestao.php"><?= number_format($utilizador['saldo_atual'], 2) ?>€</a>
+                <li><a href="rota.php" class="<?= (basename($_SERVER['PHP_SELF']) == 'rota.php' ? 'active' : '') ?>">Rotas</a></li>
+                <li><a href="sobre.php" class="<?= (basename($_SERVER['PHP_SELF']) == 'sobre.php' ? 'active' : '') ?>">Sobre</a></li>
+                <li><a href="alertas.php" class="<?= (basename($_SERVER['PHP_SELF']) == 'alertas.php' ? 'active' : '') ?>">Alerta</a></li>
+                <li><a href="gestao_utili.php" class="<?= (basename($_SERVER['PHP_SELF']) == 'gestao_utili.php' ? 'active' : '') ?>">Gestão de Utilizadores</a></li>
+                <li><a href="perfil.php" class="<?= (basename($_SERVER['PHP_SELF']) == 'perfil.php' ? 'active' : '') ?>">Perfil</a></li>
+                <li><a href="logout.php" class="thebigred <?= (basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : '') ?>">Sair</a></li>
+            <?php endif; ?>
         </ul>
     </nav>
 </header>

@@ -32,36 +32,41 @@ require_once "./nav.php";
                 $sql = "SELECT * FROM alertas WHERE data_expira >= CURDATE() ORDER BY data_expira ASC LIMIT 3";
                 $resultado = executarQuery($sql);
                 if ($resultado->num_rows > 0) {
-                    echo '<div>';
-                    echo '    <label>';
-                    echo '        <h1>ALERTAS</h1>';
-                    echo '    </label>';
-                    echo '</div>';
+                    ?>
+                    <div>
+                        <label>
+                            <h1>ALERTAS</h1>
+                        </label>
+                    </div>
+                    <?php
                     while ($alerta = $resultado->fetch_assoc()) {
-                        echo "<div class='note-card'>";
-                        echo "<div class='note-header'>";
-                        echo "Tipo de Alerta: " . $alerta['tipo_alerta'];
-                        echo "</div>";
-                        echo "<div class='note-body'>";
-                        echo "<p>" . $alerta['descricao'] . "</p>";
-                        echo "</div>";
-                        echo "<div class='note-footer'>";
-                        echo "<span>";
-                        echo "<span>" . "Postado a " . $alerta['data_criacao'] . "</span><br>";
-                        echo "<span>Termina em " . $alerta['data_expira'] . "</span>";
-                        echo "</div>";
-                        echo "</div>";
-                        echo "<br>";
+                        ?>
+                        <div class='note-card'>
+                            <div class='note-header'>
+                                Tipo de Alerta: <?= htmlspecialchars($alerta['tipo_alerta']) ?>
+                            </div>
+                            <div class='note-body'>
+                                <p><?= htmlspecialchars($alerta['descricao']) ?></p>
+                            </div>
+                            <div class='note-footer'>
+                                <span>
+                                    <span>Postado a <?= htmlspecialchars($alerta['data_criacao']) ?></span><br>
+                                    <span>Termina em <?= htmlspecialchars($alerta['data_expira']) ?></span>
+                                </span>
+                            </div>
+                        </div>
+                        <br>
+                        <?php
                     }
                 } 
                 ?>
             </div>
-            <button onclick="window.location.href='alertas.php'">
-                <h3>lista de alertas</h3>
-            </button>
         </div>
         <div class="container">
             <div class="left-container">
+                <div>
+                    <h1>FelixBus - A Conectar Portugal, Viagem a Viagem!</h1>
+                </div>
             </div>
         </div>
     </div>

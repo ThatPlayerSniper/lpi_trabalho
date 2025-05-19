@@ -4,7 +4,6 @@ require_once "./auth.php";
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-//seNaoAdmin();
 ?>
 
 <!DOCTYPE html>
@@ -58,12 +57,12 @@ require_once "./nav.php";
                         <option value="outro">Outro</option>
                     </select>
                     <button type="submit">Pesquisar</button>
-                </div>
-            </form>
         </div>
-        <div class="container">
+        </form>
+    </div>
+    <div class="container">
         <?php
-        if (seNaoAdminNR() == true) {
+        if (seForAdminNR() == true) {
             echo "<button onclick=\"window.location.href='criaAlerta.php'\">Criação de Alertas</button>";
         }
         ?>
@@ -85,25 +84,28 @@ require_once "./nav.php";
             $resultado = executarQuery($sql);
             if ($resultado->num_rows > 0) {
                 while ($alerta = $resultado->fetch_assoc()) {
-                    echo "<div class='note-card'>";
-                    echo "<div class='note-header'>";
-                    echo "Tipo de Alerta: " . $alerta['tipo_alerta'];
-                    echo "</div>";
-                    echo "<div class='note-body'>";
-                    echo "<p>" . $alerta['descricao'] . "</p>";
-                    echo "</div>";
-                    echo "<div class='note-footer'>";
-                    echo "<span>";
-                    echo "<span>" . "Postado a " . $alerta['data_criacao'] . "</span><br>";
-                    echo "<span>Termina em " . $alerta['data_expira'] . "</span>";
-                    echo "</div>";
-                    echo "</div>";
-                    echo "<br>";
+            ?>
+                    <div class='note-card'>
+                        <div class='note-header'>
+                            Tipo de Alerta: <?= htmlspecialchars($alerta['tipo_alerta']) ?>
+                        </div>
+                        <div class='note-body'>
+                            <p><?= htmlspecialchars($alerta['descricao']) ?></p>
+                        </div>
+                        <div class='note-footer'>
+                            <span>
+                                <span>Postado a <?= htmlspecialchars($alerta['data_criacao']) ?></span><br>
+                                <span>Termina em <?= htmlspecialchars($alerta['data_expira']) ?></span>
+                            </span>
+                        </div>
+                    </div>
+                    <br>
+            <?php
                 }
             }
             ?>
-            </div>
         </div>
+    </div>
     </div>
 </body>
 

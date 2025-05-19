@@ -41,12 +41,13 @@ require_once "./nav.php";
         $sql = "UPDATE utilizador SET estado_conta = 'rejeitado' WHERE id_utilizador = '$id'";
         $resultado = executarQuery($sql);
     }
+
     ?>
     <div class="big-box">
         <div>
             <div><br><br>
                 <form method="POST">
-                    <div">
+                    <div>
                         <label>Cargo:</label>
                         <select name="cargo">
                             <option value="">-- Seleciona um --</option>
@@ -61,11 +62,12 @@ require_once "./nav.php";
                             <option value="registado">Registado</option>
                             <option value="rejeitado">Rejeitado</option>
                         </select>
+                    </div>
+                    <div>
+                        <button type="submit">Pesquisar</button>
+                    </div>
+                </form>
             </div>
-            <div>
-                <button type="submit">Pesquisar</button>
-            </div>
-            </form>
         </div>
         <table>
             <tr>
@@ -97,22 +99,29 @@ require_once "./nav.php";
 
                 if ($resultado && $resultado->num_rows > 0) {
                     while ($row = $resultado->fetch_assoc()) {
-                        echo '<br><br><li> 
-                    <div> 
-                        ' . $row["nome"] . ' - ' . $row["endereco"] . ' 
-                        <br>estado da conta: ' . $row["estado_conta"] . ' 
-                        <br>cargo: ' . $row["cargo"] . ' 
-                    </div> 
-                    <div> 
-                        <form method="post"> 
-                            <button type="submit" value="' . $row["id_utilizador"] . '" name="aprovar" class="approve">Aprovar Registo</button> 
-                            <button type="submit" value="' . $row["id_utilizador"] . '" name="rejeitar" class="deny">Rejeitar Registo</button> 
-                        </form> 
-                        <form method="post" action="visualizacao_perfil.php"> 
-                            <button type="submit" name="vis_userID" value="' . $row["id_utilizador"] . '">visualizar perfil</button> 
-                        </form> 
-                    </div> 
-                </li>';
+                ?>
+                        <br><br>
+                        <li>
+                            <div>
+                                <?php echo $row["nome"]; ?> - <?php echo $row["endereco"]; ?>
+                                <br>estado da conta: <?php echo $row["estado_conta"]; ?>
+                                <br>cargo: <?php echo $row["cargo"]; ?>
+                            </div>
+                            <div>
+                                <form method="post">
+                                    <button type="submit" value="<?php echo $row["id_utilizador"]; ?>" name="aprovar" class="approve">Aprovar Registo</button>
+                                    <button type="submit" value="<?php echo $row["id_utilizador"]; ?>" name="rejeitar" class="deny">Rejeitar Registo</button>
+                                </form>
+                                <form method="post" action="visualizacao_perfil.php">
+                                    <button type="submit" name="vis_userID" value="<?php echo $row["id_utilizador"]; ?>">visualizar perfil</button>
+                                </form>
+                                <form method="GET" action="editar_visu.php">
+                                    <input type="hidden" name="edit_uti" value="<?= htmlspecialchars($row['id_utilizador']) ?>">
+                                    <button type="submit">editar perfil</button>
+                                </form>
+                            </div>
+                        </li>
+                <?php
                     }
                 } else {
                     echo "<p>Não há registos</p>";

@@ -78,14 +78,21 @@ require_once "./nav.php";
                     $result = executarQuery($sql);
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
-                            echo '<tr>';
-                            echo '<td>' . ($row["id_rota"]) . '</td>';
-                            echo '<td>' . ($row["origem"]) . '</td>';
-                            echo '<td>' . ($row["destino"]) . '</td>';
-                            echo '<td>' . ($row["tempo_viagem"]) . '</td>';
-                            echo '<td>' . ($row["distancia"]) . ' km</td>';
-                            echo '<td><button class="route-button">Horários</button></td>';
-                            echo '</tr>';
+                            ?>
+                            <tr>
+                                <td><?= htmlspecialchars($row["id_rota"]) ?></td>
+                                <td><?= htmlspecialchars($row["origem"]) ?></td>
+                                <td><?= htmlspecialchars($row["destino"]) ?></td>
+                                <td><?= htmlspecialchars($row["tempo_viagem"]) ?></td>
+                                <td><?= htmlspecialchars($row["distancia"]) ?> km</td>
+                                <form method="POST" action="viagem.php">
+                                    <input type="hidden" name="rota" value="<?= htmlspecialchars($row["id_rota"]) ?>">
+                                    <td>
+                                        <button type="submit" class="route-button" name="rota" value="<?= htmlspecialchars($row["id_rota"]) ?>">Viagens</button>
+                                    </td>
+                                </form>
+                            </tr>
+                            <?php
                         }
                     } else {
                         echo '<tr>';

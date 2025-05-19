@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 19-Maio-2025 às 19:06
+-- Tempo de geração: 16-Maio-2025 às 08:13
 -- Versão do servidor: 10.4.32-MariaDB
 -- versão do PHP: 8.2.12
 
@@ -40,23 +40,19 @@ CREATE TABLE IF NOT EXISTS `alertas` (
   `data_expira` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Extraindo dados da tabela `alertas`
---
+-- --------------------------------------------------------
 
 INSERT INTO `alertas` (`id_alerta`, `id_utilizador`, `tipo_alerta`, `descricao`, `data_criacao`, `data_expira`) VALUES
-(1, 1, 'promocao', 'Desconto de 25% na rota Lisboa-Guarda durante o fim de semana', '2025-05-19', '2025-05-29'),
-(2, 1, 'cancelamento', 'Cancelamento do serviço Lisboa-Guarda no dia 25/05/2025 devido a greve', '2025-05-19', '2025-05-26'),
-(3, 1, 'manutencao', 'Manutenção na linha férrea entre Castelo Branco e Covilhã. Possíveis atrasos na rota Lisboa-Guarda', '2025-05-19', '2025-06-15'),
-(4, 1, 'alteracao_rota', 'Alteração temporária no percurso Lisboa-Guarda com paragem adicional em Abrantes', '2025-05-19', '2025-07-01'),
-(5, 1, 'promocao', 'Bilhetes de ida e volta Lisboa-Guarda com 30% de desconto para estudantes', '2025-05-19', '2025-06-30'),
-(6, 1, 'outro', 'Novo serviço expresso Lisboa-Guarda sem paragens intermédias disponível a partir de 01/06/2025', '2025-05-19', '2025-06-02'),
-(7, 1, 'manutencao', 'Obras na estação da Guarda. Embarque e desembarque temporariamente transferidos para plataforma alternativa', '2025-05-19', '2025-05-31'),
-(8, 1, 'alteracao_rota', 'Desvio temporário na rota Lisboa-Guarda devido a obras na Serra da Estrela', '2025-05-19', '2025-06-20'),
-(9, 1, 'cancelamento', 'Suspensão do serviço noturno Lisboa-Guarda entre 01/06/2025 e 05/06/2025', '2025-05-19', '2025-06-06'),
-(10, 1, 'outro', 'Novo sistema de reserva online para viagens Lisboa-Guarda disponível no site e aplicação móvel', '2025-05-19', '2025-06-18');
-
--- --------------------------------------------------------
+(1, 1, 'promocao', 'Desconto de 25% na rota Lisboa-Guarda durante o fim de semana', CURDATE(), DATE_ADD(CURDATE(), INTERVAL 10 DAY)),
+(2, 1, 'cancelamento', 'Cancelamento do serviço Lisboa-Guarda no dia 25/05/2025 devido a greve', CURDATE(), '2025-05-26'),
+(3, 1, 'manutencao', 'Manutenção na linha férrea entre Castelo Branco e Covilhã. Possíveis atrasos na rota Lisboa-Guarda', CURDATE(), '2025-06-15'),
+(4, 1, 'alteracao_rota', 'Alteração temporária no percurso Lisboa-Guarda com paragem adicional em Abrantes', CURDATE(), '2025-07-01'),
+(5, 1, 'promocao', 'Bilhetes de ida e volta Lisboa-Guarda com 30% de desconto para estudantes', CURDATE(), '2025-06-30'),
+(6, 1, 'outro', 'Novo serviço expresso Lisboa-Guarda sem paragens intermédias disponível a partir de 01/06/2025', CURDATE(), '2025-06-02'),
+(7, 1, 'manutencao', 'Obras na estação da Guarda. Embarque e desembarque temporariamente transferidos para plataforma alternativa', CURDATE(), '2025-05-31'),
+(8, 1, 'alteracao_rota', 'Desvio temporário na rota Lisboa-Guarda devido a obras na Serra da Estrela', CURDATE(), '2025-06-20'),
+(9, 1, 'cancelamento', 'Suspensão do serviço noturno Lisboa-Guarda entre 01/06/2025 e 05/06/2025', CURDATE(), '2025-06-06'),
+(10, 1, 'outro', 'Novo sistema de reserva online para viagens Lisboa-Guarda disponível no site e aplicação móvel', CURDATE(), DATE_ADD(CURDATE(), INTERVAL 30 DAY));
 
 --
 -- Estrutura da tabela `bilhete`
@@ -174,23 +170,23 @@ INSERT INTO `utilizador` (`id_utilizador`, `nome`, `endereco`, `secretpass`, `da
 -- Estrutura da tabela `viagem`
 --
 
-CREATE TABLE IF NOT EXISTS `viagem`(
-  `id_viagem` int(255) NOT NULL,
-  `id_rota` int(11) NOT NULL,
-  `data_viagem` date NOT NULL,
-  `estado` enum('disponivel','reservado','vendido','cancelado','utilizado') NOT NULL DEFAULT 'disponivel',
-  `id_viatura` int(11) NOT NULL,
-  `hora_partida` time NOT NULL,
-  `hora_chegada` time NOT NULL,
-  `preco` decimal(10,2) NOT NULL,
-  `lugares_ocupados` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+CREATE TABLE IF NOT EXISTS `viagem` (
+  `id_viagem` INT NOT NULL,
+  `id_rota` INT NOT NULL,
+  `data_viagem` DATE NOT NULL,
+  `estado` ENUM('disponivel','reservado','vendido','cancelado','utilizado') NOT NULL DEFAULT 'disponivel',
+  `id_viatura` INT NOT NULL,
+  `hora_partida` TIME NOT NULL,
+  `hora_chegada` TIME NOT NULL,
+  `preco` DECIMAL(10,2) NOT NULL,
+  `lugares_ocupados` INT NOT NULL DEFAULT 0
+);
+-- --------------------------------------------------------
 
---
--- Extraindo dados da tabela `viagem`
---
-
-INSERT INTO `viagem` (`id_viagem`, `id_rota`, `data_viagem`, `estado`, `id_viatura`, `hora_partida`, `hora_chegada`, `preco`, `lugares_ocupados`) VALUES
+INSERT INTO `viagem` (
+  `id_viagem`, `id_rota`, `data_viagem`, `estado`, `id_viatura`,
+  `hora_partida`, `hora_chegada`, `preco`, `lugares_ocupados`
+) VALUES
 (1, 1, '2025-06-01', 'disponivel', 1, '07:00:00', '08:30:00', 12.50, 0),
 (2, 2, '2025-06-02', 'disponivel', 2, '08:15:00', '09:45:00', 11.00, 0),
 (3, 3, '2025-06-03', 'disponivel', 3, '09:30:00', '11:00:00', 13.75, 0),
@@ -202,13 +198,12 @@ INSERT INTO `viagem` (`id_viagem`, `id_rota`, `data_viagem`, `estado`, `id_viatu
 (9, 9, '2025-06-09', 'disponivel', 3, '14:30:00', '16:00:00', 12.30, 0),
 (10, 10, '2025-06-10', 'disponivel', 1, '15:45:00', '17:15:00', 17.80, 0);
 
--- --------------------------------------------------------
 
 --
 -- Estrutura da tabela `viatura`
 --
 
-CREATE TABLE IF NOT EXISTS `viatura`(
+CREATE TABLE IF NOT EXISTS `viatura` (
   `id_viatura` int(255) NOT NULL,
   `capacidade_lugares` int(11) NOT NULL DEFAULT 10,
   `matricula` varchar(12) NOT NULL
@@ -298,7 +293,7 @@ ALTER TABLE `viatura`
 -- AUTO_INCREMENT de tabela `alertas`
 --
 ALTER TABLE `alertas`
-  MODIFY `id_alerta` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_alerta` int(255) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `bilhete`
@@ -334,7 +329,7 @@ ALTER TABLE `utilizador`
 -- AUTO_INCREMENT de tabela `viagem`
 --
 ALTER TABLE `viagem`
-  MODIFY `id_viagem` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_viagem` int(255) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `viatura`
@@ -371,13 +366,12 @@ ALTER TABLE `carteira`
 ALTER TABLE `transacoes`
   ADD CONSTRAINT `transacoes_ibfk_1` FOREIGN KEY (`id_utilizador`) REFERENCES `utilizador` (`id_utilizador`),
   ADD CONSTRAINT `transacoes_ibfk_2` FOREIGN KEY (`id_bilhete`) REFERENCES `bilhete` (`id_bilhete`);
-
 --
 -- Limitadores para a tabela `viagem`
 --
-ALTER TABLE `viagem`
-  ADD CONSTRAINT `viagem_ibfk_1` FOREIGN KEY (`id_rota`) REFERENCES `rota` (`id_rota`),
-  ADD CONSTRAINT `viagem_ibfk_2` FOREIGN KEY (`id_viatura`) REFERENCES `viatura` (`id_viatura`);
+ALTER TABLE `viagem` 
+ADD CONSTRAINT `viagem_ibfk_1` FOREIGN KEY (`id_rota`) REFERENCES `rota` (`id_rota`),
+ADD CONSTRAINT `viagem_ibfk_2` FOREIGN KEY (`id_viatura`) REFERENCES `viatura` (`id_viatura`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

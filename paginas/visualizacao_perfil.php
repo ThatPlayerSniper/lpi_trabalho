@@ -10,7 +10,6 @@ if (seForAdminNR() == false && seForFunNR() == false) {
     header("Location: index.php");
     exit();
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -31,26 +30,27 @@ require_once "./nav.php";
         <div class="card">
             <div class="header">
                 <?php
-                $utilizador = (isset($_POST['vis_userID']) ? $_POST['vis_userID'] : '');
+                $user = (isset($_POST['vis_userID']) ? $_POST['vis_userID'] : '');
 
-                $utilizador = escapeString($utilizador);
+                $user = escapeString($user);
 
-                $sql = "SELECT * FROM utilizador WHERE id_utilizador = '$utilizador'";
+                $sql = "SELECT u.*, c.saldo_atual 
+                FROM utilizador u
+                INNER JOIN carteira c ON u.id_utilizador = c.id_utilizador
+                WHERE u.id_utilizador = '$user'";
                 $resultado = executarQuery($sql);
 
 
                 if ($resultado->num_rows > 0) {
                     while ($row = $resultado->fetch_assoc()) {
-                        echo "<h3>utilizador: " . $row['id_utilizador'] . "</h3>";
-                        echo "<h3>nome: " . $row['nome'] . "</h3>";
-                        echo "<h3>endereco: " . $row['endereco'] . " </h3>";
-                        echo "<h3>secretpass: " . $row['secretpass'] . "</h3>";
-                        echo "<h3>Cargo: " . $row['cargo'] . "</h3>";
-                        echo "<h3>Saldo: " . $row['saldo'] . "</h3>";
-                        echo "<form method='POST' action='editar_visu.php'>";
-                        echo "<button type='submit' name='edit_uti' value='" . $row['id_utilizador'] . "'>editar perfil</button>";
-                        echo "</form>";
-                        echo "<a class='turnWhite' href='gestao_utili.php'>Voltar atrás.</a>";
+                ?>
+                        <h3>utilizador: <?php echo htmlspecialchars($row['id_utilizador']); ?></h3>
+                        <h3>nome: <?php echo htmlspecialchars($row['nome']); ?></h3>
+                        <h3>endereco: <?php echo htmlspecialchars($row['endereco']); ?></h3>
+                        <h3>Cargo: <?php echo htmlspecialchars($row['cargo']); ?></h3>
+                        <h3>Saldo: <?php echo htmlspecialchars($row['saldo_atual']); ?></h3>
+                        <a class="turnWhite" href="gestao_utili.php">Voltar atrás.</a>
+                <?php
                     }
                 } else {
                     echo "<h3>O utilizador não foi encontrado!</h3>";
