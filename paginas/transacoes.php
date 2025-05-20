@@ -34,7 +34,7 @@ $utilizador  = getUser();
     <div class="big-box">
         <br>
         <?php
-        $sql = "SELECT * FROM transacoes WHERE id_utilizador = '" . $utilizador['id_utilizador'] . "' LIMIT 10";
+        $sql = "SELECT * FROM transacoes WHERE id_utilizador = '" . $utilizador['id_utilizador'] . "' ORDER BY data_transacao DESC LIMIT 10";
         $resultado = executarQuery($sql);
         if ($resultado->num_rows > 0) {
             while ($transacao = $resultado->fetch_assoc()) {

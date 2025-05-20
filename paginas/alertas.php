@@ -28,10 +28,10 @@ require_once "./nav.php";
     if (!empty($tipo)) {
         // filtro selecionado
         $tipo = escapeString($tipo);
-        $sql = "SELECT * FROM alertas WHERE tipo_alerta = '$tipo' ";
+        $sql = "SELECT * FROM alertas WHERE tipo_alerta = '$tipo' ORDER BY data_expira ASC ";
     } else {
         // nada selecionado
-        $sql = "SELECT * FROM alertas";
+        $sql = "SELECT * FROM alertas ORDER BY data_expira ASC";
     }
     $resultado = executarQuery($sql);
 
@@ -79,7 +79,7 @@ require_once "./nav.php";
                 $sql = "SELECT * FROM alertas WHERE tipo_alerta = '$tipo' ORDER BY data_expira ASC";
             } else {
                 // nada selecionado
-                $sql = "SELECT * FROM alertas";
+                $sql = "SELECT * FROM alertas ORDER BY data_expira ASC";
             }
             $resultado = executarQuery($sql);
             if ($resultado->num_rows > 0) {
