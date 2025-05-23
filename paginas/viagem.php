@@ -14,7 +14,7 @@ if (session_status() == PHP_SESSION_NONE) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="alertas.css">
+    <link rel="stylesheet" href="viagem.css">
 </head>
 <?php
 require_once "./nav.php";
@@ -22,8 +22,8 @@ require_once "./nav.php";
 
 <body>
     <div class="big-box">
-        <div>
-            <div>
+        <div class="container">
+            <div class="right-container ">
                 <h1>Viagens</h1>
                 <?php
                 $utilizador  = getUser();
@@ -49,42 +49,46 @@ require_once "./nav.php";
                             while ($row2 = $result->fetch_assoc()) {
 
                         ?>
-                            <div class="note-card">
+                                <div class="note-card">
                                     <div class="note-header" style="display: flex; align-items: center; gap: 10px;">
-                                <h3>Data <?= htmlspecialchars($row2["data_viagem"]) ?></h3>
-                            </div>
-                            <div class="note-body">
-                                <h3>Hora da Partida: <?= htmlspecialchars($row2["hora_partida"]) ?></h3>
-                                <h3>Hora da Chegada: <?= htmlspecialchars($row2["hora_chegada"]) ?></h3>
-                                <h3>Distancia: <?= htmlspecialchars($row['distancia'])?>km</h3>
-                                <?php 
+                                        <h3>Data <?= htmlspecialchars($row2["data_viagem"]) ?></h3>
+                                    </div>
+                                    <div class="note-body">
+                                        <h3>Hora da Partida: <?= htmlspecialchars($row2["hora_partida"]) ?></h3>
+                                        <h3>Hora da Chegada: <?= htmlspecialchars($row2["hora_chegada"]) ?></h3>
+                                        <h3>Distancia: <?= htmlspecialchars($row['distancia']) ?>km</h3>
+                                        <?php
 
-                                $sql = "SELECT * FROM viatura WHERE id_viatura = '" . htmlspecialchars($row2["id_viatura"]) . "'";
-                                $result2 = executarQuery($sql);
-                                if ($result2 && $result2->num_rows > 0) {
-                                    $row3 = $result2->fetch_assoc();
-                                ?>
-                                <h3>Lugares disponíveis: <?= htmlspecialchars($row2['lugares_ocupados'])?> / <?= htmlspecialchars($row3['capacidade_lugares']) ?></h3>
-                                <?php
-                                } else {
-                                    echo "<p>Nenhum autocarro encontrado.</p>";
-                                }
-                                ?>
-                            </div>
-                            <div class="note-footer">
-                                <div style="display: flex; align-items: center; gap: 10px;">
-                                    <h3>Preço: <?= htmlspecialchars($row2["preco"]) ?>€</h3>
-                                    <form method="POST" action="reserva.php">
-                                        <button type="submit" name="comprar" class="btn">Comprar</button>
-                                    </form>
-                                    <?php 
-                                        
-
-                                    ?>
+                                        $sql = "SELECT * FROM viatura WHERE id_viatura = '" . htmlspecialchars($row2["id_viatura"]) . "'";
+                                        $result2 = executarQuery($sql);
+                                        if ($result2 && $result2->num_rows > 0) {
+                                            $row3 = $result2->fetch_assoc();
+                                        ?>
+                                            <h3>Lugares disponíveis: <?= htmlspecialchars($row2['lugares_ocupados']) ?> / <?= htmlspecialchars($row3['capacidade_lugares']) ?></h3>
+                                        <?php
+                                        } else {
+                                            echo "<p>Nenhum autocarro encontrado.</p>";
+                                        }
+                                        ?>
+                                    </div>
+                                    <div class="note-footer">
+                                        <div style="display: flex; align-items: center; gap: 10px;">
+                                            <h3>Preço: <?= htmlspecialchars($row2["preco"]) ?>€</h3>
+                                            <form method="POST" action="reserva.php">
+                                                <?php if ($row2['lugares_ocupados'] < $row3['capacidade_lugares']) { ?>
+                                                    <input type="hidden" name="id_viagem" value="<?= htmlspecialchars($row2["id_viagem"]) ?>">
+                                                    <button type="submit" name="comprar" class="btn">Comprar</button>
+                                                <?php } else {
+                                                    echo "<p>Viagem cheia</p>";
+                                                } ?>
+                                            </form>
+                                            <?php
+                                            
+                                            ?>
+                                        </div>
+                                    </div>
+                                
                                 </div>
-                            </div>
-                            <br>
-                        </div>
                         <?php
                             }
                         } else {

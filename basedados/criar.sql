@@ -66,6 +66,7 @@ CREATE TABLE IF NOT EXISTS `bilhete` (
   `id_bilhete` int(255) NOT NULL,
   `nome_cliente` varchar(255) NOT NULL,
   `data_compra` datetime NOT NULL DEFAULT current_timestamp(),
+  `id_rota` int(255) NOT NULL,
   `id_viagem` int(255) NOT NULL,
   `id_utilizador` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -245,7 +246,8 @@ ALTER TABLE `alertas`
 ALTER TABLE `bilhete`
   ADD PRIMARY KEY (`id_bilhete`),
   ADD KEY `id_utilizador` (`id_utilizador`),
-  ADD KEY `id_viagem` (`id_viagem`);
+  ADD KEY `id_viagem` (`id_viagem`),
+  ADD KEY `id_rota` (`id_rota`);
 
 --
 -- Índices para tabela `carteira`

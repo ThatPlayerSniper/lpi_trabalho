@@ -1,32 +1,10 @@
-
 .big-box {
   margin: 10px; 
 
 }
 
-.small-box {
-  width: fit-content;
-  height: fit-content;
-  background-color: #57aa3a;
-  border: 2px solid #333;
-  border-radius: 8px;
-  padding: 20px;
-  margin: 20px;  
-}
-
 .container {
   width: 100%;
-}
-
-.left-container {
-  background-color: #f0f0f0;
-  border-right: 1px solid #ccc;
-  justify-content: center;
-  display: flex;
-}
-
-.right-container {
-  background-color: #e0e0e0;
 }
 
 .note-card {
