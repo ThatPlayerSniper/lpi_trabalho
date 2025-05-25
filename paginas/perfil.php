@@ -43,7 +43,9 @@ $utilizador  = getUser();
                     ?>
                     <h3>Saldo: <span><?= $utilizador['saldo_atual'] ?></span></h3>
             </div>
-            <button class="btn" onclick="window.location.href='perfilEditar.php'">Editar Perfil</button>
+            <button class="btn" onclick="window.location.href='perfilEditar.php'">Editar Perfil</button><br>
+            <button class="btn" onclick="window.location.href='transacoes.php'">Transacões</button>
+            <button class="btn" onclick="window.location.href='bilhetes.php'">Bilhetes</button>
         </div>
     </div>
     
