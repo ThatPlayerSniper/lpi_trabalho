@@ -86,13 +86,24 @@ require_once "./nav.php";
                                         <div style="display: flex; align-items: center; gap: 10px;">
                                             <h3>Preço: <?= htmlspecialchars($row2["preco"]) ?>€</h3>
                                             <form method="POST" action="criarbilhete.php">
-                                                <?php if ($row2['lugares_ocupados'] < $row2['capacidade_lugares']) { ?>
+                                                <?php 
+                                                if (
+                                                    ($row2['lugares_ocupados'] < $row2['capacidade_lugares']) && 
+                                                    (seForAdminNR() || seForFunNR() || seForClienteNR())
+                                                ) { 
+                                                ?>
                                                     <input type="hidden" name="id_viagem" value="<?= htmlspecialchars($row2["id_viagem"]) ?>">
                                                     <input type="hidden" name="rota" value="<?= $id_rota ?>">
                                                     <button type="submit" name="comprar" class="btn">Comprar</button>
-                                                <?php } else {
+                                                <?php 
+                                                } else if ($row2['lugares_ocupados'] >= $row2['capacidade_lugares']) {
                                                     echo "<p>Viagem cheia</p>";
-                                                } ?>
+                                                } 
+                                                else {
+                                                    echo "<p>Não tem permissão para comprar bilhetes</p>";
+                                                }
+
+                                                ?>
                                             </form>
                                         </div>
                                     </div>
