@@ -62,11 +62,10 @@ $utilizador  = getUser();
                     <div class='note-body'>
                         <p>Viagem: <?= htmlspecialchars($row['origem']) ?> --&gt; <?= htmlspecialchars($row['destino']) ?></p>
                         <p>Preço: <?= number_format($row['preco'], 2, ',', '.') ?>€</p>
-                        <p>Partida <?= htmlspecialchars($row['hora_partida']) ?> minutos</p>
-                        <p>Chegada <?= htmlspecialchars($row['hora_partida']) ?> minutos</p>
+                        <p>Partida <?= htmlspecialchars($row['hora_partida']) ?> </p>
+                        <p>Chegada <?= htmlspecialchars($row['hora_partida']) ?> </p>
                         <p>Distância: <?= htmlspecialchars($row['distancia']) ?> km</p>
                         <p>Estado: <?=htmlspecialchars($row['estado_bilhete']) ?></p>
-                        <p>Matricula</p>
                     </div>
                     <div class='note-footer'>
                         <span>

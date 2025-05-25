@@ -48,6 +48,20 @@ require_once "./nav.php";
                             <h2 style="margin: 0;">--></h2>
                             <h2 style="margin: 0;"><?= htmlspecialchars($row["destino"]) ?></h2>
                         </div>
+                        <div>
+                            <?php
+                            if (seForAdminNR()) {
+                                // Debug output - remove this after testing
+                                echo "<!-- User is admin -->";
+                            ?>
+                                <form method="POST" action="criarViagem.php">
+                                    <input type="hidden" name="rota" value="<?= htmlspecialchars($id_rota) ?>">
+                                    <button type="submit" class="btn">Criar Viagens</button>
+                                </form>
+                            <?php
+                            }
+                            ?>
+                        </div>
                         <h2>Viagens disponíveis:</h2>
                         <?php
                         $sql = "SELECT v.*, vt.capacidade_lugares 
