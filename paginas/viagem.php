@@ -94,6 +94,10 @@ require_once "./nav.php";
                                                 ?>
                                                     <input type="hidden" name="id_viagem" value="<?= htmlspecialchars($row2["id_viagem"]) ?>">
                                                     <input type="hidden" name="rota" value="<?= $id_rota ?>">
+                                                    <?php if(seForFunNR() || seForAdminNR()) { ?>
+                                                    <label for="id_utilizador">ID do Utilizador:</label>
+                                                    <input type="text" name="id_utilizador">
+                                                    <?php } ?>
                                                     <button type="submit" name="comprar" class="btn">Comprar</button>
                                                 <?php 
                                                 } else if ($row2['lugares_ocupados'] >= $row2['capacidade_lugares']) {
@@ -116,13 +120,9 @@ require_once "./nav.php";
                         ?>
                     <?php
                     }
-                } else {
-                    echo "<p>Nenhuma viagem encontrada.</p>";
+                } 
                     ?>
                     <button class="btn" onclick="window.location.href='rota.php'">Voltar Atrás</button>
-                <?php
-                }
-                ?>
             </div>
         </div>
     </div>

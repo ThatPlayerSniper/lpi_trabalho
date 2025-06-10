@@ -48,7 +48,7 @@ $utilizador  = getUser();
         FROM bilhete b
         INNER JOIN viagem v ON b.id_viagem = v.id_viagem
         INNER JOIN rota r ON b.id_rota = r.id_rota
-        WHERE b.id_utilizador = " . (int)$utilizador['id_utilizador'] . " AND b.estado_bilhete = 'ativo'
+        WHERE b.id_utilizador = " . (int)$utilizador['id_utilizador'] . " AND b.estado_bilhete = 'desativado'
         ORDER BY b.data_compra ASC 
         LIMIT 10";
         $resultado = executarQuery($sql);

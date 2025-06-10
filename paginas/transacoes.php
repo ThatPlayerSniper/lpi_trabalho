@@ -57,7 +57,7 @@ $utilizador  = getUser();
         <?php
             }
         } else {
-            echo "<p>Nenhum alerta encontrado.</p>";
+            echo "<p>Nenhuma tranasação encontrado.</p>";
         }
         ?>
     </div>
