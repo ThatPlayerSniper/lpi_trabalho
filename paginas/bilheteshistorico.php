@@ -29,7 +29,7 @@ $utilizador  = getUser();
 
 <body>
     <div style="text-align: center;">
-        <h1>Transações de <?= $utilizador['nome'] ?></h1>
+        <h1>Histórico de bilhetes de <?= $utilizador['nome'] ?></h1>
     </div>
     <div class="big-box">
         <br>
@@ -77,7 +77,7 @@ $utilizador  = getUser();
         <?php
             }
         } else {
-            echo "<p>Nenhum alerta encontrado.</p>";
+            echo "<p>Nenhum bilhete encontrado.</p>";
         }
         ?>
     </div>

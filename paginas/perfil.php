@@ -46,7 +46,7 @@ $utilizador  = getUser();
             <button class="btn" onclick="window.location.href='perfilEditar.php'">Editar Perfil</button><br>
             <button class="btn" onclick="window.location.href='transacoes.php'">Transacões</button>
             <button class="btn" onclick="window.location.href='bilhetes.php'">Bilhetes ativos</button>
-            <button class="btn" onclick="window.location.href='index.php'">historico bilhetes</button>
+            <button class="btn" onclick="window.location.href='bilheteshistorico.php'">historico bilhetes</button>
         </div>
     </div>
     
