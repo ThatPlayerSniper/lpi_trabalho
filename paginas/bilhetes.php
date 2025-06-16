@@ -37,8 +37,7 @@ $utilizador  = getUser();
 
 <body>
     <div style="text-align: center;">
-        <!-- Título com o nome do utilizador -->
-        <h1>Transações de <?= $utilizador['nome'] ?></h1>
+        <h1>Bilhetes ativos de <?= $utilizador['nome'] ?></h1>
     </div>
     <div class="big-box">
         <br>

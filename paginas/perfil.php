@@ -62,8 +62,7 @@ $utilizador  = getUser();
             <button class="btn" onclick="window.location.href='transacoes.php'">Transacões</button>
             <!-- Botão para ver bilhetes ativos -->
             <button class="btn" onclick="window.location.href='bilhetes.php'">Bilhetes ativos</button>
-            <!-- Botão para ver o histórico de bilhetes -->
-            <button class="btn" onclick="window.location.href='index.php'">historico bilhetes</button>
+            <button class="btn" onclick="window.location.href='bilheteshistorico.php'">historico bilhetes</button>
         </div>
     </div>
     

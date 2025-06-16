@@ -165,11 +165,9 @@ CREATE TABLE IF NOT EXISTS `utilizador` (
 
 INSERT INTO `utilizador` (`id_utilizador`, `nome`, `endereco`, `secretpass`, `data_registo`, `cargo`, `estado_conta`) VALUES
 (1, 'FelixBus', 'felixbus@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-01-01', 'admin', 'registado'),
-(2, 'MariaJr', 'maria.santos@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-05-16', 'funcionario', 'registado'),
-(3, 'CarlosYay', 'carlos.oliveira@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-04-20', 'cliente', 'registado'),
-(4, 'Aninha', 'ana.costa@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-02-04', 'cliente', 'registado'),
-(5, 'PedroJo', 'pedro.alves@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-03-03', 'cliente', 'registado');
-
+(2, 'funcionario', 'funcionario@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-05-16', 'funcionario', 'registado'),
+(3, 'cliente', 'cliente@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-04-20', 'cliente', 'registado'),
+(4, 'admin', 'admin@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-02-04', 'admin', 'registado');
 -- --------------------------------------------------------
 
 --
