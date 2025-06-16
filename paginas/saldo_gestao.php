@@ -6,6 +6,10 @@ require_once "./auth.php";
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+if (seForAdminNR() == false && seForFunNR() == false && seForClienteNR() == false) {
+    header("Location: index.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>

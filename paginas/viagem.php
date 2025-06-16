@@ -1,5 +1,7 @@
 <?php
+// Inclui o ficheiro de ligação à base de dados
 require_once '../basedados/basedados.h';
+// Inclui o ficheiro de autenticação
 require_once "./auth.php";
 // Verifica se já têm uma sessão iniciada caso não tenho cria uma
 if (session_status() == PHP_SESSION_NONE) {
@@ -13,10 +15,13 @@ if (session_status() == PHP_SESSION_NONE) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Fonte personalizada do Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Ficheiro de estilos CSS -->
     <link rel="stylesheet" href="viagem.css">
 </head>
 <?php
+// Inclui a barra de navegação
 require_once "./nav.php";
 ?>
 
@@ -26,7 +31,9 @@ require_once "./nav.php";
             <div class="right-container">
                 <h1>Viagens</h1>
                 <?php
+                // Obtém o utilizador autenticado
                 $utilizador = getUser();
+                // Obtém o id da rota a partir do POST, se existir
                 $id_rota = isset($_POST['rota']) ? $_POST['rota'] : '';
 
                 // Exibir mensagens de sucesso/erro se existirem
@@ -37,9 +44,11 @@ require_once "./nav.php";
                     echo "<div class='alert error'>" . htmlspecialchars($_GET['error']) . "</div>";
                 }
 
+                // Query para obter a rota selecionada
                 $sql = "SELECT * FROM rota WHERE id_rota = '$id_rota'";
                 $result = executarQuery($sql);
 
+                // Verifica se encontrou a rota
                 if ($result && $result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
                 ?>
@@ -50,6 +59,7 @@ require_once "./nav.php";
                         </div>
                         <div>
                             <?php
+                            // Se o utilizador for admin, mostra o botão para criar viagens
                             if (seForAdminNR()) {
                                 // Debug output - remove this after testing
                                 echo "<!-- User is admin -->";
@@ -64,11 +74,13 @@ require_once "./nav.php";
                         </div>
                         <h2>Viagens disponíveis:</h2>
                         <?php
+                        // Query para obter as viagens disponíveis para a rota selecionada
                         $sql = "SELECT v.*, vt.capacidade_lugares 
                                 FROM viagem v 
                                 JOIN viatura vt ON v.id_viatura = vt.id_viatura 
                                 WHERE v.id_rota = '$id_rota'";
                         $result = executarQuery($sql);
+                        // Verifica se existem viagens para a rota
                         if ($result && $result->num_rows > 0) {
                             while ($row2 = $result->fetch_assoc()) {
                         ?>
@@ -87,6 +99,7 @@ require_once "./nav.php";
                                             <h3>Preço: <?= htmlspecialchars($row2["preco"]) ?>€</h3>
                                             <form method="POST" action="criarbilhete.php">
                                                 <?php 
+                                                // Verifica se há lugares disponíveis e se o utilizador tem permissão para comprar bilhetes
                                                 if (
                                                     ($row2['lugares_ocupados'] < $row2['capacidade_lugares']) && 
                                                     (seForAdminNR() || seForFunNR() || seForClienteNR())
@@ -94,15 +107,19 @@ require_once "./nav.php";
                                                 ?>
                                                     <input type="hidden" name="id_viagem" value="<?= htmlspecialchars($row2["id_viagem"]) ?>">
                                                     <input type="hidden" name="rota" value="<?= $id_rota ?>">
-                                                    <?php if(seForFunNR() || seForAdminNR()) { ?>
+                                                    <?php 
+                                                    // Se for funcionário ou admin, permite indicar o ID do utilizador
+                                                    if(seForFunNR() || seForAdminNR()) { ?>
                                                     <label for="id_utilizador">ID do Utilizador:</label>
                                                     <input type="text" name="id_utilizador">
                                                     <?php } ?>
                                                     <button type="submit" name="comprar" class="btn">Comprar</button>
                                                 <?php 
+                                                // Caso a viagem esteja cheia
                                                 } else if ($row2['lugares_ocupados'] >= $row2['capacidade_lugares']) {
                                                     echo "<p>Viagem cheia</p>";
                                                 } 
+                                                // Caso o utilizador não tenha permissão
                                                 else {
                                                     echo "<p>Não tem permissão para comprar bilhetes</p>";
                                                 }
@@ -115,6 +132,7 @@ require_once "./nav.php";
                         <?php
                             }
                         } else {
+                            // Mensagem caso não existam viagens para a rota
                             echo "<p>Nenhuma viagem encontrada.</p>";
                         }
                         ?>
@@ -122,6 +140,7 @@ require_once "./nav.php";
                     }
                 } 
                     ?>
+                    <!-- Botão para voltar à página de rotas -->
                     <button class="btn" onclick="window.location.href='rota.php'">Voltar Atrás</button>
             </div>
         </div>

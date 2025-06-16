@@ -1,9 +1,13 @@
 <?php
+// Inclui o ficheiro de ligação à base de dados
 require_once '../basedados/basedados.h';
+// Inclui o ficheiro de autenticação
 require_once "./auth.php";
+// Verifica se já existe uma sessão iniciada, caso não, inicia uma nova sessão
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+// Garante que apenas administradores podem aceder a esta página
 seNaoAdmin();
 ?>
 <!DOCTYPE html>
@@ -12,10 +16,13 @@ seNaoAdmin();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Fonte personalizada do Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Ficheiro de estilos CSS para a página de criação de alertas -->
     <link rel="stylesheet" href="criaAlerta.css">
 </head>
 <?php
+// Inclui a barra de navegação
 require_once "./nav.php";
 ?>
 
@@ -26,26 +33,32 @@ require_once "./nav.php";
                 <h1 class="turnWhite">Criação de Alertas</h1>
                 <?php
 
+                // Verifica se os campos obrigatórios estão vazios e mostra uma mensagem de aviso
                 if (empty($_POST["tipo"]) || empty($_POST["descricao"])) {
                     echo '<label class="turnWhite">Existem campos por preecher</label>';
                 }
+                // Se os campos obrigatórios estiverem definidos, processa o formulário
                 if (isset($_POST["tipo"]) && isset($_POST["descricao"])) {
 
+                    // Obtém os valores do formulário ou define como string vazia se não existir
                     $tipo = $_POST["tipo"] ? $_POST['tipo'] : '';
                     $descricao = $_POST["descricao"] ? $_POST['descricao'] : '';
                     $data_fim = $_POST["data_fim"] ? $_POST['data_fim'] : '';
+                    // Obtém o id do utilizador da sessão
                     $utilizador =  $_SESSION['user_id'];
 
+                    // Escapa as strings para evitar SQL Injection
                     $tipo = escapeString($tipo);
                     $descricao = escapeString($descricao);
                     $data_fim = escapeString($data_fim);
 
-
+                    // Query para inserir o alerta na base de dados
                     $sql = "INSERT INTO alertas(id_utilizador, tipo_alerta, descricao, data_expira) VALUES ('$utilizador','$tipo', '$descricao','$data_fim')";
                     $resultado = executarQuery($sql);
                 }
 
                 ?>
+                <!-- Formulário para criação de alerta -->
                 <form method="POST">
                     <div class="input-container">
                         <label class="Letras">Tipo de Alerta:</label>

@@ -175,10 +175,6 @@ function registarUti($nome, $endereco, $secretpass)
         $sql = "INSERT INTO utilizador (nome, endereco, secretpass )
                 VALUES ('$nome', '$endereco', '$pass' )";
 
-        //Executa a Query
-        $sql = "INSERT INTO utilizador (nome, endereco, secretpass)
-                VALUES ('$nome', '$endereco', '$pass')";
-
         $resultado = executarQuery($sql);
         $sql = "SELECT * FROM utilizador WHERE nome = '$nome' 
             AND endereco = '$endereco'";

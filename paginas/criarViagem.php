@@ -1,10 +1,14 @@
 <?php
+// Inclusão do ficheiro de ligação à base de dados
 require_once '../basedados/basedados.h';
+// Inclusão do ficheiro de autenticação
 require_once "./auth.php";
+// Iniciar sessão se ainda não estiver iniciada
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+// Verifica se o utilizador é admin, caso contrário redireciona
 seNaoAdmin();
 ?>
 
@@ -15,10 +19,13 @@ seNaoAdmin();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Fonte personalizada -->
     <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Ficheiro de estilos -->
     <link rel="stylesheet" href="criaRota.css">
 </head>
 <?php
+// Inclusão da barra de navegação
 require_once "./nav.php";
 ?>
 
@@ -30,31 +37,40 @@ require_once "./nav.php";
 
                 <form method="POST">
                     <div class="input-container">
+                        <!-- Campo para data da viagem -->
                         <label class="Letras">Data da Viagem:</label>
                         <input class="input-field" type="date" name="data_viagem" required><br>
+                        <!-- Campo para hora de partida -->
                         <label class="Letras">Hora de Partida:</label>
                         <input class="input-field" type="time" name="hora_partida" required><br>
+                        <!-- Campo para hora de chegada -->
                         <label class="Letras">Hora de Chegada:</label>
                         <input class="input-field" type="time" name="hora_chegada" required><br>
+                        <!-- Campo para preço -->
                         <label class="Letras">Preço:</label>
                         <input class="input-field" type="number" name="preco" step="0.01" placeholder="0.00" required><br>
+                        <!-- Seleção de veículo -->
                         <label class="Letras">Veículo:</label>
                         <select class="input-field" name="veiculo_id">
                             <?php
                             // Buscar veículos disponíveis da base de dados
                             $veiculos = executarQuery("SELECT * FROM viatura");
                             while ($veiculo = mysqli_fetch_assoc($veiculos)) {
+                                // Adiciona cada veículo como opção no select
                                 echo '<option class="turnBlack" value="' . htmlspecialchars($veiculo['id_viatura']) . '">' . htmlspecialchars($veiculo['matricula']) . '</option>';
                             }
                             ?>
                         </select><br>
                     </div>
+                    <!-- Botão de submissão do formulário -->
                     <input class="input-submit" type="submit" value="Submeter"><br><br>
+                    <!-- Link para voltar atrás -->
                     <a class="turnWhite" href="rota.php">Voltar atrás</a>
 
                 </form>
 
                 <?php
+                // Verifica se o formulário foi submetido e se todos os campos necessários estão presentes
                 if (
                     $_SERVER["REQUEST_METHOD"] == "POST" &&
                     isset($_POST["veiculo_id"]) &&
@@ -64,21 +80,22 @@ require_once "./nav.php";
                     isset($_POST["preco"])
                 ) {
 
+                    // Recolhe os dados do formulário
                     $id_viatura = intval($_POST['veiculo_id']);
                     $data_Viagem = $_POST['data_viagem'];
                     $hora_partida = $_POST['hora_partida'];
                     $hora_chegada = $_POST['hora_chegada'];
                     $preco = floatval($_POST['preco']);
+                    $id_rota = $_POST['id_rota'];
 
-                    // You need to get the rota_id from somewhere - maybe add it as a hidden field or select in your form
-                    // For now I'll assume it's 1, but you should modify this
-                    $id_rota = 1;
-
+                    // Query para inserir nova viagem na base de dados
                     $sql = "INSERT INTO viagem (data_viagem, hora_partida, hora_chegada, preco, id_viatura, id_rota) 
             VALUES ('$data_Viagem', '$hora_partida', '$hora_chegada', $preco, $id_viatura, $id_rota)";
 
+                    // Executa a query
                     $resultado = executarQuery($sql);
 
+                    // Mensagem de sucesso ou erro
                     if ($resultado) {
                         echo "<p class='success-message'>Viagem criada com sucesso!</p>";
                     } else {

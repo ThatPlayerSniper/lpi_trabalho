@@ -1,11 +1,15 @@
 <?php
 
+// Inclui o ficheiro de ligação à base de dados
 require_once "../basedados/basedados.h";
+// Inclui o ficheiro de autenticação
 require_once "./auth.php";
+// Inicia a sessão se ainda não estiver iniciada
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
+// Verifica se o utilizador é admin ou funcionário, caso contrário redireciona para o index
 if (seForAdminNR() == false && seForFunNR() == false) {
     header("Location: index.php");
     exit();
@@ -18,10 +22,13 @@ if (seForAdminNR() == false && seForFunNR() == false) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Fonte personalizada do Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Ficheiro de estilos CSS -->
     <link rel="stylesheet" href="visu_perfil.css">
 </head>
 <?php
+// Inclui a barra de navegação
 require_once "./nav.php";
 ?>
 
@@ -30,18 +37,22 @@ require_once "./nav.php";
         <div class="card">
             <div class="header">
                 <?php
+                // Obtém o ID do utilizador a visualizar a partir do POST
                 $user = (isset($_POST['vis_userID']) ? $_POST['vis_userID'] : '');
 
+                // Escapa o ID do utilizador para evitar SQL Injection
                 $user = escapeString($user);
 
+                // Query para obter os dados do utilizador e o saldo da carteira
                 $sql = "SELECT u.*, c.saldo_atual 
                 FROM utilizador u
                 INNER JOIN carteira c ON u.id_utilizador = c.id_utilizador
                 WHERE u.id_utilizador = '$user'";
                 $resultado = executarQuery($sql);
 
-
+                // Verifica se encontrou resultados
                 if ($resultado->num_rows > 0) {
+                    // Mostra os dados do utilizador
                     while ($row = $resultado->fetch_assoc()) {
                 ?>
                         <h3>utilizador: <?php echo htmlspecialchars($row['id_utilizador']); ?></h3>
@@ -53,6 +64,7 @@ require_once "./nav.php";
                 <?php
                     }
                 } else {
+                    // Mensagem caso o utilizador não seja encontrado
                     echo "<h3>O utilizador não foi encontrado!</h3>";
                 }
 
