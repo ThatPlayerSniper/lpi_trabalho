@@ -45,7 +45,10 @@ INSERT INTO `utilizador` (`id_utilizador`, `nome`, `endereco`, `secretpass`, `da
 (2, 'funcionario', 'maria.santos@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-05-16', 'funcionario', 'registado'),
 (3, 'CarlosYay', 'carlos.oliveira@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-04-20', 'cliente', 'registado'),
 (4, 'Aninha', 'ana.costa@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-02-04', 'cliente', 'registado'),
-(5, 'PedroJo', 'pedro.alves@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-03-03', 'cliente', 'registado');
+(5, 'PedroJo', 'pedro.alves@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-03-03', 'cliente', 'registado'),
+(6, 'cliente', 'cliente@email.com', 'a60b85d409a01d46023f90741e01b79543a3cb1ba048eaefbe5d7a63638043bf', '2025-03-03', 'cliente', 'registado'),
+(7, 'funcionario', 'funcionario@email.com', '24d96a103e8552cb162117e5b94b1ead596b9c0a94f73bc47f7d244d279cacf2', '2025-03-03', 'funcionario', 'registado'),
+(8, 'admin', 'admin@email.com', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '2025-03-03', 'admin', 'registado');
 
 -- --------------------------------------------------------
 

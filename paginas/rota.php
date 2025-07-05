@@ -99,6 +99,17 @@ require_once "./nav.php";
                                         <button type="submit" class="route-button" name="rota" value="<?= htmlspecialchars($row["id_rota"]) ?>">Viagens</button>
                                     </td>
                                 </form>
+                                <!-- Formulário para editar rota-->
+                                <?php
+                                if (seForAdminNR() == true) {
+                                ?>
+                                <form method="GET" action="editaRota.php">
+                                    <input type="hidden" name="editarRota" value="<?= htmlspecialchars($row['id_rota']) ?>">
+                                    <td>
+                                        <button type="submit" class="route-button" name="id" value="<?= htmlspecialchars($row["id_rota"]) ?>">Editar Rota</button>                                    
+                                    </td>
+                                </form>
+                                <?php } ?>
                             </tr>
                             <?php
                         }
