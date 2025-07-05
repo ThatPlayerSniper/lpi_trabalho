@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 19-Maio-2025 às 19:06
+-- Tempo de geração: 05-Jul-2025 às 16:25
 -- Versão do servidor: 10.4.32-MariaDB
 -- versão do PHP: 8.2.12
 
@@ -20,10 +20,32 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `felixbusdb`
 --
+-- --------------------------------------------------------
 
-CREATE DATABASE IF NOT EXISTS `felixbusdb`;
+--
+-- Estrutura da tabela `utilizador`
+--
 
-USE `felixbusdb`;
+CREATE TABLE `utilizador` (
+  `id_utilizador` int(255) NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `endereco` varchar(255) NOT NULL,
+  `secretpass` varchar(256) NOT NULL,
+  `data_registo` date NOT NULL DEFAULT curdate(),
+  `cargo` enum('cliente','funcionario','admin') DEFAULT 'cliente',
+  `estado_conta` enum('pendente','registado','rejeitado') DEFAULT 'pendente'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Extraindo dados da tabela `utilizador`
+--
+
+INSERT INTO `utilizador` (`id_utilizador`, `nome`, `endereco`, `secretpass`, `data_registo`, `cargo`, `estado_conta`) VALUES
+(1, 'FelixBus', 'felixbus@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-01-01', 'admin', 'registado'),
+(2, 'funcionario', 'maria.santos@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-05-16', 'funcionario', 'registado'),
+(3, 'CarlosYay', 'carlos.oliveira@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-04-20', 'cliente', 'registado'),
+(4, 'Aninha', 'ana.costa@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-02-04', 'cliente', 'registado'),
+(5, 'PedroJo', 'pedro.alves@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-03-03', 'cliente', 'registado');
 
 -- --------------------------------------------------------
 
@@ -31,7 +53,7 @@ USE `felixbusdb`;
 -- Estrutura da tabela `alertas`
 --
 
-CREATE TABLE IF NOT EXISTS `alertas` (
+CREATE TABLE `alertas` (
   `id_alerta` int(255) NOT NULL,
   `id_utilizador` int(255) NOT NULL,
   `tipo_alerta` enum('promocao','cancelamento','manutencao','alteracao_rota','outro') NOT NULL,
@@ -54,7 +76,8 @@ INSERT INTO `alertas` (`id_alerta`, `id_utilizador`, `tipo_alerta`, `descricao`,
 (7, 1, 'manutencao', 'Obras na estação da Guarda. Embarque e desembarque temporariamente transferidos para plataforma alternativa', '2025-05-19', '2025-05-31'),
 (8, 1, 'alteracao_rota', 'Desvio temporário na rota Lisboa-Guarda devido a obras na Serra da Estrela', '2025-05-19', '2025-06-20'),
 (9, 1, 'cancelamento', 'Suspensão do serviço noturno Lisboa-Guarda entre 01/06/2025 e 05/06/2025', '2025-05-19', '2025-06-06'),
-(10, 1, 'outro', 'Novo sistema de reserva online para viagens Lisboa-Guarda disponível no site e aplicação móvel', '2025-05-19', '2025-06-18');
+(10, 1, 'outro', 'Novo sistema de reserva online para viagens Lisboa-Guarda disponível no site e aplicação móvel', '2025-05-19', '2025-06-18'),
+(11, 1, 'promocao', 'Dia de S.Valentim!! Desconto de 10% na compra de 2 bilhetes, pertinente a bilhetes entre 8 e 15 de fevereiro.', '2025-06-11', '2026-02-15');
 
 -- --------------------------------------------------------
 
@@ -62,7 +85,7 @@ INSERT INTO `alertas` (`id_alerta`, `id_utilizador`, `tipo_alerta`, `descricao`,
 -- Estrutura da tabela `bilhete`
 --
 
-CREATE TABLE IF NOT EXISTS `bilhete` (
+CREATE TABLE `bilhete` (
   `id_bilhete` int(255) NOT NULL,
   `nome_cliente` varchar(255) NOT NULL,
   `data_compra` datetime NOT NULL DEFAULT current_timestamp(),
@@ -72,13 +95,24 @@ CREATE TABLE IF NOT EXISTS `bilhete` (
   `id_utilizador` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Extraindo dados da tabela `bilhete`
+--
+
+INSERT INTO `bilhete` (`id_bilhete`, `nome_cliente`, `data_compra`, `estado_bilhete`, `id_rota`, `id_viagem`, `id_utilizador`) VALUES
+(1, 'CarlosYay', '2025-05-25 14:33:52', 'ativo', 1, 1, 3),
+(2, 'FelixBus', '2025-05-25 16:31:44', 'ativo', 1, 1, 1),
+(3, 'MariaJr', '2025-05-25 16:53:51', 'ativo', 1, 1, 2),
+(4, 'CarlosYay', '2025-05-25 16:55:18', 'ativo', 1, 1, 3),
+(5, 'CarlosYay', '2025-06-12 22:10:41', 'ativo', 1, 1, 3);
+
 -- --------------------------------------------------------
 
 --
 -- Estrutura da tabela `carteira`
 --
 
-CREATE TABLE IF NOT EXISTS`carteira` (
+CREATE TABLE `carteira` (
   `id_carteira` int(255) NOT NULL,
   `id_utilizador` int(255) NOT NULL,
   `saldo_atual` decimal(10,2) NOT NULL DEFAULT 0.00
@@ -89,9 +123,9 @@ CREATE TABLE IF NOT EXISTS`carteira` (
 --
 
 INSERT INTO `carteira` (`id_carteira`, `id_utilizador`, `saldo_atual`) VALUES
-(1, 1, 3000.00),
-(2, 2, 500.00),
-(3, 3, 0.00),
+(1, 1, 3091.00),
+(2, 2, 487.50),
+(3, 3, 3.50),
 (4, 4, 0.00),
 (5, 5, 0.00);
 
@@ -101,7 +135,7 @@ INSERT INTO `carteira` (`id_carteira`, `id_utilizador`, `saldo_atual`) VALUES
 -- Estrutura da tabela `rota`
 --
 
-CREATE TABLE IF NOT EXISTS `rota` (
+CREATE TABLE `rota` (
   `id_rota` int(255) NOT NULL,
   `origem` varchar(255) NOT NULL,
   `destino` varchar(255) NOT NULL,
@@ -123,7 +157,8 @@ INSERT INTO `rota` (`id_rota`, `origem`, `destino`, `tempo_viagem`, `distancia`)
 (7, 'Coimbra', 'Aveiro', '00:45:00', 66.00),
 (8, 'Braga', 'Guimarães', '00:30:00', 25.00),
 (9, 'Porto', 'Viseu', '01:45:00', 134.00),
-(10, 'Funchal', 'Câmara de Lobos', '00:20:00', 9.50);
+(10, 'Funchal', 'Câmara de Lobos', '00:20:00', 9.50),
+(11, 'Braga', 'Castelo Branco', '05:00:00', 500.00);
 
 -- --------------------------------------------------------
 
@@ -131,7 +166,7 @@ INSERT INTO `rota` (`id_rota`, `origem`, `destino`, `tempo_viagem`, `distancia`)
 -- Estrutura da tabela `transacoes`
 --
 
-CREATE TABLE IF NOT EXISTS `transacoes` (
+CREATE TABLE `transacoes` (
   `id_transacao` int(255) NOT NULL,
   `id_utilizador` int(255) NOT NULL,
   `tipo_transacao` enum('deposito','levantamento','compra_bilhete','reembolso','transferencia','outro') NOT NULL,
@@ -143,38 +178,38 @@ CREATE TABLE IF NOT EXISTS `transacoes` (
   `estado` enum('processada','pendente','cancelada','erro') NOT NULL DEFAULT 'processada'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
 --
--- Estrutura da tabela `utilizador`
+-- Extraindo dados da tabela `transacoes`
 --
 
-CREATE TABLE IF NOT EXISTS `utilizador` (
-  `id_utilizador` int(255) NOT NULL,
-  `nome` varchar(255) NOT NULL,
-  `endereco` varchar(255) NOT NULL,
-  `secretpass` varchar(256) NOT NULL,
-  `data_registo` date NOT NULL DEFAULT curdate(),
-  `cargo` enum('cliente','funcionario','admin') DEFAULT 'cliente',
-  `estado_conta` enum('pendente','registado','rejeitado') DEFAULT 'pendente'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `transacoes` (`id_transacao`, `id_utilizador`, `tipo_transacao`, `valor`, `saldo_apos_transacao`, `descricao`, `id_bilhete`, `data_transacao`, `estado`) VALUES
+(1, 3, 'deposito', 30.00, 30.00, NULL, NULL, '2025-05-25 14:33:42', 'processada'),
+(2, 1, 'transferencia', 30.00, 3030.00, NULL, NULL, '2025-05-25 14:33:42', 'processada'),
+(3, 3, 'compra_bilhete', 12.50, 17.50, NULL, NULL, '2025-05-25 14:33:52', 'processada'),
+(4, 1, 'transferencia', 12.50, 3042.50, NULL, NULL, '2025-05-25 14:33:52', 'processada'),
+(5, 1, 'compra_bilhete', 12.50, 3030.00, NULL, NULL, '2025-05-25 16:31:44', 'processada'),
+(6, 1, 'transferencia', 12.50, 3042.50, NULL, NULL, '2025-05-25 16:31:44', 'processada'),
+(7, 2, 'compra_bilhete', 12.50, 487.50, NULL, NULL, '2025-05-25 16:53:51', 'processada'),
+(8, 1, 'transferencia', 12.50, 3055.00, NULL, NULL, '2025-05-25 16:53:51', 'processada'),
+(9, 3, 'compra_bilhete', 12.50, 5.00, NULL, NULL, '2025-05-25 16:55:18', 'processada'),
+(10, 1, 'transferencia', 12.50, 3067.50, NULL, NULL, '2025-05-25 16:55:18', 'processada'),
+(11, 3, 'deposito', 5.00, 10.00, NULL, NULL, '2025-06-11 13:43:06', 'processada'),
+(12, 1, 'transferencia', 5.00, 3072.50, NULL, NULL, '2025-06-11 13:43:06', 'processada'),
+(13, 3, 'levantamento', 1.00, 9.00, NULL, NULL, '2025-06-11 13:43:11', 'processada'),
+(14, 1, 'reembolso', 1.00, 3071.50, NULL, NULL, '2025-06-11 13:43:11', 'processada'),
+(15, 3, 'deposito', 7.00, 16.00, NULL, NULL, '2025-06-12 22:10:14', 'processada'),
+(16, 1, 'transferencia', 7.00, 3078.50, NULL, NULL, '2025-06-12 22:10:14', 'processada'),
+(17, 3, 'compra_bilhete', 12.50, 3.50, NULL, NULL, '2025-06-12 22:10:41', 'processada'),
+(18, 1, 'transferencia', 12.50, 3091.00, NULL, NULL, '2025-06-12 22:10:41', 'processada');
 
---
--- Extraindo dados da tabela `utilizador`
---
 
-INSERT INTO `utilizador` (`id_utilizador`, `nome`, `endereco`, `secretpass`, `data_registo`, `cargo`, `estado_conta`) VALUES
-(1, 'FelixBus', 'felixbus@email.com', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '2025-01-01', 'admin', 'registado'),
-(2, 'funcionario', 'funcionario@email.com', '24d96a103e8552cb162117e5b94b1ead596b9c0a94f73bc47f7d244d279cacf2', '2025-05-16', 'funcionario', 'registado'),
-(3, 'cliente', 'cliente@email.com', 'a60b85d409a01d46023f90741e01b79543a3cb1ba048eaefbe5d7a63638043bf', '2025-04-20', 'cliente', 'registado'),
-(4, 'admin', 'admin@email.com', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '2025-02-04', 'admin', 'registado');
 -- --------------------------------------------------------
 
 --
 -- Estrutura da tabela `viagem`
 --
 
-CREATE TABLE IF NOT EXISTS `viagem`(
+CREATE TABLE `viagem` (
   `id_viagem` int(255) NOT NULL,
   `id_rota` int(11) NOT NULL,
   `data_viagem` date NOT NULL,
@@ -191,7 +226,7 @@ CREATE TABLE IF NOT EXISTS `viagem`(
 --
 
 INSERT INTO `viagem` (`id_viagem`, `id_rota`, `data_viagem`, `estado`, `id_viatura`, `hora_partida`, `hora_chegada`, `preco`, `lugares_ocupados`) VALUES
-(1, 1, '2025-06-01', 'disponivel', 1, '07:00:00', '08:30:00', 12.50, 0),
+(1, 1, '2025-06-01', 'disponivel', 1, '07:00:00', '08:30:00', 12.50, 5),
 (2, 2, '2025-06-02', 'disponivel', 2, '08:15:00', '09:45:00', 11.00, 0),
 (3, 3, '2025-06-03', 'disponivel', 3, '09:30:00', '11:00:00', 13.75, 0),
 (4, 4, '2025-06-04', 'disponivel', 1, '06:45:00', '08:15:00', 10.00, 0),
@@ -200,7 +235,12 @@ INSERT INTO `viagem` (`id_viagem`, `id_rota`, `data_viagem`, `estado`, `id_viatu
 (7, 7, '2025-06-07', 'disponivel', 1, '11:15:00', '12:45:00', 15.90, 0),
 (8, 8, '2025-06-08', 'disponivel', 2, '13:00:00', '14:30:00', 16.50, 0),
 (9, 9, '2025-06-09', 'disponivel', 3, '14:30:00', '16:00:00', 12.30, 0),
-(10, 10, '2025-06-10', 'disponivel', 1, '15:45:00', '17:15:00', 17.80, 0);
+(10, 10, '2025-06-10', 'disponivel', 1, '15:45:00', '17:15:00', 17.80, 0),
+(11, 1, '2025-06-13', 'disponivel', 8, '16:30:00', '21:30:00', 10.00, 0),
+(12, 1, '2025-06-13', 'disponivel', 4, '14:06:00', '19:06:00', 10.00, 0),
+(13, 1, '2025-06-12', 'disponivel', 4, '17:06:00', '22:06:00', 13.00, 0),
+(14, 1, '2025-06-19', 'disponivel', 3, '17:08:00', '19:20:00', 12.00, 0),
+(15, 1, '9299-02-10', 'disponivel', 6, '19:29:00', '03:29:00', 55.00, 0);
 
 -- --------------------------------------------------------
 
@@ -208,7 +248,7 @@ INSERT INTO `viagem` (`id_viagem`, `id_rota`, `data_viagem`, `estado`, `id_viatu
 -- Estrutura da tabela `viatura`
 --
 
-CREATE TABLE IF NOT EXISTS `viatura`(
+CREATE TABLE `viatura` (
   `id_viatura` int(255) NOT NULL,
   `capacidade_lugares` int(11) NOT NULL DEFAULT 10,
   `matricula` varchar(12) NOT NULL
@@ -231,6 +271,14 @@ INSERT INTO `viatura` (`id_viatura`, `capacidade_lugares`, `matricula`) VALUES
 --
 -- Índices para tabelas despejadas
 --
+
+
+--
+-- Índices para tabela `utilizador`
+--
+ALTER TABLE `utilizador`
+  ADD PRIMARY KEY (`id_utilizador`),
+  ADD UNIQUE KEY `endereco` (`endereco`);
 
 --
 -- Índices para tabela `alertas`
@@ -270,13 +318,6 @@ ALTER TABLE `transacoes`
   ADD KEY `id_bilhete` (`id_bilhete`);
 
 --
--- Índices para tabela `utilizador`
---
-ALTER TABLE `utilizador`
-  ADD PRIMARY KEY (`id_utilizador`),
-  ADD UNIQUE KEY `endereco` (`endereco`);
-
---
 -- Índices para tabela `viagem`
 --
 ALTER TABLE `viagem`
@@ -296,16 +337,22 @@ ALTER TABLE `viatura`
 --
 
 --
+-- AUTO_INCREMENT de tabela `utilizador`
+--
+ALTER TABLE `utilizador`
+  MODIFY `id_utilizador` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT de tabela `alertas`
 --
 ALTER TABLE `alertas`
-  MODIFY `id_alerta` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_alerta` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de tabela `bilhete`
 --
 ALTER TABLE `bilhete`
-  MODIFY `id_bilhete` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_bilhete` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `carteira`
@@ -317,25 +364,20 @@ ALTER TABLE `carteira`
 -- AUTO_INCREMENT de tabela `rota`
 --
 ALTER TABLE `rota`
-  MODIFY `id_rota` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_rota` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de tabela `transacoes`
 --
 ALTER TABLE `transacoes`
-  MODIFY `id_transacao` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_transacao` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
---
--- AUTO_INCREMENT de tabela `utilizador`
---
-ALTER TABLE `utilizador`
-  MODIFY `id_utilizador` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `viagem`
 --
 ALTER TABLE `viagem`
-  MODIFY `id_viagem` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_viagem` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de tabela `viatura`
