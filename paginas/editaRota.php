@@ -1,5 +1,8 @@
 <?php
 require_once '../basedados/basedados.h';
+
+define('INCLUDE_CHECK', true);
+
 require_once "./auth.php";
 
 if (session_status() == PHP_SESSION_NONE) {
@@ -26,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eliminar'])) {
     $sql_viagens = "DELETE FROM viagem WHERE id_rota = $id_rota";
     $result_viagens = executarQuery($sql_viagens);
 
-    // Agora sim, eliminar a rota
+    // Agora sim, elimina a rota
     $sql_rota = "DELETE FROM rota WHERE id_rota = $id_rota";
     $result_rota = executarQuery($sql_rota);
 

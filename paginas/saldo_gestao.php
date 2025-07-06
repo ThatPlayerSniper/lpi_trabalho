@@ -1,5 +1,9 @@
 <?php
 require_once "../basedados/basedados.h";
+
+// Verifica se o ficheiro de autenticação já foi incluído
+define('INCLUDE_CHECK', true);
+
 require_once "./auth.php";
 
 // Inicia a sessão se ainda não estiver iniciada
@@ -24,7 +28,6 @@ if (seForAdminNR() == false && seForFunNR() == false && seForClienteNR() == fals
     require_once "./nav.php";
     $utilizador  = getUser();
     ?>
-
 <body>
     <div class="background">
         <div class="card">
@@ -62,7 +65,7 @@ if (seForAdminNR() == false && seForFunNR() == false && seForClienteNR() == fals
 
                         // Retirar saldo
                         if (!empty($minus)) {
-                            if ($valor <= $valor_car) {
+                            if ($valor >= $valor_car) {
 
                                 $valorRetirar = $valor;
                                 $novoSaldo = $valor_car - $valorRetirar;

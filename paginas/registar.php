@@ -1,11 +1,72 @@
 <?php
 // Inclui o ficheiro de ligação à base de dados
 require_once '../basedados/basedados.h';
+
+// Verifica se o ficheiro de autenticação já foi incluído
+define('INCLUDE_CHECK', true);
+
 // Inclui o ficheiro de autenticação
 require_once "./auth.php";
 // Inicia a sessão se ainda não estiver iniciada
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
+}
+
+$mensagem = ''; // Variável para armazenar mensagens
+$sucesso = false; // Flag para controlar redirecionamento
+
+// Processa o formulário se foi submetido
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $nome = isset($_POST["nome"]) ? $_POST["nome"] : '';
+    
+    $sql = "SELECT * FROM utilizador WHERE nome = '$nome'";
+    $resultado = executarQuery($sql);
+    
+    // Verifica se o utilizador já existe
+    if ($resultado->num_rows > 0) {
+        $mensagem = "<h3 class='turnWhite'>ERRO: O nome de utilizador já existe</h3>";
+    } else {
+        // Inicializa variáveis de verificação
+        $check1 = false;
+        $check2 = false;
+
+        // Verifica se todos os campos do formulário foram submetidos
+        if (
+            isset($_POST["nome"]) && isset($_POST["endereco"]) &&
+            isset($_POST["secret"]) && isset($_POST["secret_confirm"])
+        ) {
+            // Verifica se as passwords coincidem
+            if ($_POST["secret"] != $_POST["secret_confirm"]) {
+                $check1 = false;
+                $mensagem = '<label class="turnWhite">As passwords não são iguais</label>';
+            } else {
+                $check1 = true;
+            }
+            
+            // Verifica se algum campo está vazio
+            if (empty($_POST["nome"]) || empty($_POST["endereco"]) || empty($_POST["secret"]) || empty($_POST["secret_confirm"])) {
+                $mensagem = '<label class="turnWhite">Existem campos por preencher</label>';
+            } else {
+                $check2 = true;
+            }
+
+            // Se ambas as verificações passarem, tenta registar o utilizador
+            if ($check1 && $check2 == true) {
+                if (registarUti($_POST["nome"], $_POST["endereco"], $_POST["secret"])) {
+                    // Marca para redirecionamento após registo bem-sucedido
+                    $sucesso = true;
+                } else {
+                    $mensagem = '<label class="turnWhite">Erro ao registar utilizador</label>';
+                }
+            }
+        }
+    }
+}
+
+// Redireciona após processamento se o registo foi bem-sucedido
+if ($sucesso) {
+    header("location: entrar.php");
+    exit();
 }
 ?>
 
@@ -20,6 +81,7 @@ if (session_status() == PHP_SESSION_NONE) {
     <!-- Ficheiro de estilos CSS -->
     <link rel="stylesheet" href="registar.css">
 </head>
+
 <?php
 // Inclui a barra de navegação
 require_once "./nav.php";
@@ -30,46 +92,14 @@ require_once "./nav.php";
         <div class="caixa-protetora">
             <div class="caixa-sistema">
                 <h1 class="turnWhite">Registar</h1>
+                
                 <?php
-
-                // Inicializa variáveis de verificação
-                $check1 = false;
-                $check2 = false;
-
-                // Verifica se todos os campos do formulário foram submetidos
-                if (
-                    isset($_POST["nome"]) && isset($_POST["endereco"]) &&
-                    isset($_POST["secret"]) && isset($_POST["secret_confirm"])
-                ) {
-                    // Verifica se as passwords coincidem
-                    if ($_POST["secret"] != $_POST["secret_confirm"]) {
-                        $check1 = false;
-                        echo '<label class="turnWhite">As passwords não são iguais</label>';
-                        header("location: registar.php");
-                    } else {
-                        $check1 = true;
-                    }
-                    // Verifica se algum campo está vazio
-                    if (empty($_POST["nome"]) || empty($_POST["endereco"]) || empty($_POST["secret"]) || empty($_POST["secret_confirm"])) {
-                        echo '<label class="turnWhite">Existem campos por preecher</label>';
-                        header("location: registar.php");
-                    } else {
-                        $check2 = true;
-                    }
-
-                    // Se ambas as verificações passarem, tenta registar o utilizador
-                    if ($check1 && $check2 == true) {
-                        if (registarUti($_POST["nome"], $_POST["endereco"], $_POST["secret"])) {
-                            // Redireciona para a página de login após registo bem-sucedido
-                            header("location: entrar.php");
-                        }else{
-                            // Mostra mensagem de erro se o registo falhar
-                            echo '<label class="Erro</label>';
-                        }
-                    }
+                // Mostra a mensagem se existir
+                if (!empty($mensagem)) {
+                    echo $mensagem;
                 }
-
                 ?>
+                
                 <!-- Formulário de registo -->
                 <form method="POST">
                     <div class="input-container">

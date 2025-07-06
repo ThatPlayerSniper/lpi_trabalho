@@ -4,12 +4,17 @@
 //NOTA: Caso haja erros no vs (VISUAL STUDIO) olhar duas vezes, o php pode estar mal configurado 
 require_once "../basedados/basedados.h";
 
+if (!defined('INCLUDE_CHECK')) {
+    http_response_code(403);
+    header('Location: ../paginas/index.php');
+    exit();
+}
+
 //Verifica se já têm uma sessão iniciada caso não tenho cria uma
 //Proteção de TROUBLESHOOTING
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-
 
 /*--------------------------------------*/
 
@@ -109,17 +114,15 @@ function verificarSenha($senha_digitada, $hash_armazenado) {
     return $hash_senha_digitada === $hash_armazenado;
 }
 
-function login($nome, $endereco, $pass)
+function login($nome, $pass)
 {
     $nome = escapeString($nome);
-    $endereco = escapeString($endereco);
     $pass = escapeString($pass);
     $estado = "registado";
 
     // Busca o utilizador no banco de dados
     $sql = "SELECT * FROM utilizador
     WHERE nome = '$nome' 
-    AND endereco = '$endereco' 
     AND estado_conta = '$estado'";
 
     $resultado = executarQuery($sql);
@@ -154,34 +157,33 @@ function login($nome, $endereco, $pass)
 
 function registarUti($nome, $endereco, $secretpass)
 {
-
     $nome = escapeString($nome);
     $endereco = escapeString($endereco);
     $secretpass = escapeString($secretpass);
-
     $pass = hash('sha256', $secretpass);
-
-    $sql = "SELECT * FROM utilizador WHERE nome = '$nome' 
-            AND endereco = '$endereco'";
+    
+    // Check if the name is already in use
+    $sql = "SELECT nome FROM utilizador WHERE nome = '$nome'";
     $resultado = executarQuery($sql);
-
+    
     if ($resultado->num_rows > 0) {
         header("Location: registar.php");
-        echo "<h2>ERRO: O utilizador já existe</h2>";
+        echo "<h2>ERRO: O nome de utilizador já existe</h2>";
         exit;
     } else {
-
-        // Criar a query SQL para inserir o novo utilizador
-        $sql = "INSERT INTO utilizador (nome, endereco, secretpass )
-                VALUES ('$nome', '$endereco', '$pass' )";
-
+        // Create the SQL query to insert the new user
+        $sql = "INSERT INTO utilizador (nome, endereco, secretpass)
+                VALUES ('$nome', '$endereco', '$pass')";
         $resultado = executarQuery($sql);
-        $sql = "SELECT * FROM utilizador WHERE nome = '$nome' 
-            AND endereco = '$endereco'";
+
+        
+        $sql = "SELECT * FROM utilizador WHERE nome = '$nome'
+                AND endereco = '$endereco'";
         $resultado = executarQuery($sql);
+        
         while ($row = $resultado->fetch_assoc()) {
             $id_utilizador = $row['id_utilizador'];
-            $sql2 = "INSERT INTO carteira (id_utilizador, saldo_atual) 
+            $sql2 = "INSERT INTO carteira (id_utilizador, saldo_atual)
                     VALUES ('$id_utilizador', 0.00)";
             executarQuery($sql2);
         }

@@ -1,5 +1,8 @@
 <?php
 require_once '../basedados/basedados.h';
+
+define('INCLUDE_CHECK', true);
+
 require_once "./auth.php";
 if (session_status() == PHP_SESSION_NONE) {
     session_start();

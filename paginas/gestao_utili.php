@@ -1,6 +1,9 @@
 <?php
 // Inclui o ficheiro de ligação à base de dados
 require_once '../basedados/basedados.h';
+
+define('INCLUDE_CHECK', true);
+
 // Inclui o ficheiro de autenticação
 require_once "./auth.php";
 // Verifica se já têm uma sessão iniciada, caso não tenha cria uma
@@ -15,10 +18,8 @@ if (seForAdminNR() == false && seForFunNR() == false) {
 }
 
 ?>
-
 <!DOCTYPE html>
 <html lang="pt">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,7 +32,6 @@ if (seForAdminNR() == false && seForFunNR() == false) {
 // Inclui a barra de navegação
 require_once "./nav.php";
 ?>
-
 <body>
     <?php
 
@@ -100,7 +100,11 @@ require_once "./nav.php";
                     $sql = "SELECT * FROM utilizador WHERE cargo = '$cargo'";
                 } else {
                     // Nenhum filtro, mostrar todos os utilizadores
-                    $sql = "SELECT * FROM utilizador";
+                    if(seForAdminNR()){
+                        $sql = "SELECT * FROM utilizador WHERE cargo = 'funcionario'";
+                    }else{
+                        $sql = "SELECT * FROM utilizador";
+                    }
                 }
 
                 // Executa a query e obtém o resultado

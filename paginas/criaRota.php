@@ -1,5 +1,8 @@
 <?php
 require_once '../basedados/basedados.h';
+
+define('INCLUDE_CHECK', true);
+
 require_once "./auth.php";
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -8,7 +11,6 @@ seNaoAdmin();
 ?>
 <!DOCTYPE html>
 <html lang="pt">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +20,6 @@ seNaoAdmin();
 <?php
 require_once "./nav.php";
 ?>
-
 <body>
     <div class="caixa-background">
         <div class="caixa-protetora">
@@ -45,7 +46,6 @@ require_once "./nav.php";
                     $sql = "INSERT INTO rota(origem, destino, tempo_viagem, distancia) VALUES ('$origem', '$destino' , '$duracao', '$distancia')";
                     $resultado = executarQuery($sql);
                 }
-
                 ?>
                 <form method="POST">
                     <div class="input-container">
@@ -67,5 +67,4 @@ require_once "./nav.php";
         </div>
     </div>
 </body>
-
 </html>

@@ -2,7 +2,10 @@
 
 // Inclusão do ficheiro de ligação à base de dados
 require_once "../basedados/basedados.h";
-// Inclusão do ficheiro de autenticação
+
+// Verifica se o ficheiro de autenticação já foi incluído
+define('INCLUDE_CHECK', true);
+
 require_once "./auth.php";
 // Iniciar sessão se ainda não estiver iniciada
 if (session_status() == PHP_SESSION_NONE) {

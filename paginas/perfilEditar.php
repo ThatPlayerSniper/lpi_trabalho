@@ -1,5 +1,9 @@
 <?php
 require_once "../basedados/basedados.h"; // Inclui o ficheiro de ligação à base de dados
+
+// Verifica se o ficheiro de autenticação já foi incluído
+define('INCLUDE_CHECK', true);
+
 require_once "./auth.php"; // Inclui o ficheiro de autenticação
 //Verifica se já têm uma sessão iniciada caso não tenho cria uma
 if (session_status() == PHP_SESSION_NONE) {
@@ -13,8 +17,6 @@ if (seForAdminNR() == false && seForFunNR() == false && seForClienteNR() == fals
 }
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="pt">
 
@@ -27,7 +29,6 @@ if (seForAdminNR() == false && seForFunNR() == false && seForClienteNR() == fals
 <?php
 require_once "./nav.php"; // Inclui a barra de navegação
 $utilizador  = getUser(); // Vai buscar os dados do utilizador autenticado
-
 ?>
 
 <body>

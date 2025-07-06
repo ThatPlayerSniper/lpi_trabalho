@@ -192,7 +192,6 @@ require_once "./nav.php";
                 // Select para obter os dados do utilizador e carteira
                 if (!empty($user_id)) {
 
-
                     $sql = "SELECT u.*, c.saldo_atual 
                     FROM utilizador u
                     INNER JOIN carteira c ON u.id_utilizador = c.id_utilizador

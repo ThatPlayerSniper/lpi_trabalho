@@ -1,5 +1,7 @@
 <?php
 require_once '../basedados/basedados.h';
+
+define('INCLUDE_CHECK', true);
 require_once "./auth.php";
 //Verifica se já têm uma sessão iniciada caso não tenho cria uma
 if (session_status() == PHP_SESSION_NONE) {
@@ -36,13 +38,13 @@ require_once "./nav.php";
                 }
 
                 if (
-                    isset($_POST["nome"]) && isset($_POST["endereco"]) &&
+                    isset($_POST["nome"]) &&
                     isset($_POST["secret"])
                 ) {
-                    if (empty($_POST["nome"]) || empty($_POST["endereco"]) || empty($_POST["secret"])) {
+                    if (empty($_POST["nome"]) || empty($_POST["secret"])) {
                         echo '<label class="turnWhite">Existem campos por preecher</label>';
                     } else {
-                        if (login($_POST["nome"], $_POST["endereco"], $_POST["secret"])) {
+                        if (login($_POST["nome"], $_POST["secret"])) {
                             header(header: "Location: index.php"); //Se sucesso entra no site
                             exit;
                         } else {
@@ -50,14 +52,11 @@ require_once "./nav.php";
                         }
                     }
                 }
-
                 ?>
                 <form method="POST">
                     <div class="input-container">
                         <label class="Letras">Nome:</label>
                         <input class="input-field" type="text" name="nome" placeholder="Utilizador"><br>
-                        <label class="Letras">Endereço:</label>
-                        <input class="input-field" type="email" name="endereco" placeholder="@gmail.com"><br>
                         <label class="Letras">Senha:</label>
                         <input class="input-field" type="password" name="secret" placeholder="Password"><br>
                         <br>

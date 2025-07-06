@@ -1,5 +1,9 @@
 <?php
 require_once '../basedados/basedados.h';
+
+// Verifica se o ficheiro de autenticação já foi incluído
+define('INCLUDE_CHECK', true);
+
 require_once './auth.php';
 
 //Verifica se já têm uma sessão iniciada caso não tenho cria uma
