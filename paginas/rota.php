@@ -1,12 +1,9 @@
 <?php
 // Inclusão do ficheiro de ligação à base de dados
 require_once '../basedados/basedados.h';
-// Inclusão do ficheiro de autenticação
 define('INCLUDE_CHECK', true);
-
+// Inclusão do ficheiro de autenticação
 require_once "./auth.php";
-
-
 // Iniciar sessão se ainda não estiver iniciada
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -110,7 +107,7 @@ require_once "./nav.php";
                                 <form method="GET" action="editaRota.php">
                                     <input type="hidden" name="editarRota" value="<?= htmlspecialchars($row['id_rota']) ?>">
                                     <td>
-                                        <button type="submit" class="route-button" name="id" value="<?= htmlspecialchars($row["id_rota"]) ?>">Editar Rota</button>                                    
+                                        <button type="submit" class="route-button" name="id_rota" value="<?= htmlspecialchars($row["id_rota"]) ?>">Editar Rota</button>                                    
                                     </td>
                                 </form>
                                 <?php } ?>
