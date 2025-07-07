@@ -102,19 +102,14 @@ $viagem = mysqli_fetch_assoc($resultado);
 
                 <form method="POST">
                     <div class="input-container">
-                        <!-- Campo para data da viagem -->
                         <label class="Letras">Data da Viagem:</label>
                         <input class="input-field" type="date" name="data_viagem" value="<?= htmlspecialchars($viagem['data_viagem']) ?>" required><br>
-                        <!-- Campo para hora de partida -->
                         <label class="Letras">Hora de Partida:</label>
                         <input class="input-field" type="time" name="hora_partida" value="<?= htmlspecialchars($viagem['hora_partida']) ?>" required><br>
-                        <!-- Campo para hora de chegada -->
                         <label class="Letras">Hora de Chegada:</label>
                         <input class="input-field" type="time" name="hora_chegada" value="<?= htmlspecialchars($viagem['hora_chegada']) ?>" required><br>
-                        <!-- Campo para preço -->
                         <label class="Letras">Preço:</label>
                         <input class="input-field" type="number" name="preco" step="0.01" placeholder="0.00" value="<?= htmlspecialchars($viagem['preco']) ?>" required><br>
-                        <!-- Seleção de veículo -->
                         <label class="Letras">Veículo:</label>
                         <select class="input-field" name="veiculo_id" >
                             <?php
