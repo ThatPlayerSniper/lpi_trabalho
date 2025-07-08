@@ -280,9 +280,7 @@ INSERT INTO `viatura` (`id_viatura`, `capacidade_lugares`, `matricula`) VALUES
 -- Índices para tabela `utilizador`
 --
 ALTER TABLE `utilizador`
-  ADD PRIMARY KEY (`id_utilizador`),
-  ADD UNIQUE KEY `endereco` (`endereco`);
-
+  ADD PRIMARY KEY (`id_utilizador`);
 --
 -- Índices para tabela `alertas`
 --

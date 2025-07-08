@@ -52,12 +52,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // Se ambas as verificações passarem, tenta registar o utilizador
             if ($check1 && $check2 == true) {
-                if (registarUti($_POST["nome"], $_POST["endereco"], $_POST["secret"])) {
-                    // Marca para redirecionamento após registo bem-sucedido
-                    $sucesso = true;
-                } else {
-                    $mensagem = '<label class="turnWhite">Erro ao registar utilizador</label>';
-                }
+                registarUti($_POST["nome"], $_POST["endereco"], $_POST["secret"]);
+                // Marca para redirecionamento após registo bem-sucedido
+                $sucesso = true;
+
             }
         }
     }
