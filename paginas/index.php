@@ -43,7 +43,7 @@ require_once "./nav.php";
                 $sql = "SELECT * FROM alertas WHERE data_expira >= CURDATE() ORDER BY data_expira ASC LIMIT 3";
                 $resultado = executarQuery($sql);
                 if ($resultado->num_rows > 0) {
-                    ?>
+                ?>
                     <div>
                         <label>
                             <h1>ALERTAS</h1>
@@ -52,7 +52,7 @@ require_once "./nav.php";
                     <?php
                     // Ciclo para mostrar cada alerta
                     while ($alerta = $resultado->fetch_assoc()) {
-                        ?>
+                    ?>
                         <div class='note-card'>
                             <div class='note-header'>
                                 Tipo de Alerta: <?= htmlspecialchars($alerta['tipo_alerta']) ?>
@@ -68,9 +68,9 @@ require_once "./nav.php";
                             </div>
                         </div>
                         <br>
-                        <?php
+                <?php
                     }
-                } 
+                }
                 ?>
             </div>
         </div>

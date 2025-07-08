@@ -20,6 +20,7 @@ if (seForAdminNR() == false && seForFunNR() == false) {
 ?>
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,6 +33,7 @@ if (seForAdminNR() == false && seForFunNR() == false) {
 // Inclui a barra de navegação
 require_once "./nav.php";
 ?>
+
 <body>
     <?php
 
@@ -100,9 +102,9 @@ require_once "./nav.php";
                     $sql = "SELECT * FROM utilizador WHERE cargo = '$cargo'";
                 } else {
                     // Nenhum filtro, mostrar todos os utilizadores
-                    if(seForAdminNR()){
+                    if (seForAdminNR()) {
                         $sql = "SELECT * FROM utilizador WHERE cargo = 'funcionario'";
-                    }else{
+                    } else {
                         $sql = "SELECT * FROM utilizador";
                     }
                 }

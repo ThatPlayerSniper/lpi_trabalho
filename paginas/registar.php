@@ -18,10 +18,10 @@ $sucesso = false; // Flag para controlar redirecionamento
 // Processa o formulário se foi submetido
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nome = isset($_POST["nome"]) ? $_POST["nome"] : '';
-    
+
     $sql = "SELECT * FROM utilizador WHERE nome = '$nome'";
     $resultado = executarQuery($sql);
-    
+
     // Verifica se o utilizador já existe
     if ($resultado->num_rows > 0) {
         $mensagem = "<h3 class='turnWhite'>ERRO: O nome de utilizador já existe</h3>";
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } else {
                 $check1 = true;
             }
-            
+
             // Verifica se algum campo está vazio
             if (empty($_POST["nome"]) || empty($_POST["endereco"]) || empty($_POST["secret"]) || empty($_POST["secret_confirm"])) {
                 $mensagem = '<label class="turnWhite">Existem campos por preencher</label>';
@@ -55,7 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 registarUti($_POST["nome"], $_POST["endereco"], $_POST["secret"]);
                 // Marca para redirecionamento após registo bem-sucedido
                 $sucesso = true;
-
             }
         }
     }
@@ -90,14 +89,14 @@ require_once "./nav.php";
         <div class="caixa-protetora">
             <div class="caixa-sistema">
                 <h1 class="turnWhite">Registar</h1>
-                
+
                 <?php
                 // Mostra a mensagem se existir
                 if (!empty($mensagem)) {
                     echo $mensagem;
                 }
                 ?>
-                
+
                 <!-- Formulário de registo -->
                 <form method="POST">
                     <div class="input-container">

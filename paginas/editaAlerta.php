@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eliminar'])) {
 
 // Processar o POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
+
     if (empty($_POST["tipo"]) || empty($_POST["descricao"]) || empty($_POST["data_expira"])) {
         echo '<label class="turnWhite">Existem campos por preecher</label>';
     }
@@ -98,7 +98,7 @@ require_once "./nav.php";
                 <h1 class="turnWhite">Editar Alerta</h1>
 
                 <?php if (!empty($mensagem)) {
-                echo "<p class='turnWhite'>$mensagem</p>";
+                    echo "<p class='turnWhite'>$mensagem</p>";
                 } ?>
 
                 <!-- Formulário para edição de alerta -->

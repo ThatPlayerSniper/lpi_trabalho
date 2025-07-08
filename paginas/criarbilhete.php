@@ -145,7 +145,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['comprar'])) {
                 header("Location: viagem.php?rota=$id_rota&error=Erro ao obter dados do utilizador");
                 exit();
             }
-        }else if ($_SESSION['cargo'] == 'cliente') {
+        } else if ($_SESSION['cargo'] == 'cliente') {
             // Se o utilizador for cliente, buscar os seus dados e saldo
             $sql = "SELECT u.*, c.saldo_atual 
                 FROM utilizador u

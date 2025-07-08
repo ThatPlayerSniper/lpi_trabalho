@@ -69,7 +69,7 @@ $utilizador  = getUser();
             <button class="btn" onclick="window.location.href='bilheteshistorico.php'">historico bilhetes</button>
         </div>
     </div>
-    
+
 </body>
 
 </html>

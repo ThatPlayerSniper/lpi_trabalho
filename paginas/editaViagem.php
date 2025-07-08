@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eliminar'])) {
     // Eliminar bilhetes associados
     $sql_bilhetes = "DELETE FROM bilhete WHERE id_viagem = $id_viagem";
     $res_bilhetes = executarQuery($sql_bilhetes);
-    
+
     // Eliminar a viagem
     $sql_viagem = "DELETE FROM viagem WHERE id_viagem= $id_viagem";
     $res_viagem = executarQuery($sql_viagem);
@@ -33,11 +33,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eliminar'])) {
 }
 
 // Processar atualização
-if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-    if (empty($_POST["data_viagem"]) || empty($_POST["hora_partida"]) || empty($_POST["hora_chegada"]) || empty($_POST["preco"])|| empty($_POST["veiculo_id"])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (empty($_POST["data_viagem"]) || empty($_POST["hora_partida"]) || empty($_POST["hora_chegada"]) || empty($_POST["preco"]) || empty($_POST["veiculo_id"])) {
         echo '<label class="turnWhite">Existem campos por preecher</label>';
     }
-    if (isset($_POST["data_viagem"]) && isset($_POST["hora_partida"]) && isset($_POST["hora_chegada"]) && isset($_POST["preco"])&& isset($_POST["veiculo_id"])) {
+    if (isset($_POST["data_viagem"]) && isset($_POST["hora_partida"]) && isset($_POST["hora_chegada"]) && isset($_POST["preco"]) && isset($_POST["veiculo_id"])) {
         $data = $_POST['data_viagem'] ? $_POST['data_viagem'] : '';
         $partida = $_POST['hora_partida'] ? $_POST['hora_partida'] : '';
         $chegada = $_POST['hora_chegada'] ? $_POST['hora_chegada'] : '';
@@ -88,8 +88,9 @@ $viagem = mysqli_fetch_assoc($resultado);
     <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="criaRota.css">
 </head>
+
 <body>
-<?php require_once "./nav.php"; ?>
+    <?php require_once "./nav.php"; ?>
 
     <div class="caixa-background">
         <div class="caixa-protetora">
@@ -97,7 +98,7 @@ $viagem = mysqli_fetch_assoc($resultado);
                 <h1 class="turnWhite">Editar Viagem</h1>
 
                 <?php if (!empty($mensagem)) {
-                echo "<p class='turnWhite'>$mensagem</p>";
+                    echo "<p class='turnWhite'>$mensagem</p>";
                 } ?>
 
                 <form method="POST">
@@ -111,7 +112,7 @@ $viagem = mysqli_fetch_assoc($resultado);
                         <label class="Letras">Preço:</label>
                         <input class="input-field" type="number" name="preco" step="0.01" placeholder="0.00" value="<?= htmlspecialchars($viagem['preco']) ?>" required><br>
                         <label class="Letras">Veículo:</label>
-                        <select class="input-field" name="veiculo_id" >
+                        <select class="input-field" name="veiculo_id">
                             <?php
                             // Buscar veículos disponíveis da base de dados
                             $veiculos = executarQuery("SELECT * FROM viatura");
@@ -119,7 +120,8 @@ $viagem = mysqli_fetch_assoc($resultado);
                                 //o já selecionado
                                 $selected = ($veiculo['id_viatura'] == $viagem['id_viatura']) ? 'selected' : '';
                                 // Adiciona cada veículo como opção no select
-                                echo '<option class="turnBlack" value="' . htmlspecialchars($veiculo['id_viatura']) . '" ' . $selected . '>' . htmlspecialchars($veiculo['matricula']) . '</option>';                            }
+                                echo '<option class="turnBlack" value="' . htmlspecialchars($veiculo['id_viatura']) . '" ' . $selected . '>' . htmlspecialchars($veiculo['matricula']) . '</option>';
+                            }
                             ?>
                         </select><br>
                     </div>

@@ -49,7 +49,7 @@ $utilizador  = getUser(); // Vai buscar os dados do utilizador autenticado
                 <label for="Senha">Senha:</label>
                 <input type="password" name="pass" id="pass" value="<?= htmlspecialchars($utilizador['secretpass']) ?>">
 
-                <button type="submit" class="btn">Guardar Alterações</button>                
+                <button type="submit" class="btn">Guardar Alterações</button>
             </form>
             <!-- Botão para voltar ao perfil -->
             <button class="btn" onclick="window.location.href='perfil.php'">Voltar ao Perfil</button>
@@ -70,8 +70,7 @@ $utilizador  = getUser(); // Vai buscar os dados do utilizador autenticado
                     $sql = "UPDATE utilizador SET nome = '$nome', endereco = '$endereco', secretpass = '$password' WHERE id_utilizador = '$id'";
                     executarQuery($sql); // Executa a query de atualização
                     echo "<p>Perfil atualizado com sucesso!</p>";
-                }
-                else {
+                } else {
                     echo "<p>Têm de preencher todos os campos</p>";
                 }
             }

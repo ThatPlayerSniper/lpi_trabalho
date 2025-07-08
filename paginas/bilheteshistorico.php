@@ -82,7 +82,7 @@ $utilizador  = getUser();
                         <p>Partida <?= htmlspecialchars($row['hora_partida']) ?> </p>
                         <p>Chegada <?= htmlspecialchars($row['hora_partida']) ?> </p>
                         <p>Distância: <?= htmlspecialchars($row['distancia']) ?> km</p>
-                        <p>Estado: <?=htmlspecialchars($row['estado_bilhete']) ?></p>
+                        <p>Estado: <?= htmlspecialchars($row['estado_bilhete']) ?></p>
                     </div>
                     <div class='note-footer'>
                         <span>

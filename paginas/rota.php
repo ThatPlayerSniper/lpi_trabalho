@@ -62,64 +62,64 @@ require_once "./nav.php";
             <tbody>
                 <?php
 
-                    // Obter valores do formulário, se existirem
-                    $origem = isset($_POST['origem']) ? $_POST['origem'] : '';
-                    $destino = isset($_POST['destino']) ? $_POST['destino'] : '';
+                // Obter valores do formulário, se existirem
+                $origem = isset($_POST['origem']) ? $_POST['origem'] : '';
+                $destino = isset($_POST['destino']) ? $_POST['destino'] : '';
 
-                    // Escapar strings para evitar SQL injection
-                    $origem = escapeString($origem);
-                    $destino = escapeString($destino);
+                // Escapar strings para evitar SQL injection
+                $origem = escapeString($origem);
+                $destino = escapeString($destino);
 
-                    // Filtro para a query SQL conforme os campos preenchidos
-                    if (!empty($origem) && !empty($destino)) {
-                        $sql = "SELECT * FROM rota WHERE origem = '$origem' AND destino = '$destino'";
-                    } else if (!empty($origem)) {
-                        $sql = "SELECT * FROM rota WHERE origem = '$origem'";
-                    } else if (!empty($destino)) {
-                        $sql = "SELECT * FROM rota WHERE destino = '$destino'";
-                    } else {
-                        $sql = "SELECT * FROM rota";
-                    }
+                // Filtro para a query SQL conforme os campos preenchidos
+                if (!empty($origem) && !empty($destino)) {
+                    $sql = "SELECT * FROM rota WHERE origem = '$origem' AND destino = '$destino'";
+                } else if (!empty($origem)) {
+                    $sql = "SELECT * FROM rota WHERE origem = '$origem'";
+                } else if (!empty($destino)) {
+                    $sql = "SELECT * FROM rota WHERE destino = '$destino'";
+                } else {
+                    $sql = "SELECT * FROM rota";
+                }
 
-                    // Executar a query e obter resultados
-                    $result = executarQuery($sql);
-                    if ($result->num_rows > 0) {
-                        // Iterar sobre cada rota encontrada
-                        while ($row = $result->fetch_assoc()) {
+                // Executar a query e obter resultados
+                $result = executarQuery($sql);
+                if ($result->num_rows > 0) {
+                    // Iterar sobre cada rota encontrada
+                    while ($row = $result->fetch_assoc()) {
+                ?>
+                        <tr>
+                            <td><?= htmlspecialchars($row["id_rota"]) ?></td>
+                            <td><?= htmlspecialchars($row["origem"]) ?></td>
+                            <td><?= htmlspecialchars($row["destino"]) ?></td>
+                            <td><?= htmlspecialchars($row["tempo_viagem"]) ?></td>
+                            <td><?= htmlspecialchars($row["distancia"]) ?> km</td>
+                            <!-- Formulário para aceder às viagens da rota -->
+                            <form method="POST" action="viagem.php">
+                                <input type="hidden" name="rota" value="<?= htmlspecialchars($row["id_rota"]) ?>">
+                                <td>
+                                    <button type="submit" class="route-button" name="rota" value="<?= htmlspecialchars($row["id_rota"]) ?>">Viagens</button>
+                                </td>
+                            </form>
+                            <!-- Formulário para editar rota-->
+                            <?php
+                            if (seForAdminNR() == true) {
                             ?>
-                            <tr>
-                                <td><?= htmlspecialchars($row["id_rota"]) ?></td>
-                                <td><?= htmlspecialchars($row["origem"]) ?></td>
-                                <td><?= htmlspecialchars($row["destino"]) ?></td>
-                                <td><?= htmlspecialchars($row["tempo_viagem"]) ?></td>
-                                <td><?= htmlspecialchars($row["distancia"]) ?> km</td>
-                                <!-- Formulário para aceder às viagens da rota -->
-                                <form method="POST" action="viagem.php">
-                                    <input type="hidden" name="rota" value="<?= htmlspecialchars($row["id_rota"]) ?>">
-                                    <td>
-                                        <button type="submit" class="route-button" name="rota" value="<?= htmlspecialchars($row["id_rota"]) ?>">Viagens</button>
-                                    </td>
-                                </form>
-                                <!-- Formulário para editar rota-->
-                                <?php
-                                if (seForAdminNR() == true) {
-                                ?>
                                 <form method="GET" action="editaRota.php">
                                     <input type="hidden" name="editarRota" value="<?= htmlspecialchars($row['id_rota']) ?>">
                                     <td>
-                                        <button type="submit" class="route-button" name="id_rota" value="<?= htmlspecialchars($row["id_rota"]) ?>">Editar Rota</button>                                    
+                                        <button type="submit" class="route-button" name="id_rota" value="<?= htmlspecialchars($row["id_rota"]) ?>">Editar Rota</button>
                                     </td>
                                 </form>
-                                <?php } ?>
-                            </tr>
-                            <?php
-                        }
-                    } else {
-                        // Caso não existam registos
-                        echo '<tr>';
-                        echo '<td class="NOPE">não existem registos<td>';
-                        echo '</tr>';
+                            <?php } ?>
+                        </tr>
+                <?php
                     }
+                } else {
+                    // Caso não existam registos
+                    echo '<tr>';
+                    echo '<td class="NOPE">não existem registos<td>';
+                    echo '</tr>';
+                }
                 ?>
             </tbody>
         </table>

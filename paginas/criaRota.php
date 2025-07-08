@@ -11,6 +11,7 @@ seNaoAdmin();
 ?>
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,6 +21,7 @@ seNaoAdmin();
 <?php
 require_once "./nav.php";
 ?>
+
 <body>
     <div class="caixa-background">
         <div class="caixa-protetora">
@@ -67,4 +69,5 @@ require_once "./nav.php";
         </div>
     </div>
 </body>
+
 </html>

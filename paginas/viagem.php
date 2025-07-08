@@ -1,4 +1,3 @@
-
 <?php
 // Inclui o ficheiro de ligação à base de dados
 require_once '../basedados/basedados.h';
@@ -103,27 +102,27 @@ require_once "./nav.php";
                                         <div style="display: flex; align-items: center; gap: 10px;">
                                             <h3>Preço: <?= htmlspecialchars($row2["preco"]) ?>€</h3>
                                             <form method="POST" action="criarbilhete.php">
-                                                <?php 
+                                                <?php
                                                 // Verifica se há lugares disponíveis e se o utilizador tem permissão para comprar bilhetes
                                                 if (
-                                                    ($row2['lugares_ocupados'] < $row2['capacidade_lugares']) && 
+                                                    ($row2['lugares_ocupados'] < $row2['capacidade_lugares']) &&
                                                     (seForAdminNR() || seForFunNR() || seForClienteNR())
-                                                ) { 
+                                                ) {
                                                 ?>
                                                     <input type="hidden" name="id_viagem" value="<?= htmlspecialchars($row2["id_viagem"]) ?>">
                                                     <input type="hidden" name="rota" value="<?= $id_rota ?>">
-                                                    <?php 
+                                                    <?php
                                                     // Se for funcionário ou admin, permite indicar o ID do utilizador
-                                                    if(seForFunNR() || seForAdminNR()) { ?>
-                                                    <label for="id_utilizador">ID do Utilizador:</label>
-                                                    <input type="text" name="id_utilizador">
+                                                    if (seForFunNR() || seForAdminNR()) { ?>
+                                                        <label for="id_utilizador">ID do Utilizador:</label>
+                                                        <input type="text" name="id_utilizador">
                                                     <?php } ?>
                                                     <button type="submit" name="comprar" class="btn">Comprar</button>
-                                                <?php 
-                                                // Caso a viagem esteja cheia
+                                                <?php
+                                                    // Caso a viagem esteja cheia
                                                 } else if ($row2['lugares_ocupados'] >= $row2['capacidade_lugares']) {
                                                     echo "<p>Viagem cheia</p>";
-                                                } 
+                                                }
                                                 // Caso o utilizador não tenha permissão
                                                 else {
                                                     echo "<p>Não tem permissão para comprar bilhetes</p>";
@@ -133,12 +132,12 @@ require_once "./nav.php";
                                             </form>
                                         </div>
                                         <?php
-                                             if (seForAdminNR() == true) {
+                                        if (seForAdminNR() == true) {
                                         ?>
-                                        <form method="GET" action="editaViagem.php">
-                                        <input type="hidden" name="id_viagem" value="<?= htmlspecialchars($row2['id_viagem']) ?>">
-                                        <button type="submit" class="route-button">Editar Viagem</button>
-                                        </form>
+                                            <form method="GET" action="editaViagem.php">
+                                                <input type="hidden" name="id_viagem" value="<?= htmlspecialchars($row2['id_viagem']) ?>">
+                                                <button type="submit" class="route-button">Editar Viagem</button>
+                                            </form>
                                         <?php } ?>
                                     </div>
                                 </div>
@@ -149,12 +148,12 @@ require_once "./nav.php";
                             echo "<p>Nenhuma viagem encontrada.</p>";
                         }
                         ?>
-                    <?php
+                <?php
                     }
-                } 
-                    ?>
-                    <!-- Botão para voltar à página de rotas -->
-                    <button class="btn" onclick="window.location.href='rota.php'">Voltar Atrás</button>
+                }
+                ?>
+                <!-- Botão para voltar à página de rotas -->
+                <button class="btn" onclick="window.location.href='rota.php'">Voltar Atrás</button>
             </div>
         </div>
     </div>

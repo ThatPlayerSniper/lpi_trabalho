@@ -109,7 +109,8 @@ function seForClienteNR()
  */
 
 
-function verificarSenha($senha_digitada, $hash_armazenado) {
+function verificarSenha($senha_digitada, $hash_armazenado)
+{
     $hash_senha_digitada = hash('sha256', $senha_digitada);
     return $hash_senha_digitada === $hash_armazenado;
 }
@@ -161,11 +162,11 @@ function registarUti($nome, $endereco, $secretpass)
     $endereco = escapeString($endereco);
     $secretpass = escapeString($secretpass);
     $pass = hash('sha256', $secretpass);
-    
+
     // Check if the name is already in use
     $sql = "SELECT nome FROM utilizador WHERE nome = '$nome'";
     $resultado = executarQuery($sql);
-    
+
     if ($resultado->num_rows > 0) {
         header("Location: registar.php");
         echo "<h2>ERRO: O nome de utilizador já existe</h2>";
@@ -176,11 +177,11 @@ function registarUti($nome, $endereco, $secretpass)
                 VALUES ('$nome', '$endereco', '$pass')";
         $resultado = executarQuery($sql);
 
-        
+
         $sql = "SELECT * FROM utilizador WHERE nome = '$nome'
                 AND endereco = '$endereco'";
         $resultado = executarQuery($sql);
-        
+
         while ($row = $resultado->fetch_assoc()) {
             $id_utilizador = $row['id_utilizador'];
             $sql2 = "INSERT INTO carteira (id_utilizador, saldo_atual)

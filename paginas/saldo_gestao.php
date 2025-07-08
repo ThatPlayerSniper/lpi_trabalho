@@ -28,6 +28,7 @@ if (seForAdminNR() == false && seForFunNR() == false && seForClienteNR() == fals
     require_once "./nav.php";
     $utilizador  = getUser();
     ?>
+
 <body>
     <div class="background">
         <div class="card">
@@ -150,8 +151,8 @@ if (seForAdminNR() == false && seForFunNR() == false && seForClienteNR() == fals
                             exit;
                         }
 
-                    // Caso seja a conta FelixBus
-                    }else{
+                        // Caso seja a conta FelixBus
+                    } else {
 
                         // Retirar saldo da FelixBus
                         if (!empty($minus)) {
@@ -220,7 +221,6 @@ if (seForAdminNR() == false && seForFunNR() == false && seForClienteNR() == fals
                             header("Location: saldo_gestao.php");
                             exit;
                         }
-
                     }
                 }
 
