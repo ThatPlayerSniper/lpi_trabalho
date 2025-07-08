@@ -1,8 +1,7 @@
+
 <?php
 require_once '../basedados/basedados.h';
-
 define('INCLUDE_CHECK', true);
-
 require_once "./auth.php";
 
 if (session_status() == PHP_SESSION_NONE) {
@@ -11,11 +10,11 @@ if (session_status() == PHP_SESSION_NONE) {
 seNaoAdmin();
 
 // Obter ID da rota a editar
-if (!isset($_GET['id']) || empty($_GET['id'])) {
+if (!isset($_GET['id_rota']) || empty($_GET['id_rota'])) {
     die("ID da rota não especificado.");
 }
 
-$id_rota = intval($_GET['id']);
+$id_rota = intval($_GET['id_rota']);
 
 // Processar a eliminação
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eliminar'])) {
@@ -29,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eliminar'])) {
     $sql_viagens = "DELETE FROM viagem WHERE id_rota = $id_rota";
     $result_viagens = executarQuery($sql_viagens);
 
-    // Agora sim, elimina a rota
+    // Agora sim, eliminar a rota
     $sql_rota = "DELETE FROM rota WHERE id_rota = $id_rota";
     $result_rota = executarQuery($sql_rota);
 

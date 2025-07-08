@@ -1,6 +1,9 @@
 <?php
 // Inclusão do ficheiro de ligação à base de dados
 require_once '../basedados/basedados.h';
+
+define('INCLUDE_CHECK', true);
+
 // Inclusão do ficheiro de autenticação
 require_once "./auth.php";
 // Iniciar sessão se ainda não estiver iniciada

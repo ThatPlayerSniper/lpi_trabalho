@@ -54,7 +54,7 @@ require_once "./nav.php";
                     // Escapa as strings para evitar SQL Injection
                     $tipo = escapeString($tipo);
                     $descricao = escapeString($descricao);
-                    $data_fim = escapeString($data_fim);
+                    $data_expira = escapeString($data_fim);
 
                     // Query para inserir o alerta na base de dados
                     $sql = "INSERT INTO alertas(id_utilizador, tipo_alerta, descricao, data_expira) VALUES ('$utilizador','$tipo', '$descricao','$data_fim')";
@@ -74,11 +74,11 @@ require_once "./nav.php";
                         <label class="Letras">Descrição:</label>
                         <input class="input-field" type="text" name="descricao" placeholder="De que se trata..."><br>
                         <label class="Letras">Data de Expiração:</label>
-                        <input class="input-field" type="date" name="data_fim" placeholder="2025-10-24"><br>
+                        <input class="input-field" type="date" name="data_expira" placeholder="2025-10-24"><br>
                         <br>
                     </div>
                     <input class="input-submit" type="submit" value="Submeter"><br><br>
-                    <a class="turnWhite" href="index.php">Não quer criar mais alertas? Clique aqui!</a>
+                    <a class="turnWhite" href="alertas.php">Não quer criar mais alertas? Clique aqui!</a>
                     <br>
                 </form>
             </div>

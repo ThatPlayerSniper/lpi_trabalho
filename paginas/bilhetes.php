@@ -97,7 +97,7 @@ $utilizador  = getUser();
             }
         } else {
             // Caso não existam bilhetes ativos, mostra mensagem
-            echo "<p>Nenhum alerta encontrado.</p>";
+            echo "<p>Nenhum bilhete encontrado.</p>";
         }
         ?>
     </div>

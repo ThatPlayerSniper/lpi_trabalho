@@ -1,3 +1,4 @@
+
 <?php
 // Inclui o ficheiro de ligação à base de dados
 require_once '../basedados/basedados.h';
@@ -131,6 +132,14 @@ require_once "./nav.php";
                                                 ?>
                                             </form>
                                         </div>
+                                        <?php
+                                             if (seForAdminNR() == true) {
+                                        ?>
+                                        <form method="GET" action="editaViagem.php">
+                                        <input type="hidden" name="id_viagem" value="<?= htmlspecialchars($row2['id_viagem']) ?>">
+                                        <button type="submit" class="route-button">Editar Viagem</button>
+                                        </form>
+                                        <?php } ?>
                                     </div>
                                 </div>
                         <?php

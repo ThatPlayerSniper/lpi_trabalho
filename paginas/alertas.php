@@ -101,6 +101,14 @@ require_once "./nav.php";
                                 <span>Termina em <?= htmlspecialchars($alerta['data_expira']) ?></span>
                             </span>
                         </div>
+                        <?php
+                            if (seForAdminNR() == true) {
+                         ?>
+                        <form method="GET" action="editaAlerta.php">
+                        <input type="hidden" name="id_alerta" value="<?= htmlspecialchars($alerta['id_alerta']) ?>">
+                        <button type="submit" class="route-button">Editar Alerta</button>
+                        </form>
+                        <?php } ?>
                     </div>
                     <br>
             <?php
