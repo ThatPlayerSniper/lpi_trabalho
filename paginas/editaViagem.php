@@ -125,7 +125,7 @@ $viagem = mysqli_fetch_assoc($resultado);
                     </div>
                     <input class="input-submit" type="submit" value="Guardar Alterações"><br><br>
                     <button class="input-submit" type="submit" name="eliminar" value="1" onclick="return confirm('Tem a certeza que deseja eliminar esta viagem?');">Eliminar Viagem</button><br><br>
-                    <a class="turnWhite" href="viagem.php">Voltar à lista de Viagens</a>
+                    <a class="turnWhite" href="rota.php">Voltar à lista de Rotas</a>
                 </form>
             </div>
         </div>
