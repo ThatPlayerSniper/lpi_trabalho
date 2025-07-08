@@ -53,8 +53,8 @@ INSERT INTO `utilizador` (`id_utilizador`, `nome`, `endereco`, `secretpass`, `da
 (5, 'PedroJo', 'pedro.alves@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-03-03', 'cliente', 'registado'),
 (9, 'Catarina', 'catarina.carvalho1@ipcbcampus.pt', '87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489', '2025-07-08', 'cliente', 'registado'),
 (10, 'cliente', 'cliente@email.pt', 'a60b85d409a01d46023f90741e01b79543a3cb1ba048eaefbe5d7a63638043bf', '2025-07-08', 'cliente', 'registado'),
-(11, 'admin', 'admin@email.pt', '998ed4d621742d0c2d85ed84173db569afa194d4597686cae947324aa58ab4bb', '2025-07-08', 'admin', 'registado'),
-(12, 'funcionario', 'funcionario@email.pt', '7d3820d73cbb725b9949a544089dba122cf3235d4a798af6cda452a312ce5ee3', '2025-07-08', 'funcionario', 'registado');
+(11, 'admin', 'admin@email.pt', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '2025-07-08', 'admin', 'registado'),
+(12, 'funcionario', 'funcionario@email.pt', '24d96a103e8552cb162117e5b94b1ead596b9c0a94f73bc47f7d244d279cacf2', '2025-07-08', 'funcionario', 'registado');
 
 -- --------------------------------------------------------
 
