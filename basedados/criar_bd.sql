@@ -47,9 +47,14 @@ CREATE TABLE `utilizador` (
 
 INSERT INTO `utilizador` (`id_utilizador`, `nome`, `endereco`, `secretpass`, `data_registo`, `cargo`, `estado_conta`) VALUES
 (1, 'FelixBus', 'felixbus@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-01-01', 'admin', 'registado'),
-(2, 'cliente', 'cliente@email.com', 'a60b85d409a01d46023f90741e01b79543a3cb1ba048eaefbe5d7a63638043bf', '2025-03-03', 'cliente', 'registado'),
-(3, 'funcionario', 'funcionario@email.com', '24d96a103e8552cb162117e5b94b1ead596b9c0a94f73bc47f7d244d279cacf2', '2025-03-03', 'funcionario', 'registado'),
-(4, 'admin', 'admin@email.com', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '2025-03-03', 'admin', 'registado');
+(2, 'Maria Santos', 'maria.santos@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-05-16', 'funcionario', 'registado'),
+(3, 'CarlosYay', 'carlos.oliveira@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-04-20', 'cliente', 'registado'),
+(4, 'Aninha', 'ana.costa@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-02-04', 'cliente', 'registado'),
+(5, 'PedroJo', 'pedro.alves@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-03-03', 'cliente', 'registado'),
+(9, 'Catarina', 'catarina.carvalho1@ipcbcampus.pt', '87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489', '2025-07-08', 'cliente', 'registado'),
+(10, 'cliente', 'cliente@email.pt', 'a60b85d409a01d46023f90741e01b79543a3cb1ba048eaefbe5d7a63638043bf', '2025-07-08', 'cliente', 'registado'),
+(11, 'admin', 'admin@email.pt', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '2025-07-08', 'admin', 'registado'),
+(12, 'funcionario', 'funcionario@email.pt', '24d96a103e8552cb162117e5b94b1ead596b9c0a94f73bc47f7d244d279cacf2', '2025-07-08', 'funcionario', 'registado');
 
 -- --------------------------------------------------------
 
@@ -127,10 +132,15 @@ CREATE TABLE `carteira` (
 --
 
 INSERT INTO `carteira` (`id_carteira`, `id_utilizador`, `saldo_atual`) VALUES
-(1, 1, 3091.00),
+(1, 1, 3180.00),
 (2, 2, 487.50),
 (3, 3, 3.50),
-(4, 4, 0.00);
+(4, 4, 0.00),
+(5, 5, 0.00),
+(6, 9, 39.00),
+(7, 10, 50.00),
+(8, 11, 0.00),
+(9, 12, 0.00);
 
 -- --------------------------------------------------------
 
@@ -203,7 +213,13 @@ INSERT INTO `transacoes` (`id_transacao`, `id_utilizador`, `tipo_transacao`, `va
 (15, 3, 'deposito', 7.00, 16.00, NULL, NULL, '2025-06-12 22:10:14', 'processada'),
 (16, 1, 'transferencia', 7.00, 3078.50, NULL, NULL, '2025-06-12 22:10:14', 'processada'),
 (17, 3, 'compra_bilhete', 12.50, 3.50, NULL, NULL, '2025-06-12 22:10:41', 'processada'),
-(18, 1, 'transferencia', 12.50, 3091.00, NULL, NULL, '2025-06-12 22:10:41', 'processada');
+(18, 1, 'transferencia', 12.50, 3091.00, NULL, NULL, '2025-06-12 22:10:41', 'processada'),
+(19, 9, 'deposito', 13.00, 13.00, NULL, NULL, '2025-07-08 21:04:15', 'processada'),
+(20, 1, 'transferencia', 13.00, 3104.00, NULL, NULL, '2025-07-08 21:04:15', 'processada'),
+(32, 9, 'deposito', 26.00, 39.00, NULL, NULL, '2025-07-08 21:32:35', 'processada'),
+(33, 1, 'transferencia', 26.00, 3130.00, NULL, NULL, '2025-07-08 21:32:35', 'processada'),
+(35, 10, 'deposito', 50.00, 50.00, NULL, NULL, '2025-07-08 21:45:24', 'processada'),
+(36, 1, 'transferencia', 50.00, 3180.00, NULL, NULL, '2025-07-08 21:45:24', 'processada');
 
 
 -- --------------------------------------------------------
