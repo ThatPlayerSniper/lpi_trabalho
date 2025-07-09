@@ -102,7 +102,7 @@ require_once "./nav.php";
                     $sql = "SELECT * FROM utilizador WHERE cargo = '$cargo'";
                 } else {
                     // Nenhum filtro, mostrar todos os utilizadores
-                    if (seForAdminNR()) {
+                    if (seForFunNR()) {
                         $sql = "SELECT * FROM utilizador WHERE cargo = 'funcionario'";
                     } else {
                         $sql = "SELECT * FROM utilizador";
