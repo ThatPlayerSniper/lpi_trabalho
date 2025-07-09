@@ -103,7 +103,6 @@ require_once "./nav.php";
                 } else {
                     // Nenhum filtro, mostrar todos os utilizadores
                     $sql = "SELECT * FROM utilizador";
-            
                 }
 
                 // Executa a query e obtém o resultado
@@ -135,10 +134,18 @@ require_once "./nav.php";
                                     <button type="submit" name="vis_userID" value="<?php echo $row["id_utilizador"]; ?>">visualizar perfil</button>
                                 </form>
                                 <!-- Formulário para editar perfil do utilizador -->
-                                <form method="GET" action="editar_visu.php">
-                                    <input type="hidden" name="edit_uti" value="<?= htmlspecialchars($row['id_utilizador']) ?>">
-                                    <button type="submit">editar perfil</button>
-                                </form>
+                                <?php if (seForAdminNR() == true) { ?>
+                                    <form method="GET" action="editar_visu.php">
+                                        <input type="hidden" name="edit_uti" value="<?= htmlspecialchars($row['id_utilizador']) ?>">
+                                        <button type="submit">editar perfil</button>
+                                    </form>
+                                <?php } ?>
+                                <?php if (seForFunNR() == true) { ?>
+                                    <form method="GET" action="editar_visu.php">
+                                        <input type="hidden" name="edit_uti" value="<?= htmlspecialchars($row['id_utilizador']) ?>">
+                                        <button type="submit">editar carteira</button>
+                                    </form>
+                                <?php } ?>
                             </div>
                         </li>
                 <?php
