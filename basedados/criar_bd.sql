@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 05-Jul-2025 às 16:25
+-- Tempo de geração: 09-Jul-2025 às 19:23
 -- Versão do servidor: 10.4.32-MariaDB
 -- versão do PHP: 8.2.12
 
@@ -20,42 +20,11 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `felixbusdb`
 --
--- --------------------------------------------------------
 
 CREATE DATABASE IF NOT EXISTS `felixbusdb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
 USE `felixbusdb`;
-
-
---
--- Estrutura da tabela `utilizador`
---
-
-CREATE TABLE `utilizador` (
-  `id_utilizador` int(255) NOT NULL,
-  `nome` varchar(255) NOT NULL,
-  `endereco` varchar(255) NOT NULL,
-  `secretpass` varchar(256) NOT NULL,
-  `data_registo` date NOT NULL DEFAULT curdate(),
-  `cargo` enum('cliente','funcionario','admin') DEFAULT 'cliente',
-  `estado_conta` enum('pendente','registado','rejeitado') DEFAULT 'pendente'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Extraindo dados da tabela `utilizador`
---
-
-INSERT INTO `utilizador` (`id_utilizador`, `nome`, `endereco`, `secretpass`, `data_registo`, `cargo`, `estado_conta`) VALUES
-(1, 'FelixBus', 'felixbus@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-01-01', 'admin', 'registado'),
-(2, 'Maria Santos', 'maria.santos@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-05-16', 'funcionario', 'registado'),
-(3, 'CarlosYay', 'carlos.oliveira@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-04-20', 'cliente', 'registado'),
-(4, 'Aninha', 'ana.costa@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-02-04', 'cliente', 'registado'),
-(5, 'PedroJo', 'pedro.alves@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-03-03', 'cliente', 'registado'),
-(9, 'Catarina', 'catarina.carvalho1@ipcbcampus.pt', '87f633634cc4b02f628685651f0a29b7bfa22a0bd841f725c6772dd00a58d489', '2025-07-08', 'cliente', 'registado'),
-(10, 'cliente', 'cliente@email.pt', 'a60b85d409a01d46023f90741e01b79543a3cb1ba048eaefbe5d7a63638043bf', '2025-07-08', 'cliente', 'registado'),
-(11, 'admin', 'admin@email.pt', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '2025-07-08', 'admin', 'registado'),
-(12, 'funcionario', 'funcionario@email.pt', '24d96a103e8552cb162117e5b94b1ead596b9c0a94f73bc47f7d244d279cacf2', '2025-07-08', 'funcionario', 'registado');
-
+  
 -- --------------------------------------------------------
 
 --
@@ -104,17 +73,6 @@ CREATE TABLE `bilhete` (
   `id_utilizador` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Extraindo dados da tabela `bilhete`
---
-
-INSERT INTO `bilhete` (`id_bilhete`, `nome_cliente`, `data_compra`, `estado_bilhete`, `id_rota`, `id_viagem`, `id_utilizador`) VALUES
-(1, 'CarlosYay', '2025-05-25 14:33:52', 'ativo', 1, 1, 3),
-(2, 'FelixBus', '2025-05-25 16:31:44', 'ativo', 1, 1, 1),
-(3, 'MariaJr', '2025-05-25 16:53:51', 'ativo', 1, 1, 2),
-(4, 'CarlosYay', '2025-05-25 16:55:18', 'ativo', 1, 1, 3),
-(5, 'CarlosYay', '2025-06-12 22:10:41', 'ativo', 1, 1, 3);
-
 -- --------------------------------------------------------
 
 --
@@ -132,15 +90,10 @@ CREATE TABLE `carteira` (
 --
 
 INSERT INTO `carteira` (`id_carteira`, `id_utilizador`, `saldo_atual`) VALUES
-(1, 1, 3180.00),
+(1, 1, 3091.00),
 (2, 2, 487.50),
 (3, 3, 3.50),
-(4, 4, 0.00),
-(5, 5, 0.00),
-(6, 9, 39.00),
-(7, 10, 50.00),
-(8, 11, 0.00),
-(9, 12, 0.00);
+(4, 4, 0.00);
 
 -- --------------------------------------------------------
 
@@ -191,36 +144,31 @@ CREATE TABLE `transacoes` (
   `estado` enum('processada','pendente','cancelada','erro') NOT NULL DEFAULT 'processada'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Extraindo dados da tabela `transacoes`
+-- Estrutura da tabela `utilizador`
 --
 
-INSERT INTO `transacoes` (`id_transacao`, `id_utilizador`, `tipo_transacao`, `valor`, `saldo_apos_transacao`, `descricao`, `id_bilhete`, `data_transacao`, `estado`) VALUES
-(1, 3, 'deposito', 30.00, 30.00, NULL, NULL, '2025-05-25 14:33:42', 'processada'),
-(2, 1, 'transferencia', 30.00, 3030.00, NULL, NULL, '2025-05-25 14:33:42', 'processada'),
-(3, 3, 'compra_bilhete', 12.50, 17.50, NULL, NULL, '2025-05-25 14:33:52', 'processada'),
-(4, 1, 'transferencia', 12.50, 3042.50, NULL, NULL, '2025-05-25 14:33:52', 'processada'),
-(5, 1, 'compra_bilhete', 12.50, 3030.00, NULL, NULL, '2025-05-25 16:31:44', 'processada'),
-(6, 1, 'transferencia', 12.50, 3042.50, NULL, NULL, '2025-05-25 16:31:44', 'processada'),
-(7, 2, 'compra_bilhete', 12.50, 487.50, NULL, NULL, '2025-05-25 16:53:51', 'processada'),
-(8, 1, 'transferencia', 12.50, 3055.00, NULL, NULL, '2025-05-25 16:53:51', 'processada'),
-(9, 3, 'compra_bilhete', 12.50, 5.00, NULL, NULL, '2025-05-25 16:55:18', 'processada'),
-(10, 1, 'transferencia', 12.50, 3067.50, NULL, NULL, '2025-05-25 16:55:18', 'processada'),
-(11, 3, 'deposito', 5.00, 10.00, NULL, NULL, '2025-06-11 13:43:06', 'processada'),
-(12, 1, 'transferencia', 5.00, 3072.50, NULL, NULL, '2025-06-11 13:43:06', 'processada'),
-(13, 3, 'levantamento', 1.00, 9.00, NULL, NULL, '2025-06-11 13:43:11', 'processada'),
-(14, 1, 'reembolso', 1.00, 3071.50, NULL, NULL, '2025-06-11 13:43:11', 'processada'),
-(15, 3, 'deposito', 7.00, 16.00, NULL, NULL, '2025-06-12 22:10:14', 'processada'),
-(16, 1, 'transferencia', 7.00, 3078.50, NULL, NULL, '2025-06-12 22:10:14', 'processada'),
-(17, 3, 'compra_bilhete', 12.50, 3.50, NULL, NULL, '2025-06-12 22:10:41', 'processada'),
-(18, 1, 'transferencia', 12.50, 3091.00, NULL, NULL, '2025-06-12 22:10:41', 'processada'),
-(19, 9, 'deposito', 13.00, 13.00, NULL, NULL, '2025-07-08 21:04:15', 'processada'),
-(20, 1, 'transferencia', 13.00, 3104.00, NULL, NULL, '2025-07-08 21:04:15', 'processada'),
-(32, 9, 'deposito', 26.00, 39.00, NULL, NULL, '2025-07-08 21:32:35', 'processada'),
-(33, 1, 'transferencia', 26.00, 3130.00, NULL, NULL, '2025-07-08 21:32:35', 'processada'),
-(35, 10, 'deposito', 50.00, 50.00, NULL, NULL, '2025-07-08 21:45:24', 'processada'),
-(36, 1, 'transferencia', 50.00, 3180.00, NULL, NULL, '2025-07-08 21:45:24', 'processada');
+CREATE TABLE `utilizador` (
+  `id_utilizador` int(255) NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `endereco` varchar(255) NOT NULL,
+  `secretpass` varchar(256) NOT NULL,
+  `data_registo` date NOT NULL DEFAULT curdate(),
+  `cargo` enum('cliente','funcionario','admin') DEFAULT 'cliente',
+  `estado_conta` enum('pendente','registado','rejeitado') DEFAULT 'pendente'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Extraindo dados da tabela `utilizador`
+--
+
+INSERT INTO `utilizador` (`id_utilizador`, `nome`, `endereco`, `secretpass`, `data_registo`, `cargo`, `estado_conta`) VALUES
+(1, 'FelixBus', 'felixbus@email.com', '86543c121b376d421caf0f90ac4eacd20aac1b8b1f895ae362be3ca7b84f6440', '2025-01-01', 'admin', 'registado'),
+(2, 'cliente', 'cliente@email.com', 'a60b85d409a01d46023f90741e01b79543a3cb1ba048eaefbe5d7a63638043bf', '2025-03-03', 'cliente', 'registado'),
+(3, 'funcionario', 'funcionario@email.com', '24d96a103e8552cb162117e5b94b1ead596b9c0a94f73bc47f7d244d279cacf2', '2025-03-03', 'funcionario', 'registado'),
+(4, 'admin', 'admin@email.com', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '2025-03-03', 'admin', 'registado');
 
 -- --------------------------------------------------------
 
@@ -291,12 +239,6 @@ INSERT INTO `viatura` (`id_viatura`, `capacidade_lugares`, `matricula`) VALUES
 -- Índices para tabelas despejadas
 --
 
-
---
--- Índices para tabela `utilizador`
---
-ALTER TABLE `utilizador`
-  ADD PRIMARY KEY (`id_utilizador`);
 --
 -- Índices para tabela `alertas`
 --
@@ -335,6 +277,12 @@ ALTER TABLE `transacoes`
   ADD KEY `id_bilhete` (`id_bilhete`);
 
 --
+-- Índices para tabela `utilizador`
+--
+ALTER TABLE `utilizador`
+  ADD PRIMARY KEY (`id_utilizador`);
+
+--
 -- Índices para tabela `viagem`
 --
 ALTER TABLE `viagem`
@@ -352,12 +300,6 @@ ALTER TABLE `viatura`
 --
 -- AUTO_INCREMENT de tabelas despejadas
 --
-
---
--- AUTO_INCREMENT de tabela `utilizador`
---
-ALTER TABLE `utilizador`
-  MODIFY `id_utilizador` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `alertas`
@@ -389,6 +331,11 @@ ALTER TABLE `rota`
 ALTER TABLE `transacoes`
   MODIFY `id_transacao` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
+--
+-- AUTO_INCREMENT de tabela `utilizador`
+--
+ALTER TABLE `utilizador`
+  MODIFY `id_utilizador` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `viagem`
@@ -417,7 +364,8 @@ ALTER TABLE `alertas`
 --
 ALTER TABLE `bilhete`
   ADD CONSTRAINT `bilhete_ibfk_1` FOREIGN KEY (`id_utilizador`) REFERENCES `utilizador` (`id_utilizador`),
-  ADD CONSTRAINT `bilhete_ibfk_2` FOREIGN KEY (`id_viagem`) REFERENCES `viagem` (`id_viagem`);
+  ADD CONSTRAINT `bilhete_ibfk_2` FOREIGN KEY (`id_viagem`) REFERENCES `viagem` (`id_viagem`),
+  ADD CONSTRAINT `fk_bilhete_rota` FOREIGN KEY (`id_rota`) REFERENCES `rota` (`id_rota`);
 
 --
 -- Limitadores para a tabela `carteira`
