@@ -66,7 +66,7 @@ if (seForAdminNR() == false && seForFunNR() == false && seForClienteNR() == fals
 
                         // Retirar saldo
                         if (!empty($minus)) {
-                            if ($valor >= $valor_car) {
+                            if ($valor <= $valor_car) {
 
                                 $valorRetirar = $valor;
                                 $novoSaldo = $valor_car - $valorRetirar;

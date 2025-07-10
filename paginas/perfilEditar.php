@@ -42,7 +42,7 @@ $utilizador  = getUser();
                 <input type="email" name="endereco" id="endereco" value="<?= htmlspecialchars($utilizador['endereco']) ?>">
                 <br><br>
                 <label for="Senha">Senha:</label>
-                <input type="password" name="pass" id="pass" value="<?= htmlspecialchars($utilizador['secretpass']) ?>">
+                <input type="password" name="pass" id="pass" value="">
 
                 <button type="submit" class="btn">Guardar Alterações</button>
             </form>

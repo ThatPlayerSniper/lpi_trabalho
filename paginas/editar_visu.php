@@ -243,7 +243,7 @@ require_once "./nav.php";
                             <input type="email" name="endereco" id="endereco" value="<?= htmlspecialchars($row['endereco']) ?>">
                             <br><br>
                             <label for="Senha">Senha:</label>
-                            <input type="password" name="pass" id="pass" value="<?= htmlspecialchars($row['secretpass']) ?>">
+                            <input type="password" name="pass" id="pass" value="">
                             <br><br>
                             <div>
                                 <label>Cargo:</label>
